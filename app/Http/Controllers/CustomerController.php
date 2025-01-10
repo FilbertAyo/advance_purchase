@@ -1,0 +1,96 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Application;
+use App\Models\User;
+use Illuminate\Http\Request;
+
+class CustomerController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        // Retrieve only users with userType = 0
+        $user = User::where('status', 'active')
+        ->where('userType', 0)
+        ->get();
+
+        return view('users.new_customer', compact('user'));
+    }
+
+    public function unverifiedCustomer(){
+
+        $user = User::where('status', 'inactive')->where('userType', 0)->get();
+
+        return view('users.unverified_customer', compact('user'));
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $user = User::findOrFail($id);
+
+        // Retrieve applications that belong to this user
+        $applications = Application::where('customer_id', $id)
+                                    ->orderBy('id', 'desc')
+                                    ->get();
+
+        return view('users.view_customer', compact('user', 'applications'));
+    }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+
+            $user = User::findOrFail($id);
+            $user->status = 'active';
+            $user->save();
+            return redirect()->route('customer.show', $id)->with('success', 'Customer registered and verified successfully.');
+    }
+
+    public function destroy(string $id)
+    {
+        $user = User::find($id);
+
+        if ($user) {
+            $user->delete();
+            return redirect()->back()->with('success', 'User deleted successfully');
+        } else {
+            return redirect()->back()->with('error', 'User not found');
+        }
+    }
+
+}
