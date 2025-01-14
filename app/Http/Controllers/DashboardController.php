@@ -31,7 +31,8 @@ class DashboardController extends Controller
             $collection = Advance::all()->sum('added_amount');
 
             $adminNo = User::where('userType', 0)->count();
-            $customerNo = User::where('userType', 1)->count();
+            $customerNo = User::whereIn('userType', [1, 2, 3])->count();
+
             return view('dashboard', compact('adminNo', 'customerNo','collection'));
         }else {
             redirect()->back()->with('status', "You're not authorized");
@@ -40,8 +41,7 @@ class DashboardController extends Controller
 
     public function user()
     {
-        $user = User::whereIn('userType', [1, 2])->get();
-
+        $user = User::whereIn('userType', [1, 2, 3])->get();
 
         return view('users.user',compact('user'));
     }
@@ -52,7 +52,7 @@ class DashboardController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed', Rules\Password::min(6)],
         ]);
 
         $user = User::create([

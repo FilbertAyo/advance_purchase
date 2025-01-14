@@ -76,14 +76,12 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="{{ url('/') }}" class="nav-item nav-link active">Home</a>
-                <a href="#about" class="nav-item nav-link">About</a>
-                <a href="#contact" class="nav-item nav-link">Contact</a>
+                <a href="{{ url('/') }}#about" class="nav-item nav-link">About</a>
+                <a href="{{ url('/') }}#contact" class="nav-item nav-link">Contact</a>
                 <a href="{{ url('/register') }}" class="nav-item nav-link">Application Form</a>
-
             </div>
 
             @if (Route::has('login'))
-
     @auth
 
     <a href="{{ url('/dashboard') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Dashboard</a>
@@ -100,8 +98,6 @@
     </nav>
     <!-- Navbar End -->
 
-
-    <!-- Carousel Start -->
     <div class="container-fluid p-0 mb-5">
         <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -205,9 +201,6 @@
     </div>
     <!-- Carousel End -->
 
-
-    <!-- Service Start -->
- <!-- Advance Payment Section Start -->
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -253,10 +246,6 @@
 </div>
 <!-- Advance Payment Section End -->
 
-    <!-- Service End -->
-
-
-    <!-- About Start -->
     <div class="container-xxl py-5" id="about">
         <div class="container">
             <div class="row g-5">
@@ -325,23 +314,23 @@
             <div class="row g-4">
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
                     <i class="fa fa-check fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">1234</h2>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">20</h2>
                     <p class="text-white mb-0">Years Experience</p>
                 </div>
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
                     <i class="fa fa-users-cog fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">1234</h2>
-                    <p class="text-white mb-0">Expert Technicians</p>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">320</h2>
+                    <p class="text-white mb-0">Experts</p>
                 </div>
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
                     <i class="fa fa-users fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">1234</h2>
-                    <p class="text-white mb-0">Satisfied Clients</p>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">8</h2>
+                    <p class="text-white mb-0">Patnership</p>
                 </div>
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
-                    <i class="fa fa-car fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">1234</h2>
-                    <p class="text-white mb-0">Compleate Projects</p>
+                    <i class="fa fa-product fa-2x text-white mb-3"></i>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">500</h2>
+                    <p class="text-white mb-0">Products</p>
                 </div>
             </div>
         </div>

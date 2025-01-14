@@ -99,7 +99,7 @@ class ApplicationController extends Controller
             return redirect()->back()->with('error', 'Transaction failed: ' . $e->getMessage());
         }
 
-        return redirect()->back()->with('success', 'Record added successfully');
+        return redirect()->back()->with('success', 'Application sent successfully');
 
     }
 
@@ -175,8 +175,6 @@ class ApplicationController extends Controller
         }
     }
 
-
-    // customer side
 
     public function view($id)
     {

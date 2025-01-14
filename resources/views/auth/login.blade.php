@@ -2,8 +2,10 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+
+<div  class="col-lg-3 col-md-4 col-10 mx-auto text-center card px-5 py-3" style="">
     <!-- Login Form -->
-    <form method="POST" action="{{ route('login') }}" class="col-lg-3 col-md-4 col-10 mx-auto text-center">
+    <form method="POST" action="{{ route('login') }}">
         @csrf
 
         <h1 class="h4 mb-4" style="margin-left: 30%;"> <img src="{{ asset('images/marslogo.png') }}" class="" alt="Partner Logo" style="height: 50px"></h1>
@@ -23,20 +25,23 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
-                       name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <!-- Submit Button -->
-        <div class="flex items-center justify-end mt-4">
+         <!-- Submit Button -->
+         <div class="flex items-center justify-end mt-4">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
         </div>
+
+        <!-- Remember Me -->
+        <div class="block mt-4">
+            @if (Route::has('password.request'))
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                {{ __('Forgot your password?') }}
+            </a>
+        @endif
+
+        </div>
     </form>
+
+</div>
 
     <!-- Partnering with Section -->
     <div class="footer-partner" style="position: absolute; bottom: 0; width: 100%; text-align: center; padding: 10px;">

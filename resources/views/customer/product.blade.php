@@ -8,15 +8,17 @@
                 <div class="col-12 col-lg-10">
                   <div class="row align-items-center my-4">
                     <div class="col">
-                      <h2 class="page-title">Products</h2>
+                      <h2 class="page-title"> @if(request('category'))
+                        {{ request('category') }}
+                    @endif</h2>
                     </div>
                     <div class="col-auto">
-                      <button type="button" class="btn btn-lg btn-primary">
-                        <span class="fe fe-plus fe-16 mr-3"></span>New
+                      <button type="button" class="btn btn-secondary">
+                        <span class="fe fe-filter fe-16"></span>
                       </button>
                     </div>
                   </div>
-                  <h6 class="mb-3">Quick Access</h6>
+                  <h6 class="mb-3">List of Products</h6>
 
                   <div class="row mb-4">
 
@@ -24,7 +26,7 @@
                     @foreach($products as $product)
                     <div class="col-6 col-md-4 col-lg-3 mb-3" >
                         <div class="card border-0 bg-transparent py-3" >
-                            <img src="{{ asset($product->image) }}" alt="..." class="card-img-top img-fluid rounded" style="height: 200px;">
+                            <img src="{{ asset($product->image) }}" alt="..." class="card-img-top img-fluid rounded" style="height: 300px;">
                             <div class="card-body" style="background-color: #ededed;">
                                 <h5 class="h4 card-title mb-1">{{ $product->item_name }}</h5>
 
@@ -61,7 +63,7 @@
 
                                 </div>
                             </div>
-                        </div> <!-- .card -->
+                        </div>
                     </div> <!-- .col -->
                 @endforeach
 
@@ -104,6 +106,7 @@
             </div>
 
 
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
           @endsection
