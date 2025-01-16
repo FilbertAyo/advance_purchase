@@ -47,8 +47,8 @@
                                             </div>
                                             <div class="col pr-0">
                                                 <p class="small text-muted mb-0">Customers</p>
-                                                <span class="h3 mb-0">{{ $adminNo }}</span>
-                                                <span class="small text-success">{{ $adminNo }}- Active</span>
+                                                <span class="h3 mb-0">{{ $customerNo }}</span>
+                                                <span class="small text-success">{{ $activeCustomer }}- Active</span>
                                             </div>
                                         </div>
                                     </div>
@@ -67,7 +67,7 @@
                                                 <p class="small text-muted mb-0">Admins</p>
                                                 <div class="row align-items-center no-gutters">
                                                     <div class="col-auto">
-                                                        <span class="h3 mr-2 mb-0">{{ $customerNo }}</span>
+                                                        <span class="h3 mr-2 mb-0">{{ $adminNo }}</span>
                                                     </div>
 
                                                 </div>

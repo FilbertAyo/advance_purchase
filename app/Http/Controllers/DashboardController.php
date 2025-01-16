@@ -26,15 +26,18 @@ class DashboardController extends Controller
             $applications = Application::where('customer_id', $customerId)->get();
 
             return view('customer.customer', compact('applications'));
-
         } elseif ($userType == '1' || $userType == '2' || $userType == '3') {
             $collection = Advance::all()->sum('added_amount');
 
-            $adminNo = User::where('userType', 0)->count();
-            $customerNo = User::whereIn('userType', [1, 2, 3])->count();
+            $customerNo = User::where('userType', 0)->count();
+            $activeCustomer = User::where('userType', 0)
+                ->where('status', 'active')
+                ->count();
 
-            return view('dashboard', compact('adminNo', 'customerNo','collection'));
-        }else {
+            $adminNo = User::whereIn('userType', [1, 2, 3])->count();
+
+            return view('dashboard', compact('adminNo', 'customerNo', 'collection','activeCustomer'));
+        } else {
             redirect()->back()->with('status', "You're not authorized");
         }
     }
@@ -43,15 +46,16 @@ class DashboardController extends Controller
     {
         $user = User::whereIn('userType', [1, 2, 3])->get();
 
-        return view('users.user',compact('user'));
+        return view('users.user', compact('user'));
     }
 
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::min(6)],
         ]);
 
@@ -64,29 +68,29 @@ class DashboardController extends Controller
             'store' => $request->store,
             'status' => $request->status,
             'email' => $request->email,
-            'street'=>$request->street,
-            'ward'=>$request->ward,
-            'district'=>$request->district,
-            'city'=>$request->city,
-            'occupation'=>$request->occupation,
-            'nida'=>$request->nida,
+            'street' => $request->street,
+            'ward' => $request->ward,
+            'district' => $request->district,
+            'city' => $request->city,
+            'occupation' => $request->occupation,
+            'nida' => $request->nida,
             'password' => Hash::make($request->password),
         ]);
 
         event(new Registered($user));
 
-        return redirect()->back()->with('success','New user added successfully');
+        return redirect()->back()->with('success', 'New user added successfully');
     }
 
-public function destroy($id)
-{
-    $user = User::find($id);
+    public function destroy($id)
+    {
+        $user = User::find($id);
 
-    if ($user) {
-        $user->delete();
-        return redirect()->back()->with('success', 'User deleted successfully');
-    } else {
-        return redirect()->back()->with('error', 'User not found');
+        if ($user) {
+            $user->delete();
+            return redirect()->back()->with('success', 'User deleted successfully');
+        } else {
+            return redirect()->back()->with('error', 'User not found');
+        }
     }
-}
 }
