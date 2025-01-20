@@ -59,3 +59,7 @@ Route::delete('/region/{id}', [AddressController::class, 'regionDestroy'])->name
 Route::get('/wards',[AddressController::class, 'wards'])->middleware(['auth', 'verified']);
 Route::post('/ward_store',[AddressController::class, 'wardStore']);
 Route::delete('/ward/{id}', [AddressController::class, 'wardDestroy'])->name('ward.destroy')->middleware(['auth', 'verified']);
+
+Route::get('/bank',[DashboardController::class, 'bank'])->middleware(['auth', 'verified']);
+Route::post('bank_store',[DashboardController::class, 'bank_store'])->middleware(['auth', 'verified']);
+Route::patch('/bank/{id}/disable', [DashboardController::class, 'disable'])->name('bank.disable');

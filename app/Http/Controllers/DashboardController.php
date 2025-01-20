@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Advance;
 use App\Models\Application;
+use App\Models\Bank;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -92,5 +93,40 @@ class DashboardController extends Controller
         } else {
             return redirect()->back()->with('error', 'User not found');
         }
+    }
+
+    public function bank(){
+
+        $banks = Bank::all();
+        return view('settings.bank',compact('banks'));
+    }
+    public function bank_store(Request $request)
+    {
+        $validated = $request->validate([
+            'bank_name' => 'required|string',
+            'account_no' => 'required|string',
+            'account_name' => 'required|string',
+        ]);
+
+        // Create the record
+        Bank::create([
+            'bank_name' => $request->bank_name,
+            'account_no' => $request->account_no,
+            'account_name' => $request->account_name,
+           'status' => 'Active',
+        ]);
+
+        return redirect()->back()->with('success', 'Record added successfully.');
+    }
+
+    public function disable($id)
+    {
+        // Find the bank record by ID
+        $bank = Bank::findOrFail($id);
+
+        // Update the status to 'disabled'
+        $bank->update(['status' => 'disabled']);
+
+        return redirect()->back()->with('success', 'Bank has been disabled.');
     }
 }

@@ -41,6 +41,11 @@
                             <span class="ml-1 item-text">Address</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link pl-3" href="{{ url('/bank') }}">
+                            <span class="ml-1 item-text">Bank</span>
+                        </a>
+                    </li>
 
                 </ul>
             </li>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Advance;
 use App\Models\Application;
+use App\Models\Bank;
 use App\Models\Item;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -180,8 +181,9 @@ class ApplicationController extends Controller
     {
 
         $application = Application::findOrFail($id);
+        $banks = Bank::where('status', 'Active')->get();
 
-        return view('customer.cust_details', compact('application'));
+        return view('customer.cust_details', compact('application','banks'));
     }
 
     public function inactive()
