@@ -169,24 +169,41 @@
                                 </div> --}}
                             <!-- Ward -->
                             <div class="col-12 col-sm-6">
-                                <input type="text" name="ward" class="form-control border-0"
-                                    value="{{ old('ward') }}" placeholder="Ward" style="height: 55px;">
+                                <select name="city" class="form-select border-0"
+                                    style="height: 55px;" required>
+                                    @foreach ($cities as $city)
+                                    <option  value="{{ $city->city_name }}">{{ $city->city_name }}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <select name="district" class="form-select border-0"
+                                style="height: 55px;" required>
+                                @foreach ($districts as $district)
+                                <option  value="{{ $district->region_name }}">{{ $district->region_name }}</option>
+                                @endforeach
+                            </select>
+                            </div>
+                            <div class="col-12 col-sm-6">
+
+                                <select name="ward" class="form-select border-0"
+                                style="height: 55px;" required>
+                                @foreach ($wards as $ward)
+                                <option  value="{{ $ward->ward_name }}">{{ $ward->ward_name }}</option>
+                                @endforeach
+                            </select>
+
+
                             </div>
                             <!-- District -->
-                            <div class="col-12 col-sm-6">
-                                <input type="text" name="district" class="form-control border-0"
-                                    value="{{ old('district') }}" placeholder="District" style="height: 55px;">
-                            </div>
+
                             <!-- Street -->
                             <div class="col-12 col-sm-6">
                                 <input type="text" name="street" class="form-control border-0"
                                     value="{{ old('street') }}" placeholder="Street" style="height: 55px;">
                             </div>
-                            <!-- City -->
-                            <div class="col-12 col-sm-6">
-                                <input type="text" name="city" class="form-control border-0"
-                                    value="{{ old('city') }}" placeholder="City" style="height: 55px;">
-                            </div>
+
                             <!-- Gender -->
                             <div class="col-12 col-sm-6">
                                 <select name="gender" class="form-select border-0" value="{{ old('gender') }}"

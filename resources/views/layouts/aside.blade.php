@@ -36,6 +36,11 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link pl-3" href="{{ route('address.index') }}">
+                            <span class="ml-1 item-text">Address</span>
+                        </a>
+                    </li>
 
                 </ul>
             </li>

@@ -35,7 +35,7 @@
 
                     <div class="col-auto">
                         <div class="form-group">
-                            @if(Auth::user()->id == 1 || Auth::user()->id == 2)
+                            @if(Auth::user()->userType == 1 || Auth::user()->userType == 2)
                             <button type="button" class="btn mb-2 btn-primary" data-toggle="modal"
                                 data-target=".modal-full">New Product<span
                                     class="fe fe-plus fe-16 ml-2"></span></button>
@@ -47,8 +47,6 @@
 
                     </div>
                 </div>
-
-
 
 
                 @include('elements.spinner')

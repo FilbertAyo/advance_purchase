@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdvanceFormController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -28,7 +29,6 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-
 Route::resource('item', ItemController::class)->middleware(['auth', 'verified']);
 
 Route::get('/user',[DashboardController::class, 'user'])->middleware(['auth', 'verified']);
@@ -51,3 +51,11 @@ Route::get('/details/{id}', [ApplicationController::class, 'view'])->name('appli
 Route::post('/user/toggle-status/{id}', [ProfileController::class, 'toggleStatus'])->name('user.toggleStatus');
 // Route::resource('products',ProductController::class)->middleware(['auth', 'verified']);
 Route::get('/product',[ItemController::class, 'product'])->middleware(['auth', 'verified']);
+
+Route::resource('address', AddressController::class);
+Route::get('/regions',[AddressController::class, 'regions'])->middleware(['auth', 'verified']);
+Route::post('/region_store',[AddressController::class, 'regionStore']);
+Route::delete('/region/{id}', [AddressController::class, 'regionDestroy'])->name('region.destroy')->middleware(['auth', 'verified']);
+Route::get('/wards',[AddressController::class, 'wards'])->middleware(['auth', 'verified']);
+Route::post('/ward_store',[AddressController::class, 'wardStore']);
+Route::delete('/ward/{id}', [AddressController::class, 'wardDestroy'])->name('ward.destroy')->middleware(['auth', 'verified']);
