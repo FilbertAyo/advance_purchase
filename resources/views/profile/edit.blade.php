@@ -30,7 +30,7 @@
                                 <div class="col-md-6">
                                     <h4 class="mb-1">{{ $user->first_name }}, {{ $user->last_name }}</h4>
                                     <p class="small mb-3"><span class="badge badge-dark">{{ $user->location }}</span></p>
-                                    <p class="text-muted">{{ $user->bio ?? 'Uknown' }}</p>
+                                    <p class="">ID: <span class="text-danger">{{ $user->userId ?? 'Uknown' }}</span></p>
                                 </div>
                             </div>
 

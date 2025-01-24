@@ -5,7 +5,7 @@
             <ul class="nav">
                 <li class="nav-item">
                     <a class="nav-link text-muted my-2" href="#" id="modeSwitcher" data-mode="light">
-                       <h4> Advanced Payment Agreement</h4>
+                       <h4> Advanced Payment</h4>
                     </a>
                 </li>
             </ul>

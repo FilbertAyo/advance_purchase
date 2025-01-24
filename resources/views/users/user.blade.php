@@ -36,7 +36,7 @@
                         <div class="row">
 
                             @foreach ($user as $index => $user)
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="card shadow mb-4">
                                         <div class="card-body text-center">
                                             <div class="avatar avatar-lg mt-4">
@@ -142,37 +142,38 @@
                  <span aria-hidden="true" style="font-size: 3rem;" class="text-danger">×</span>
              </button>
 
-             <div class="modal-dialog modal-dialog-centered modal-xl bg-white" role="document"
+             <div class="modal-dialog modal-xl bg-white p-3" role="document"
                  style="width: 100%;">
                  <div class="modal-content">
                      <div class="modal-body">
-
                          <form method="POST" action="{{ url('/register') }}" validate
                              style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
                              @csrf
-
                              <div class="form-row text-center">
                                  <div class="col-md-12 mb-3">
                                      <h3>User Registration</h3>
                                  </div>
                              </div>
-
                              <div class="form-row">
                                  <div class="col-md-6 mb-3">
-                                     <label for="validationCustom3">First Name</label>
-                                     <input type="text" class="form-control" id="validationCustom3"
+                                     <label for="validationCustom9">First Name</label>
+                                     <input type="text" class="form-control" id="validationCustom9"
                                          name="first_name" required>
                                      <div class="valid-feedback"> Looks good! </div>
                                  </div>
+                                 <div class="col-md-6 mb-3">
+                                    <label for="validationCustom3">Middle Name (*Optional)</label>
+                                    <input type="text" class="form-control" id="validationCustom3"
+                                        name="middle_name">
+                                    <div class="valid-feedback"> Looks good! </div>
+                                </div>
                                  <div class="col-md-6 mb-3">
                                     <label for="validationCustom3">Last Name</label>
                                     <input type="text" class="form-control" id="validationCustom3"
                                         name="last_name" required>
                                     <div class="valid-feedback"> Looks good! </div>
                                 </div>
-                             </div>
 
-                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                     <label for="validationCustom3">Phone Number</label>
                                     <input type="text" class="form-control" id="validationCustom3"
@@ -180,26 +181,22 @@
                                     <div class="valid-feedback"> Looks good! </div>
                                 </div>
 
-                                 <div class="col-md-6 mb-3">
-                                     <label for="validationSelect2">Branch</label>
-                                     <select class="form-control select2" id="validationSelect2" name="branch"
-                                         required>
-
-                                         <optgroup label="Select branch">
-                                             <option value="DAR-ES-SALAAM - Main">DAR-ES-SALAAM - Main</option>
-                                         </optgroup>
-                                     </select>
-                                     <div class="invalid-feedback"> Please select a valid state. </div>
-                                 </div>
-                             </div>
-
-
-                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                     <label for="validationCustom3">Email</label>
                                     <input type="text" class="form-control" id="validationCustom3"
                                         name="email" required>
                                     <div class="valid-feedback"> Looks good! </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="validationSelect2">Branch</label>
+                                    <select class="form-control select2" id="validationSelect2" name="branch"
+                                        required>
+
+                                        <optgroup label="Select branch">
+                                            <option value="DAR-ES-SALAAM - Main">DAR-ES-SALAAM - Main</option>
+                                        </optgroup>
+                                    </select>
+                                    <div class="invalid-feedback"> Please select a valid state. </div>
                                 </div>
 
                                  <div class="col-md-6 mb-3">
@@ -215,36 +212,8 @@
                                      </select>
                                      <div class="invalid-feedback"> Please select a valid state. </div>
                                  </div>
-                             </div>
-                             <div class="form-row">
 
                                  <div class="col-md-6 mb-3">
-                                     <label for="validationCustom3">Password</label>
-                                     <input type="text" class="form-control" id="validationCustom3"
-                                         name="password" required>
-                                     <div class="valid-feedback"> Looks good! </div>
-                                 </div>
-                                 <div class="col-md-6 mb-3">
-                                     <label for="validationSelect2">Store</label>
-                                     <select class="form-control select2" id="validationSelect2" name="store"
-                                         required>
-
-                                         <optgroup label="Select Store">
-                                             <option value="Main">Main</option>
-                                         </optgroup>
-
-                                     </select>
-                                     <div class="invalid-feedback"> Please select a valid state. </div>
-                                 </div>
-                             </div>
-                             <div class="form-row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="validationCustom3">Retype Password</label>
-                                    <input type="text" class="form-control" id="validationCustom3"
-                                    name="password_confirmation" required>
-                                    <div class="valid-feedback"> Looks good! </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
                                     <label for="validationSelect3">Status</label>
                                     <select class="form-control select2" id="validationSelect3" name="status"
                                         required>
@@ -255,6 +224,21 @@
                                     </select>
                                     <div class="invalid-feedback"> Please select a valid state. </div>
                                 </div>
+
+                                 <div class="col-md-6 mb-3">
+                                     <label for="validationCustom3">Password</label>
+                                     <input type="text" class="form-control" id="validationCustom3"
+                                         name="password" required>
+                                     <div class="valid-feedback"> Looks good! </div>
+                                 </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="validationCustom3">Retype Password</label>
+                                    <input type="text" class="form-control" id="validationCustom3"
+                                    name="password_confirmation" required>
+                                    <div class="valid-feedback"> Looks good! </div>
+                                </div>
+
                             </div>
 
                              <button type="submit" class="btn btn-primary mt-3">Register User</button>
@@ -262,12 +246,10 @@
                      </div>
                  </div>
              </div>
-
-
          </div>
 
 
-    </div> <!-- .wrapper -->
+    </div>
 
 
 </x-app-layout>

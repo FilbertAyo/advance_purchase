@@ -149,7 +149,7 @@
                                                     @foreach ($advances as $index => $advance)
                                                     @if( $advance->added_amount > 0)
                                                         <tr>
-                                                            <td>{{ $index + 1 }}</td>
+                                                            <td>{{ $loop->index + 1 }}</td>
                                                             <td>{{ $advance->added_amount }}</td>
                                                             <td>{{ $advance->outstanding }}</td>
                                                             <td>{{ $advance->updated_by }}</td>

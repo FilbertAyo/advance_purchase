@@ -35,6 +35,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Name</th>
+                                                <th>Reference No.</th>
                                                 <th>Phone Number</th>
                                                 <th>Email</th>
                                                 <th>Address</th>
@@ -47,6 +48,7 @@
                                                     <tr>
                                                         <td>{{ $index + 1 }}</td>
                                                         <td>{{ $user->first_name }} {{ $user->last_name }}</td>
+                                                        <td>{{ $user->userId }}</td>
                                                         <td>{{ $user->phone }}</td>
                                                         <td>{{ $user->email }}</td>
                                                         <td>{{ $user->street }},{{ $user->ward }},{{ $user->district }},{{ $user->city }}</td>

@@ -17,23 +17,23 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'userId',
         'first_name',
+        'middle_name',
         'last_name',
+        'password',
+        'email',
         'phone',
         'userType',
         'branch',
-        'store',
         'status',
-        'ward',
-        'district',
-        'street',
-        'city',
-        'gender',
-        'occupation',
-        'email',
-        'password',
-        'nida'
     ];
+
+    public function profile()
+    {
+        return $this->hasOne(User_Profile::class);
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.

@@ -35,8 +35,6 @@
 
 <body>
 
-
-    <!-- Topbar Start -->
     <div class="container-fluid bg-light p-0">
         <div class="row gx-0 d-none d-lg-flex">
             <div class="col-lg-7 px-5 text-start">
@@ -72,7 +70,7 @@
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <a href="{{ url('/') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
             <img src="front-end/img/shortblogo.png" alt="" style="height: 60px;">
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -105,7 +103,7 @@
     <div class="container-fluid page-header mb-5 p-0" style="background-image: url(front-end/img/carousel-bg-2.jpg);">
         <div class="container-fluid page-header-inner py-5">
             <div class="container text-center">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">Application Form</h1>
+                <h1 class="display-3 text-white mb-3 ">Application Form</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center text-uppercase">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -121,112 +119,134 @@
         <div class="row">
             <div class="col-lg-12">
                 @include('elements.spinner')
-                <div class="bg-primary d-flex flex-column justify-content-center text-center p-5 wow">
-                    <h1 class="text-white mb-4">Enter your details</h1>
+                <div class="bg-light d-flex flex-column  p-5 wow">
+                    <h1 class="text-primary mb-4 text-center">Enter your details</h1>
 
                     <form method="POST" action="{{ url('/registration_form') }}">
                         @csrf
 
                         <div class="row g-3">
+                            <!-- Personal Information -->
+                            <div class="col-12">
+                                <h4>Personal Information</h4>
+                            </div>
                             <!-- First Name -->
                             <div class="col-12 col-sm-6">
-                                <input type="text" name="first_name" class="form-control border-0"
-                                    placeholder="First Name" value="{{ old('first_name') }}" style="height: 55px;"
-                                    required>
+                                <input type="text" name="first_name" class="form-control border-0" placeholder="First Name"
+                                    value="{{ old('first_name') }}" style="height: 55px;" required>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <input type="text" name="middle_name" class="form-control border-0" placeholder="Middle Name (*Optional)"
+                                    value="{{ old('middle_name') }}" style="height: 55px;">
                             </div>
                             <!-- Last Name -->
                             <div class="col-12 col-sm-6">
-                                <input type="text" name="last_name" class="form-control border-0"
-                                    placeholder="Last Name" value="{{ old('last_name') }}" style="height: 55px;"
-                                    required>
+                                <input type="text" name="last_name" class="form-control border-0" placeholder="Last Name"
+                                    value="{{ old('last_name') }}" style="height: 55px;" required>
                             </div>
                             <!-- Phone -->
                             <div class="col-12 col-sm-6">
-                                <input type="tel" name="phone" class="form-control border-0"
-                                    placeholder="Phone Number" value="{{ old('phone') }}" style="height: 55px;"
-                                    required>
+                                <input type="tel" name="phone" class="form-control border-0" placeholder="Phone Number"
+                                    value="{{ old('phone') }}" style="height: 55px;" required>
+                                    <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                             </div>
-                            <!-- User Type -->
+                            <!-- Email -->
                             <div class="col-12 col-sm-6">
-                                <input type="email" name="email" class="form-control border-0"
-                                    placeholder="Email" value="{{ old('email') }}" style="height: 55px;" required>
+                                <input type="email" name="email" class="form-control border-0" placeholder="Email (*Optional)"
+                                    value="{{ old('email') }}" style="height: 55px;" >
                                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                            </div>
 
+                            <!-- Address Details -->
+                            <div class="col-12">
+                                <h4>Address Details</h4>
                             </div>
-                            <!-- NIDA -->
+                            <!-- City -->
                             <div class="col-12 col-sm-6">
-                                <input type="text" name="nida" class="form-control border-0"
-                                    placeholder="NIDA Number" value="{{ old('nida') }}" style="height: 55px;"
-                                    required>
-                            </div>
-                            <!-- Level -->
-                            {{-- <div class="col-12 col-sm-6">
-                                    <input type="text" name="level" class="form-control border-0" placeholder="Level" style="height: 55px;">
-                                </div> --}}
-                            <!-- Guarantor -->
-                            {{-- <div class="col-12 col-sm-6">
-                                    <input type="text" name="gurantor" class="form-control border-0" placeholder="Guarantor" style="height: 55px;">
-                                </div> --}}
-                            <!-- Ward -->
-                            <div class="col-12 col-sm-6">
-                                <select name="city" class="form-select border-0"
-                                    style="height: 55px;" required>
+                                <select name="city" class="form-select border-0" style="height: 55px;" required>
                                     @foreach ($cities as $city)
-                                    <option  value="{{ $city->city_name }}">{{ $city->city_name }}</option>
+                                    <option value="{{ $city->city_name }}">{{ $city->city_name }}</option>
                                     @endforeach
                                 </select>
-
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <select name="district" class="form-select border-0"
-                                style="height: 55px;" required>
-                                @foreach ($districts as $district)
-                                <option  value="{{ $district->region_name }}">{{ $district->region_name }}</option>
-                                @endforeach
-                            </select>
-                            </div>
-                            <div class="col-12 col-sm-6">
-
-                                <select name="ward" class="form-select border-0"
-                                style="height: 55px;" required>
-                                @foreach ($wards as $ward)
-                                <option  value="{{ $ward->ward_name }}">{{ $ward->ward_name }}</option>
-                                @endforeach
-                            </select>
-
-
                             </div>
                             <!-- District -->
-
+                            <div class="col-12 col-sm-6">
+                                <select name="district" class="form-select border-0" style="height: 55px;" required>
+                                    @foreach ($districts as $district)
+                                    <option value="{{ $district->region_name }}">{{ $district->region_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <!-- Ward -->
+                            <div class="col-12 col-sm-6">
+                                <select name="ward" class="form-select border-0" style="height: 55px;" required>
+                                    @foreach ($wards as $ward)
+                                    <option value="{{ $ward->ward_name }}">{{ $ward->ward_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <!-- Street -->
                             <div class="col-12 col-sm-6">
-                                <input type="text" name="street" class="form-control border-0"
-                                    value="{{ old('street') }}" placeholder="Street" style="height: 55px;">
+                                <input type="text" name="street" class="form-control border-0" value="{{ old('street') }}"
+                                    placeholder="Street" style="height: 55px;">
                             </div>
 
+                            <!-- Additional Details -->
+                            <div class="col-12">
+                                <h4>Additional Details</h4>
+                            </div>
                             <!-- Gender -->
                             <div class="col-12 col-sm-6">
-                                <select name="gender" class="form-select border-0" value="{{ old('gender') }}"
-                                    style="height: 55px;" required>
+                                <select name="gender" class="form-select border-0" value="{{ old('gender') }}" style="height: 55px;"
+                                    required>
                                     <option selected>Select Gender</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                 </select>
                             </div>
-                            <!-- Occupation -->
-                            <div class="col-12 col-sm-6">
-                                <input type="text" name="occupation" class="form-control border-0"
-                                    value="{{ old('occupation') }}" placeholder="Occupation" style="height: 55px;">
+                            <div class="col-12 col-sm-6" id="birth_date" >
+                                <input type="date" name="birth_date" class="form-control border-0"
+                                    style="height: 55px;">
                             </div>
-                            <!-- Email -->
-                            {{-- <div class="col-12">
-                                    <select name="userType" class="form-select border-0" style="height: 55px;" required>
-                                        <option selected>Select User Type</option>
-                                        <option value="individual">Individual</option>
-                                        <option value="business">Business</option>
-                                    </select>
-                                </div> --}}
-                            <!-- Submit Button -->
+
+                            <!-- ID Selection -->
+                            <div class="col-12 col-sm-6">
+                                <select name="id_type" class="form-select border-0" id="idTypeSelect" style="height: 55px;">
+                                    <option selected>Select ID Type</option>
+                                    <option value="driver_license">Driver's License</option>
+                                    <option value="national_id">National ID</option>
+                                    <option value="passport">Passport</option>
+                                </select>
+                            </div>
+
+                            <!-- Dynamic ID Inputs -->
+                            <div class="col-12 col-sm-6" id="idNumberField" style="display: none;">
+                                <input type="text" name="id_number" class="form-control border-0" placeholder="ID Number"
+                                    style="height: 55px;">
+                            </div>
+                            <div class="col-12 col-sm-6" id="idAttachmentField" style="display: none;">
+                                <input type="file" name="id_attachment" class="form-control border-0" style="height: 55px;">
+                            </div>
+
+                            <!-- Employment Status -->
+                            <div class="col-12 col-sm-6">
+                                <select name="employment_status" class="form-select border-0" id="employmentStatusSelect"
+                                    style="height: 55px;">
+                                    <option selected>Select Employment Status</option>
+                                    <option value="employed">Employed</option>
+                                    <option value="self_employed">Self-Employed</option>
+                                    <option value="unemployed">Unemployed</option>
+                                </select>
+                            </div>
+                            <!-- Dynamic Employment Inputs -->
+                            <div class="col-12 col-sm-6" id="occupationField" style="display: none;">
+                                <input type="text" name="occupation" class="form-control border-0" placeholder="Occupation"
+                                    style="height: 55px;">
+                            </div>
+                            <div class="col-12 col-sm-6" id="organizationField" style="display: none;">
+                                <input type="text" name="organization" class="form-control border-0" placeholder="Organization"
+                                    style="height: 55px;">
+                            </div>
 
                             <div class="col-12 col-sm-6 position-relative">
                                 <input type="password" id="password" name="password" class="form-control border-0"
@@ -250,9 +270,6 @@
                                 </span>
                                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                             </div>
-
-
-
                             <div class="form-row" style="display: none;">
                                 <div class="col-md-6 mb-3">
                                     <input type="text" class="form-control" name="userType" value="0"
@@ -262,11 +279,45 @@
                                 </div>
                             </div>
 
+
+                            <!-- Submit Button -->
                             <div class="col-12">
-                                <button class="btn btn-secondary bg-danger w-100 py-3" type="submit">Submit</button>
+                                <button class="btn bg-primary w-100 py-3 text-white" type="submit">Submit</button>
                             </div>
                         </div>
                     </form>
+
+                    <script>
+                        // Show/Hide ID Number and Attachment based on ID Type
+                        document.getElementById('idTypeSelect').addEventListener('change', function () {
+                            const idNumberField = document.getElementById('idNumberField');
+                            const idAttachmentField = document.getElementById('idAttachmentField');
+                            if (this.value) {
+                                idNumberField.style.display = 'block';
+                                idAttachmentField.style.display = 'block';
+                            } else {
+                                idNumberField.style.display = 'none';
+                                idAttachmentField.style.display = 'none';
+                            }
+                        });
+
+                        // Show/Hide Employment Inputs based on Employment Status
+                        document.getElementById('employmentStatusSelect').addEventListener('change', function () {
+                            const occupationField = document.getElementById('occupationField');
+                            const organizationField = document.getElementById('organizationField');
+                            if (this.value === 'self_employed') {
+                                occupationField.style.display = 'block';
+                                organizationField.style.display = 'none';
+                            } else if (this.value === 'employed') {
+                                organizationField.style.display = 'block';
+                                occupationField.style.display = 'block';
+                            } else {
+                                occupationField.style.display = 'none';
+                                organizationField.style.display = 'none';
+                            }
+                        });
+                    </script>
+
 
                 </div>
             </div>
@@ -274,6 +325,7 @@
     </div>
 
     <!-- Booking End -->
+
 
 
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">

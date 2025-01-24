@@ -30,6 +30,12 @@
 
     <!-- Template Stylesheet -->
     <link href="front-end/css/style.css" rel="stylesheet">
+
+    <style>
+        .carousel-item{
+            height: 60vh;
+        }
+    </style>
 </head>
 
 <body>
@@ -67,7 +73,7 @@
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <a href="{{ url('/') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
           <img src="front-end/img/shortblogo.png" alt="" style="height: 60px;">
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -107,9 +113,9 @@
                         <div class="container">
                             <div class="row align-items-center justify-content-center justify-content-lg-start">
                                 <div class="col-10 col-lg-7 text-center text-lg-start">
-                                    <h6 class="text-white text-uppercase mb-3 animated slideInDown">// Air Conditioner //</h6>
-                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Advance  Payment Purchase</h1>
-                                    <a href="{{ url('/register') }}" class="btn btn-primary py-3 px-5 animated slideInDown">Go to Application Form<i class="fa fa-arrow-right ms-3"></i></a>
+                                    <h6 class="text-white text-uppercase mb-3 animated slideInDown">// Air Conditioners //</h6>
+                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Advance Payment Installment Scheme</h1>
+                                    <a href="{{ url('/register') }}" class="btn bg-white text-primary py-3 px-5 animated slideInDown">Application Form<i class="fa fa-arrow-right ms-3"></i></a>
                                 </div>
                                 <div class="col-lg-5 d-none d-lg-flex animated zoomIn">
                                     <img class="img-fluid" src="front-end/img/carousel-1.png" alt="">
@@ -125,8 +131,8 @@
                             <div class="row align-items-center justify-content-center justify-content-lg-start">
                                 <div class="col-10 col-lg-7 text-center text-lg-start">
                                     <h6 class="text-white text-uppercase mb-3 animated slideInDown">// Washing Machine //</h6>
-                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Advance  Payment Purchase</h1>
-                                    <a href="{{ url('/register') }}" class="btn btn-primary py-3 px-5 animated slideInDown">Go to Application Form<i class="fa fa-arrow-right ms-3"></i></a>
+                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Advance Payment Installment Scheme</h1>
+                                  <a href="{{ url('/register') }}" class="btn bg-white text-primary py-3 px-5 animated slideInDown">Application Form<i class="fa fa-arrow-right ms-3"></i></a>
                                 </div>
                                 <div class="col-lg-5 d-none d-lg-flex animated zoomIn">
                                     <img class="img-fluid" src="front-end/img/wm.png" alt="">
@@ -142,8 +148,8 @@
                             <div class="row align-items-center justify-content-center justify-content-lg-start">
                                 <div class="col-10 col-lg-7 text-center text-lg-start">
                                     <h6 class="text-white text-uppercase mb-3 animated slideInDown">// TELEVISION //</h6>
-                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Advance  Payment Purchase</h1>
-                                    <a href="{{ url('/register') }}" class="btn btn-primary py-3 px-5 animated slideInDown">Go to Application Form<i class="fa fa-arrow-right ms-3"></i></a>
+                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Advance Payment Installment Scheme</h1>
+                                  <a href="{{ url('/register') }}" class="btn bg-white text-primary py-3 px-5 animated slideInDown">Application Form<i class="fa fa-arrow-right ms-3"></i></a>
                                 </div>
                                 <div class="col-lg-5 d-none d-lg-flex animated zoomIn">
                                     <img class="img-fluid" src="front-end/img/tv.png" alt="">
@@ -159,8 +165,8 @@
                             <div class="row align-items-center justify-content-center justify-content-lg-start">
                                 <div class="col-10 col-lg-7 text-center text-lg-start">
                                     <h6 class="text-white text-uppercase mb-3 animated slideInDown">// VACUUM CLEANER //</h6>
-                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Advance  Payment Purchase</h1>
-                                    <a href="{{ url('/register') }}" class="btn btn-primary py-3 px-5 animated slideInDown">Go to Application Form<i class="fa fa-arrow-right ms-3"></i></a>
+                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Advance Payment Installment Scheme</h1>
+                                  <a href="{{ url('/register') }}" class="btn bg-white text-primary py-3 px-5 animated slideInDown">Application Form<i class="fa fa-arrow-right ms-3"></i></a>
                                 </div>
                                 <div class="col-lg-5 d-none d-lg-flex animated zoomIn">
                                     <img class="img-fluid" src="front-end/img/VC.png" alt="">
@@ -176,8 +182,8 @@
                             <div class="row align-items-center justify-content-center justify-content-lg-start">
                                 <div class="col-10 col-lg-7 text-center text-lg-start">
                                     <h6 class="text-white text-uppercase mb-3 animated slideInDown">// AIR FLYER //</h6>
-                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Advance  Payment Purchase</h1>
-                                    <a href="{{ url('/register') }}" class="btn btn-primary py-3 px-5 animated slideInDown">Go to Application Form<i class="fa fa-arrow-right ms-3"></i></a>
+                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Advance Payment Installment Scheme</h1>
+                                  <a href="{{ url('/register') }}" class="btn bg-white text-primary py-3 px-5 animated slideInDown">Application Form<i class="fa fa-arrow-right ms-3"></i></a>
                                 </div>
                                 <div class="col-lg-5 d-none d-lg-flex animated zoomIn">
                                     <img class="img-fluid" src="front-end/img/airfly.png" alt="">
@@ -337,7 +343,7 @@
     </div>
     <!-- Fact End -->
 
-    <section style="padding: 0; margin: 0;">
+    <section class="p-1">
         <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.5951619290745!2d39.28414437499556!3d-6.818992593178741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185c4b05a1a7c36d%3A0x879448c8362f87fd!2sSamora%20Ave%2C%20Dar%20es%20Salaam!5e0!3m2!1sen!2stz!4v1733818825960!5m2!1sen!2stz"
             width="100%"

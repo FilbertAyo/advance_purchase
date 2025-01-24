@@ -63,3 +63,10 @@ Route::delete('/ward/{id}', [AddressController::class, 'wardDestroy'])->name('wa
 Route::get('/bank',[DashboardController::class, 'bank'])->middleware(['auth', 'verified']);
 Route::post('bank_store',[DashboardController::class, 'bank_store'])->middleware(['auth', 'verified']);
 Route::patch('/bank/{id}/disable', [DashboardController::class, 'disable'])->name('bank.disable');
+
+
+
+// maintenance
+Route::get('/maintenance', function () {
+    return view('maintenance');
+})->name('maintenance');

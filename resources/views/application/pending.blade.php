@@ -156,7 +156,7 @@
             <span aria-hidden="true" style="font-size: 3rem;" class="text-danger">×</span>
         </button>
 
-        <div class="modal-dialog modal-dialog-centered modal-xl bg-white" role="document"
+        <div class="modal-dialog modal-xl bg-white" role="document"
             style="width: 100%;">
             <div class="modal-content">
                 <div class="modal-body">
@@ -184,8 +184,9 @@
 
                                         @foreach ($user as $user)
                                         @if($user->status == 'active')
-                                            <option value="{{ $user->id }} {{ $user->first_name }} {{ $user->last_name }}">
-                                                {{ $user->first_name }} {{ $user->last_name }}
+                                        {{-- very important snippet ,Never change it  --}}
+                                            <option value="{{ $user->id }} {{ $user->first_name }} {{ $user->last_name }}-[ID:{{ $user->userId }}]">
+                                                {{ $user->first_name }} {{ $user->last_name }} [ID:{{ $user->userId }}]
                                             </option>
                                             @endif
                                         @endforeach

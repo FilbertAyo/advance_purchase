@@ -81,7 +81,7 @@
 
                                                                 <div style="display: flex; gap: 2px;">
 
-                                                                
+
                                                                     <a href="{{ route('application.show', $item->id) }}"
                                                                         class="btn btn-sm  btn-warning text-white"><span
                                                                             class="fe fe-eye fe-16"></span>
@@ -130,103 +130,7 @@
             </div> <!-- .container-fluid -->
 
 
-            {{-- item registration --}}
-
-            <div class="modal fade modal-full" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-                data-backdrop="static" aria-hidden="true">
-                <button aria-label="" type="button" class="close p-3" data-dismiss="modal" aria-hidden="true"
-                    style="position: absolute; right: 20px; top: 20px;">
-                    <span aria-hidden="true" style="font-size: 3rem;" class="text-danger">×</span>
-                </button>
-
-                <div class="modal-dialog modal-dialog-centered modal-xl bg-white" role="document"
-                    style="width: 100%;">
-                    <div class="modal-content">
-                        <div class="modal-body">
-
-                            <form method="POST" action="{{ route('application.store') }}" validate
-                                style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
-
-                                @csrf
-
-                                <div class="form-row text-center">
-                                    <div class="col-md-12 mb-3">
-                                        <h3>Advanced Payment Application</h3>
-                                    </div>
-                                </div>
-
-                                <input type="text" class="form-control" value="{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}"
-                                name="created_by" style="display: none;">
-
-                                <div class="form-row">
-
-                                    <div class="col-md-6 mb-3">
-                                        <label for="validationSelect9">Customer Name</label>
-                                        <select class="form-control select2" id="validationSelect9" name="customer_name" required>
-                                            <optgroup label="Select customer">
-
-                                                @foreach ($user as $user)
-                                                @if($user->status == 'active')
-                                                    <option value="{{ $user->id }} {{ $user->first_name }} {{ $user->last_name }}">
-                                                        {{ $user->first_name }} {{ $user->last_name }}
-                                                    </option>
-                                                    @endif
-                                                @endforeach
-                                            </optgroup>
-                                        </select>
-                                        <div class="invalid-feedback">Please select a valid customer.</div>
-                                    </div>
-
-
-                                    <div class="col-md-6 mb-3">
-                                        <label for="validationSelect0">Item Name</label>
-                                        <select class="form-control select2" id="validationSelect0" name="item_name" required>
-                                            <optgroup label="Select Item">
-                                                @foreach ($items as $item)
-                                                    <option value="{{ $item->sales }} {{ $item->item_name }} {{ $item->code }}">
-                                                        {{ $item->item_name }}  {{ $item->code }}
-                                                    </option>
-
-                                                @endforeach
-                                            </optgroup>
-                                        </select>
-
-                                        <div class="invalid-feedback">Please select a valid item.</div>
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                        <input type="hidden" class="form-control" id="openingStock"
-                                            name="paid_amount" value="0" required>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary mt-3">Submit Application</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        const openingStockInput = document.getElementById('openingStock');
-                        const arrivalStockInput = document.getElementById('arrivalStock');
-                        const smallestItemUnitInput = document.getElementById('smallestItemUnit');
-                        const reorder = document.getElementById('reorder');
-
-                        function updateSmallestItemUnit() {
-                            const openingStock = parseFloat(openingStockInput.value) || 0;
-                            const arrivalStock = parseFloat(arrivalStockInput.value) || 0;
-                            const smallestItemUnit = openingStock + arrivalStock;
-                            smallestItemUnitInput.value = smallestItemUnit.toFixed(0); // Update the readonly field
-                            reorder.value = smallestItemUnit.toFixed(0); // Update the new input field
-                        }
-
-                        openingStockInput.addEventListener('input', updateSmallestItemUnit);
-                        arrivalStockInput.addEventListener('input', updateSmallestItemUnit);
-                    });
-                </script>
-            </div>
-
+       
 
 
         </x-app-layout>

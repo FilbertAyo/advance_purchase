@@ -67,7 +67,7 @@
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <a href="{{ url('/') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
           <img src="front-end/img/shortblogo.png" alt="" style="height: 60px;">
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -127,7 +127,8 @@
                     <h1 class="display-1">404</h1>
                     <h1 class="mb-4">Page Not Found</h1>
                     <p class="mb-4">We’re sorry, the page you have looked for does not exist in our website! Maybe go to our home page or try to use a search?</p>
-                    <a class="btn btn-primary rounded-pill py-3 px-5" href="">Go Back To Home</a>
+                  <a class="btn btn-primary rounded-pill py-3 px-5" href="javascript:window.history.back();">Go Back To Home</a>
+
                 </div>
             </div>
         </div>

@@ -55,26 +55,20 @@ class DashboardController extends Controller
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:255', 'unique:' . User::class],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::min(6)],
         ]);
 
         $user = User::create([
             'first_name' => $request->first_name,
+            'middle_name' => $request->middle_name,
             'last_name' => $request->last_name,
             'phone' => $request->phone,
             'branch' => $request->branch,
             'userType' => $request->userType,
-            'store' => $request->store,
             'status' => $request->status,
             'email' => $request->email,
-            'street' => $request->street,
-            'ward' => $request->ward,
-            'district' => $request->district,
-            'city' => $request->city,
-            'occupation' => $request->occupation,
-            'nida' => $request->nida,
             'password' => Hash::make($request->password),
         ]);
 

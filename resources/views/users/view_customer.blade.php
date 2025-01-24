@@ -45,7 +45,7 @@
                             <div class="col-md-12">
                                 <div class="card shadow mb-4">
                                     <div class="card-header">
-                                        <strong class="card-title">{{ $user->first_name }} {{ $user->last_name }}</strong>
+                                        <strong class="card-title">{{ $user->first_name }} {{ $user->last_name }} <span class="text-danger">[ID: {{ $user->userId }}]</span></strong>
 
                                     </div>
                                     <div class="card-body">
@@ -102,7 +102,6 @@
                                                     <th>No</th>
                                                     <th>Item</th>
                                                     <th>Serial No</th>
-
                                                     <th>Price</th>
                                                     <th>Paid</th>
                                                     <th>Outstanding</th>

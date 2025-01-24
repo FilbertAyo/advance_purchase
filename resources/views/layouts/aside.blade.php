@@ -6,7 +6,7 @@
     <nav class="vertnav navbar navbar-light">
         <!-- nav bar -->
         <div class="w-100 mb-4 d-flex">
-            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
+            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="{{ url('/dashboard') }}">
 
                 <img src="{{ asset('images/marslogo.png') }}" class="navbar-brand-img" alt="" style="height: 60px">
             </a>
@@ -118,12 +118,12 @@
                 </a>
                 <ul class="collapse list-unstyled pl-4 w-100 w-100" id="pages">
                     <li class="nav-item">
-                        <a class="nav-link pl-3" href="./page-orders.html">
+                        <a class="nav-link pl-3" href="{{ route('maintenance') }}">
                             <span class="ml-1 item-text">Detailed Report</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link pl-3" href="./page-timeline.html">
+                        <a class="nav-link pl-3" href="{{ route('maintenance') }}">
                             <span class="ml-1 item-text">Summarized Report</span>
                         </a>
                     </li>
@@ -131,6 +131,12 @@
                 </ul>
             </li>
         </ul>
+
+                <a href="https://advancepurchase.marscommltd.com/" target="_blank" class="btn btn-primary mt-3">
+                    <i class="fe fe-click fe-16"></i>
+                    <span class="ml-3 item-text">Visit Website</span>
+                </a>
+
 
 
 

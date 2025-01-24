@@ -36,7 +36,7 @@
 
         <nav class="navbar navbar-expand-lg navbar-light bg-white flex-row border-bottom shadow">
             <div class="container-fluid">
-                <a class="navbar-brand mx-lg-1 mr-0" href="./index.html">
+                <a class="navbar-brand mx-lg-1 mr-0" href="{{ url('/dashboard') }}">
                     <div class="w-100 d-flex">
                         <img src="{{ asset('images/marslogo.png') }}" class="navbar-brand-img" alt=""
                                 style="height: 40px">
@@ -108,6 +108,14 @@
                 <div class="row align-items-center">
                     <div class="col-12 text-center">
                      <img src="{{ asset('images/photo.jpeg') }}" style="height: 150px;" alt="User" class="avatar-img rounded-circle">
+                     <div class=" mt-3">
+                        <h3>ID: <span id="userId">{{ Auth::user()->userId }}</span></h3>
+                        <div id="copyFeedback" class="text-success fw-bold text-sm" style="display: none;">Copied!</div>
+                        <button id="copyButton" class="btn btn-outline-secondary btn-sm" >
+                            <i class="bi bi-clipboard me-1"></i> Copy
+                        </button>
+                    </div>
+
                       </div>
                   </div>
               <div class="row align-items-center">
@@ -117,29 +125,14 @@
                     </a>
                     <p>Profile</p>
                   </div>
-
-                <div class="col-6 text-center">
-                  <div class="squircle bg-primary justify-content-center">
-                    <i class="fe fe-activity fe-32 align-self-center text-white"></i>
-                  </div>
-                  <p>History</p>
-                </div>
-              </div>
-              <div class="row align-items-center">
-                <div class="col-6 text-center">
+                  <div class="col-6 text-center">
                     <div class="squircle bg-primary justify-content-center">
                       <i class="fe fe-upload-cloud fe-32 align-self-center text-white"></i>
                     </div>
                     <p>Upload</p>
                   </div>
-                <div class="col-6 text-center">
-                    <div class="squircle bg-primary justify-content-center">
-                      <i class="fe fe-settings fe-32 align-self-center text-white"></i>
-                    </div>
-                    <p>Settings</p>
-                  </div>
-
               </div>
+
 
               <div class="row align-items-center">
 
@@ -185,6 +178,28 @@
     @endif
 
 
+    <script>
+        document.getElementById('copyButton').addEventListener('click', function () {
+            // Select the userId text
+            const userId = document.getElementById('userId').textContent;
+
+            // Copy to clipboard
+            navigator.clipboard.writeText(userId).then(() => {
+                // Show "Copied!" feedback
+                const feedback = document.getElementById('copyFeedback');
+                feedback.style.display = 'block';
+
+                // Hide the feedback after 2 seconds
+                setTimeout(() => {
+                    feedback.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        });
+    </script>
+
+
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/moment.min.js') }}"></script>
@@ -217,7 +232,7 @@
     <script src='{{ asset('js/dropzone.min.js') }}'></script>
     <script src='{{ asset('js/uppy.min.js') }}'></script>
     <script src='{{ asset('js/quill.min.js') }}'></script>
-    
+
     <script>
       $('.select2').select2(
       {
