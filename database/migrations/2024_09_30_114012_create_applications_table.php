@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('customer_name');
             $table->string('item_name');
             $table->string('price');
+            $table->string('serial_number')->nullable();
             $table->string('paid_amount');
             $table->string('outstanding');
             $table->string('created_by');

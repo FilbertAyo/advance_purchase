@@ -39,10 +39,13 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card shadow mb-4">
-                                    <div class="card-header">
+                                    <div class="card-header d-flex justify-content-between">
                                         <strong class="card-title">{{ $application->customer_name }}</strong>
-
+                                        @if ($application->outstanding == 0 && $application->serial_number != null)
+                                            <strong class="card-title">Serial Number: {{ $application->serial_number }}</strong>
+                                        @endif
                                     </div>
+
                                     <div class="card-body">
 
                                         <dl class="row mb-0">
@@ -71,13 +74,10 @@
 
                                             <dd class="col-sm-4 mb-3">
                                                 @if ($application->status == 'inactive')
-
-
                                                     <strong class="btn btn-danger p-1">Inactive</strong>
-
                                                 @else
                                                 @if ($application->outstanding == 0)
-                                                <strong class="badge badge-success p-1">Complete</strong>
+                                                <strong class="badge badge-success p-1 text-white">Complete</strong>
                                                 @else
                                                 <strong class="badge badge-info p-1">Ongoing</strong>
                                                 @endif
@@ -110,11 +110,17 @@
                             </div>
                             <div class="col-auto">
                                 @if(Auth::user()->userType == 1 || Auth::user()->userType == 3)
-                                    <!-- Clickable button for userType 1 and 3 -->
-                                    <button type="button" class="btn mb-2 btn-primary btn-sm" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo">
-                                        Update Amount
-                                        <span class="fe fe-edit fe-16 ml-2"></span>
-                                    </button>
+                                @if ($application->outstanding == 0)
+                                <button type="button" class="btn mb-2 btn-success btn-sm" data-toggle="modal" data-target="#serialNo" data-whatever="@mdo">
+                                    Update Serial No
+                                </button>
+                                @else
+                                <button type="button" class="btn mb-2 btn-primary btn-sm" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo">
+                                    Update Amount
+                                    <span class="fe fe-edit fe-16 ml-2"></span>
+                                </button>
+                                @endif
+
                                 @else
                                     <!-- Disabled button for other user types -->
                                     <button class="btn mb-2 btn-primary btn-sm permission-alert">
@@ -203,6 +209,8 @@
             </div>
 
 
+
+
             <div class="modal fade" id="varyModal" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -244,6 +252,44 @@
                     </div>
                 </div>
             </div>
+
+
+
+            <div class="modal fade" id="serialNo" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="varyModalLabel">Serial Number Update</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                               <span aria-hidden="true">&times;</span>
+                           </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="{{ route('serialNo.update', $application->id) }}" validate>
+                                @csrf
+                                @method('PUT')
+
+                                <div class="form-row">
+
+                                    <div class="col-md-12 mb-3">
+                                        <label for="">Serial Number</label>
+                                       <input type="text" class="form-control" id="arrivalStock"
+                                                name="serial_number"  required>
+                                            <div class="valid-feedback">Looks good!</div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn mb-2 btn-primary">Save and Close</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
 
 
         </x-app-layout>

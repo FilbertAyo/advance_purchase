@@ -46,6 +46,7 @@ class RegisteredUserController extends Controller
             'phone' => ['required', 'string', 'max:255', 'unique:users,phone'],
             'email' => ['nullable', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'id_attachment' => 'nullable',
         ]);
 
         $userId = $this->generateUniqueUserId();
@@ -63,9 +64,18 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $profile  = User_Profile::create([
+        $id_attach = null;
+
+        if ($request->hasFile('id_attachment')) {
+            $attachment = $request->file('id_attachment');
+            $attachmentName = time() . '_' . $attachment->getClientOriginalName();
+            $attachment->move(public_path('attachments'), $attachmentName);
+            $id_attach = 'attachments/' . $attachmentName;
+        }
+
+       User_Profile::create([
             'user_id' => $user->id,
-            'city' => $request->city,  
+            'city' => $request->city,
             'district' => $request->district,
             'ward' => $request->ward,
             'street' => $request->street,
@@ -73,7 +83,7 @@ class RegisteredUserController extends Controller
             'birth_date' => $request->birth_date,
             'id_type' => $request->id_type,
             'id_number' => $request->id_number,
-            'id_attachment' => $request->id_attachment,
+            'id_attachment' => $id_attach,
             'employment_status' => $request->employment_status,
             'occupation' => $request->occupation,
             'organization' => $request->organization,

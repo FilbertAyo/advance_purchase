@@ -161,6 +161,24 @@ class ApplicationController extends Controller
         return redirect()->route('application.show', $id)->with('success', 'Application updated successfully.');
     }
 
+    public function updateSerialNo(Request $request, $id)
+{
+    // Validate the incoming request data
+    $request->validate([
+        'serial_number' => 'required|string|max:255',
+    ]);
+
+    // Find the application by ID
+    $application = Application::findOrFail($id);
+
+    // Update the serial number
+    $application->serial_number = $request->serial_number;
+    $application->save();
+
+    return redirect()->route('application.show', $id)->with('success', 'Application Serial Number of the product updated successfully.');
+}
+
+
     /**
      * Remove the specified resource from storage.
      */

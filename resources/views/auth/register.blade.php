@@ -122,7 +122,7 @@
                 <div class="bg-light d-flex flex-column  p-5 wow">
                     <h1 class="text-primary mb-4 text-center">Enter your details</h1>
 
-                    <form method="POST" action="{{ url('/registration_form') }}">
+                    <form method="POST" action="{{ url('/registration_form') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row g-3">
@@ -233,9 +233,9 @@
                                 <select name="employment_status" class="form-select border-0" id="employmentStatusSelect"
                                     style="height: 55px;">
                                     <option selected>Select Employment Status</option>
-                                    <option value="employed">Employed</option>
-                                    <option value="self_employed">Self-Employed</option>
-                                    <option value="unemployed">Unemployed</option>
+                                    <option value="Employed">Employed</option>
+                                    <option value="Self-Employed">Self-Employed</option>
+                                    <option value="Unemployed">Unemployed</option>
                                 </select>
                             </div>
                             <!-- Dynamic Employment Inputs -->

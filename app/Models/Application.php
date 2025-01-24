@@ -13,6 +13,7 @@ class Application extends Model
         'item_name',
         'customer_name',
         'price',
+        'serial_number',
         'paid_amount',
         'outstanding',
         'created_by'

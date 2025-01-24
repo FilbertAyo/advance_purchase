@@ -55,11 +55,11 @@
                                         @foreach ($user as $index => $user)
                                             <tr>
                                                 <td>{{ $index + 1 }}</td>
-                                                <td>{{ $user->first_name }} {{ $user->last_name }}</td>
+                                                <td>{{ $user->first_name }} {{ $user->middle_name ?? '' }} {{ $user->last_name }}</td>
                                                 <td>{{ $user->userId }}</td>
                                                 <td>{{ $user->phone }}</td>
                                                 <td>{{ $user->email }}</td>
-                                                <td>{{ $user->street }},{{ $user->ward }},{{ $user->district }},{{ $user->city }}
+                                                <td>{{ $user->profile->street ?? '' }},{{ $user->profile->ward ?? '' }},{{ $user->profile->district ?? '' }},{{ $user->profile->city ?? '' }}
                                                 </td>
                                                 <td>
                                                     <div style="display: flex; gap: 2px;">
