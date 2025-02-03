@@ -1,0 +1,31 @@
+<?php
+
+return [
+    'welcome' => 'Welcome to the website',
+    'home' => "Home",
+    'about' => "About",
+    'contact' => "Contact",
+    'application_form' => "Application Form",
+    'login' => "Login",
+    'enter_details' => "Enter your details",
+    'personal_information' => "Personal Information",
+    'first_name' => "First Name",
+    'last_name' => "Last Name",
+    'email' => "Email(*Optional)",
+    'middle_name' => "Middle Name(*Optional)",
+    'phone_number' => "Phone Number",
+    'address_details' => "Address Details",
+    'select_city' => "Select City",
+    'select_district' => "Select District",
+    'select_ward' => "Select Ward",
+    'street' => "Street",
+    'additional_details' => "Additional Details",
+    'select_gender' => "Select Gender",
+    'date_of_birth' => "Date of Birth",
+    'select_id_type' => "Select ID Type",
+    'select_employment_status' => "Select Employment Status",
+    'password' => "Password",
+    'repeat_your_password' => "Repeat your password",
+    'submit' => "Submit",
+]
+?>

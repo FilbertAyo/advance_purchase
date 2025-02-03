@@ -21,4 +21,9 @@ class Item extends Model
         'created_by',
         'image'
     ];
+
+    public function productImages()
+    {
+        return $this->hasMany(Product_Image::class, 'item_id');
+    }
 }

@@ -29,8 +29,7 @@
 
                 <div class="row align-items-center">
                     <div class="col">
-                        <h4 class="mb-0 page-title"> Advanced Payment</h4>
-
+                        <h4 class="mb-0 page-title"> Products List</h4>
                     </div>
 
                     <div class="col-auto">
@@ -125,16 +124,14 @@
     </div> <!-- .container-fluid -->
 
 
-    {{-- item registration --}}
-
     <div class="modal fade modal-full" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
         data-backdrop="static" aria-hidden="true">
-        <button aria-label="" type="button" class="close p-3" data-dismiss="modal" aria-hidden="true"
+        <button aria-label="" type="button" class="close p-5" data-dismiss="modal" aria-hidden="true"
             style="position: absolute; right: 20px; top: 20px;">
             <span aria-hidden="true" style="font-size: 3rem;" class="text-danger">×</span>
         </button>
 
-        <div class="modal-dialog modal-dialog-centered modal-xl bg-white" role="document" style="width: 100%;">
+        <div class="modal-dialog modal-xl bg-white" role="document" style="width: 100%;">
             <div class="modal-content">
                 <div class="modal-body">
 
@@ -234,12 +231,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="validationCustom3">Image</label>
-                                <input type="file" class="form-control" id="validationCustom7" name="image"
-                                    required>
-                                <div class="valid-feedback"> Looks good! </div>
-                            </div>
+                            
                         </div>
 
                         <div class="form-group mb-3">

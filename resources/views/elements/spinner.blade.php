@@ -54,6 +54,28 @@
 @endif
 
 
+@if ($errors->any())
+   
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Validation Error",
+                html: `
+                    <ul style="text-align: left; list-style: none; padding: 0;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                `,
+                showConfirmButton: true
+            });
+        });
+    </script>
+@endif
+
+
 <script>
     function reloadPage() {
         location.reload();

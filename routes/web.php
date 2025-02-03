@@ -8,11 +8,11 @@ use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\LocaleController;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\ProfileController;
-use App\Models\AdvanceForm;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,6 +31,10 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 Route::resource('item', ItemController::class)->middleware(['auth', 'verified']);
+Route::post('/items/{item}/upload-image', [ItemController::class, 'uploadImage'])->name('items.upload_image');
+Route::delete('/items/image/{id}', [ItemController::class, 'deleteImage'])->name('items.delete_image');
+
+
 
 Route::get('/user', [DashboardController::class, 'user'])->middleware(['auth', 'verified']);
 
@@ -66,9 +70,17 @@ Route::get('/bank', [DashboardController::class, 'bank'])->middleware(['auth', '
 Route::post('bank_store', [DashboardController::class, 'bank_store'])->middleware(['auth', 'verified']);
 Route::patch('/bank/{id}/disable', [DashboardController::class, 'disable'])->name('bank.disable');
 
-Route::resource('bank',BranchController::class);
+Route::resource('branch',BranchController::class);
 
 // maintenance
 Route::get('/maintenance', function () {
     return view('maintenance');
 })->name('maintenance');
+
+Route::get('/test', function () {
+    return view('test');
+});
+
+
+
+Route::get('locale/{lang}',[LocaleController::class, 'setLocale']);

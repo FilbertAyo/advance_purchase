@@ -23,23 +23,25 @@ class DashboardController extends Controller
         $userType = Auth::user()->userType;
 
         if ($userType == '0') {
+
             $customerId = Auth::id();
             $applications = Application::where('customer_id', $customerId)->get();
-
             return view('customer.customer', compact('applications'));
-        } elseif ($userType == '1' || $userType == '2' || $userType == '3') {
-            $collection = Advance::all()->sum('added_amount');
 
+        } elseif ($userType == '1' || $userType == '2' || $userType == '3') {
+
+            $collection = Advance::all()->sum('added_amount');
             $customerNo = User::where('userType', 0)->count();
             $activeCustomer = User::where('userType', 0)
                 ->where('status', 'active')
                 ->count();
-
             $adminNo = User::whereIn('userType', [1, 2, 3])->count();
-
             return view('dashboard', compact('adminNo', 'customerNo', 'collection','activeCustomer'));
+
         } else {
+
             redirect()->back()->with('status', "You're not authorized");
+            
         }
     }
 

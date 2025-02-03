@@ -43,7 +43,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-
                                                 @foreach ($user as $index => $user)
                                                     <tr>
                                                         <td>{{ $index + 1 }}</td>
@@ -54,8 +53,6 @@
                                                         <td>{{ $user->profile->street ?? '' }},{{ $user->profile->ward ?? '' }},{{ $user->profile->district ?? '' }},{{ $user->profile->city ?? '' }}
                                                         <td>
                                                             <div style="display: flex; gap: 2px;">
-
-
                                                                 <a href="{{ route('customer.show', $user->id) }}"
                                                                     class="btn btn-sm  btn-warning text-white"><span
                                                                         class="fe fe-eye fe-16"></span></a>

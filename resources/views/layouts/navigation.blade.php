@@ -1,12 +1,11 @@
 
-
-        <nav class="topnav navbar navbar-light bg-white">
+<nav class="topnav navbar navbar-light bg-white">
 
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link text-muted my-2" href="#" id="modeSwitcher" data-mode="light">
+                    <div class="nav-link text-muted my-2">
                        <h4> Advanced Payment</h4>
-                    </a>
+                    </div>
                 </li>
             </ul>
             <ul class="nav">

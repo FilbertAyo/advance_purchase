@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Product_Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class ItemController extends Controller
 {
@@ -42,7 +44,6 @@ class ItemController extends Controller
             'created_by' => 'required|string|max:255',
         ]);
 
-
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $speakerName = time() . '_' . $image->getClientOriginalName();
@@ -56,6 +57,44 @@ class ItemController extends Controller
         return redirect()->back()->with('success', 'New item added successfully.');
     }
 
+    public function uploadImage(Request $request)
+    {
+        // Validate the request
+        $validatedData = $request->validate([
+            'image_url.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate each file
+            'item_id' => 'required|exists:items,id', // Ensure item_id exists and is valid
+        ]);
+
+        if ($request->hasFile('image_url')) {
+            foreach ($request->file('image_url') as $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('products'), $imageName);
+
+                // Save each file in the database
+                Product_Image::create([
+                    'item_id' => $request->item_id,
+                    'image_url' => 'products/' . $imageName,
+                ]);
+            }
+        }
+
+        return back()->with('success', 'Images uploaded successfully to this Product.');
+    }
+
+    public function deleteImage($id)
+{
+    $image = Product_Image::findOrFail($id);
+
+    // Delete the image file from storage
+    if (File::exists(public_path($image->image_url))) {
+        File::delete(public_path($image->image_url));
+    }
+
+    // Delete the record from the database
+    $image->delete();
+
+    return back()->with('success', 'Image deleted successfully.');
+}
 
     /**
      * Display the specified resource.
@@ -64,7 +103,7 @@ class ItemController extends Controller
     {
         $item = Item::findOrFail($id);
 
-        return view('items.view',compact('item'));
+        return view('items.view', compact('item'));
     }
 
     /**
@@ -74,7 +113,7 @@ class ItemController extends Controller
     {
         $item = Item::findOrFail($id);
 
-        return view('items.edit',compact('item'));
+        return view('items.edit', compact('item'));
     }
 
     /**
@@ -82,11 +121,11 @@ class ItemController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $item= Item::findOrFail($id);
+        $item = Item::findOrFail($id);
 
         $item->update($request->all());
 
-        return redirect()->route('item.index')->with('success',"Item updated successfully");
+        return redirect()->route('item.index')->with('success', "Item updated successfully");
     }
     /**
      * Remove the specified resource from storage.
@@ -118,6 +157,4 @@ class ItemController extends Controller
 
         return view('customer.product', compact('products', 'category'));
     }
-
-
 }
