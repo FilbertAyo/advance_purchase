@@ -14,10 +14,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', [DashboardController::class, 'welcome']);
 
 Route::get('/dashboard', [DashboardController::class, 'home'])
     ->middleware(['auth', 'verified'])->name('dashboard');

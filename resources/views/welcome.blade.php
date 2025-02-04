@@ -55,10 +55,9 @@
                                 <div class="col-10 col-lg-7 text-center text-lg-start">
                                     <h6 class="text-white text-uppercase mb-3 animated slideInDown">// Air Conditioners
                                         //</h6>
-                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Advance Payment
-                                        Installment Scheme</h1>
+                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">@lang('messages.advance_payment_installment_scheme')</h1>
                                     <a href="{{ url('/register') }}"
-                                        class="btn bg-white text-primary py-3 px-5 animated slideInDown fw-bold">Application<i class="fa fa-arrow-right ms-3"></i></a>
+                                        class="btn bg-white text-primary py-3 px-5 animated slideInDown fw-bold">@lang('messages.application')<i class="fa fa-arrow-right ms-3"></i></a>
                                 </div>
                                 <div class="col-lg-5 d-none d-lg-flex animated zoomIn">
                                     <img class="img-fluid" src="front-end/img/carousel-1.png" alt="">
@@ -75,10 +74,9 @@
                                 <div class="col-10 col-lg-7 text-center text-lg-start">
                                     <h6 class="text-white text-uppercase mb-3 animated slideInDown">// Washing Machine
                                         //</h6>
-                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Advance Payment
-                                        Installment Scheme</h1>
+                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">@lang('messages.advance_payment_installment_scheme')</h1>
                                     <a href="{{ url('/register') }}"
-                                        class="btn bg-white text-primary py-3 px-5 animated slideInDown fw-bold">Application<i class="fa fa-arrow-right ms-3"></i></a>
+                                        class="btn bg-white text-primary py-3 px-5 animated slideInDown fw-bold">@lang('messages.application')<i class="fa fa-arrow-right ms-3"></i></a>
                                 </div>
                                 <div class="col-lg-5 d-none d-lg-flex animated zoomIn">
                                     <img class="img-fluid" src="front-end/img/wm.png" alt="">
@@ -95,10 +93,9 @@
                                 <div class="col-10 col-lg-7 text-center text-lg-start">
                                     <h6 class="text-white text-uppercase mb-3 animated slideInDown">// TELEVISION //
                                     </h6>
-                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Advance Payment
-                                        Installment Scheme</h1>
+                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">@lang('messages.advance_payment_installment_scheme')</h1>
                                     <a href="{{ url('/register') }}"
-                                        class="btn bg-white text-primary py-3 px-5 animated slideInDown fw-bold">Application<i class="fa fa-arrow-right ms-3"></i></a>
+                                        class="btn bg-white text-primary py-3 px-5 animated slideInDown fw-bold">@lang('messages.application')<i class="fa fa-arrow-right ms-3"></i></a>
                                 </div>
                                 <div class="col-lg-5 d-none d-lg-flex animated zoomIn">
                                     <img class="img-fluid" src="front-end/img/tv.png" alt="">
@@ -115,10 +112,9 @@
                                 <div class="col-10 col-lg-7 text-center text-lg-start">
                                     <h6 class="text-white text-uppercase mb-3 animated slideInDown">// VACUUM CLEANER
                                         //</h6>
-                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Advance Payment
-                                        Installment Scheme</h1>
+                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">@lang('messages.advance_payment_installment_scheme')</h1>
                                     <a href="{{ url('/register') }}"
-                                        class="btn bg-white text-primary py-3 px-5 animated slideInDown fw-bold">Application<i class="fa fa-arrow-right ms-3"></i></a>
+                                        class="btn bg-white text-primary py-3 px-5 animated slideInDown fw-bold">@lang('messages.application')<i class="fa fa-arrow-right ms-3"></i></a>
                                 </div>
                                 <div class="col-lg-5 d-none d-lg-flex animated zoomIn">
                                     <img class="img-fluid" src="front-end/img/VC.png" alt="">
@@ -135,10 +131,9 @@
                                 <div class="col-10 col-lg-7 text-center text-lg-start">
                                     <h6 class="text-white text-uppercase mb-3 animated slideInDown">// AIR FLYER //
                                     </h6>
-                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">Advance Payment
-                                        Installment Scheme</h1>
+                                    <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">@lang('messages.advance_payment_installment_scheme')</h1>
                                     <a href="{{ url('/register') }}"
-                                        class="btn bg-white text-primary py-3 px-5 animated slideInDown fw-bold">Application<i class="fa fa-arrow-right ms-3"></i></a>
+                                        class="btn bg-white text-primary py-3 px-5 animated slideInDown fw-bold">@lang('messages.application')<i class="fa fa-arrow-right ms-3"></i></a>
                                 </div>
                                 <div class="col-lg-5 d-none d-lg-flex animated zoomIn">
                                     <img class="img-fluid" src="front-end/img/airfly.png" alt="">
@@ -164,130 +159,129 @@
 
     <div class="container-xxl py-5">
         <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="text-primary text-uppercase">// Advance Payment //</h6>
-                <h1 class="mb-5">Easily Manage Advance Payments</h1>
+            <div class="text-center">
+                <h6 class="text-danger text-uppercase">@lang('messages.easily_manage_advance_payments')</h6>
+                <h1>@lang('messages.about_service') </h1>
+                <p style="text-align: justify;" class="my-4">@lang('messages.about_payment') </p>
             </div>
             <div class="row g-4">
                 <!-- Card 1 -->
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-4 col-md-6">
                     <div class="d-flex bg-light py-5 px-4">
                         <i class="fa fa-wallet fa-3x text-primary flex-shrink-0"></i>
                         <div class="ps-4">
-                            <h5 class="mb-3">Flexible Plans</h5>
-                            <p>Choose the advance payment plan that best fits your needs and budget.</p>
-                            <a class="text-secondary border-bottom" href="">Learn More</a>
+                            <h5 class="mb-3"> @lang('messages.flexible_plans')</h5>
+                            <p> @lang('messages.choose_advance_payment_plan')</p>
+                            <a class="text-secondary border-bottom" href=""> @lang('messages.learn_more')</a>
                         </div>
                     </div>
                 </div>
                 <!-- Card 2 -->
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="col-lg-4 col-md-6">
                     <div class="d-flex bg-light py-5 px-4">
                         <i class="fa fa-shield-alt fa-3x text-primary flex-shrink-0"></i>
                         <div class="ps-4">
-                            <h5 class="mb-3">Secure Transactions</h5>
-                            <p>Your advance payments are protected with industry-standard security.</p>
-                            <a class="text-secondary border-bottom" href="">Read More</a>
+                            <h5 class="mb-3">@lang('messages.secure_transactions')</h5>
+                            <p>@lang('messages.your_advance_payments_protected').</p>
+                            <a class="text-secondary border-bottom" href=""> @lang('messages.learn_more')</a>
                         </div>
                     </div>
                 </div>
                 <!-- Card 3 -->
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="col-lg-4 col-md-6">
                     <div class="d-flex bg-light py-5 px-4">
                         <i class="fa fa-check-circle fa-3x text-primary flex-shrink-0"></i>
                         <div class="ps-4">
-                            <h5 class="mb-3">Instant Approvals</h5>
-                            <p>Receive quick approvals to make your advance payments hassle-free.</p>
-                            <a class="text-secondary border-bottom" href="">Explore More</a>
+                            <h5 class="mb-3"> @lang('messages.instant_approvals')</h5>
+                            <p> @lang('messages.receive_quick_approvals')</p>
+                            <a class="text-secondary border-bottom" href=""> @lang('messages.learn_more')</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Advance Payment Section End -->
+
 
     <div class="container-xxl py-5" id="about">
         <div class="container">
             <div class="row g-5">
                 <!-- Image Section -->
                 <div class="col-lg-6 pt-4">
-                    <div class="position-relative wow fadeIn" data-wow-delay="0.1s" style="height: 600px;">
+                    <div class="position-relative" style="height: 600px;">
                         <img class="position-absolute img-fluid w-100 h-100" src="images/W3.png"
                              alt="Advance Payment" style="object-fit: contain;">
                     </div>
                 </div>
                 <!-- Content Section -->
                 <div class="col-lg-6">
-                    <h6 class="text-primary text-uppercase">// How It Works //</h6>
-                    <h1 class="mb-4"><span class="text-primary">Advance Purchase</span> Made Simple</h1>
-                    <p class="mb-4">Our platform allows you to purchase home appliances in advance by making small payments over time. Follow these simple steps to get started:</p>
+                    <h1 class="mb-4"><span class="text-primary"> @lang('messages.advance_purchase_made_simple')</h1>
+                    <p class="mb-4"> @lang('messages.platform_allows_purchase')</p>
 
                     <div class="row g-4 mb-3 pb-3">
                         <!-- Step 1 -->
-                        <div class="col-12 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="col-12 ">
                             <div class="d-flex">
                                 <div class="bg-light d-flex flex-shrink-0 align-items-center justify-content-center mt-1" style="width: 45px; height: 45px;">
                                     <span class="fw-bold text-secondary">01</span>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>Register & Create an Account</h6>
-                                    <span>Sign up and verify your account to access your personalized dashboard.</span>
+                                    <h6>@lang('messages.register_create_account')</h6>
+                                    <span>@lang('messages.sign_up_verify_account').</span>
                                 </div>
                             </div>
                         </div>
                         <!-- Step 2 -->
-                        <div class="col-12 wow fadeIn" data-wow-delay="0.3s">
+                        <div class="col-12">
                             <div class="d-flex">
                                 <div class="bg-light d-flex flex-shrink-0 align-items-center justify-content-center mt-1" style="width: 45px; height: 45px;">
                                     <span class="fw-bold text-secondary">02</span>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>Choose Your Product</h6>
-                                    <span>Browse and select the home appliance you wish to purchase.</span>
+                                    <h6>@lang('messages.choose_your_product')</h6>
+                                    <span>@lang('messages.browse_select_appliance').</span>
                                 </div>
                             </div>
                         </div>
                         <!-- Step 3 -->
-                        <div class="col-12 wow fadeIn" data-wow-delay="0.5s">
+                        <div class="col-12">
                             <div class="d-flex">
                                 <div class="bg-light d-flex flex-shrink-0 align-items-center justify-content-center mt-1" style="width: 45px; height: 45px;">
                                     <span class="fw-bold text-secondary">03</span>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>Start Making Payments</h6>
-                                    <span>Deposit any amount at any time towards your selected product.</span>
+                                    <h6>@lang('messages.start_making_payments')</h6>
+                                    <span>@lang('messages.deposit_any_amount').</span>
                                 </div>
                             </div>
                         </div>
                         <!-- Step 4 -->
-                        <div class="col-12 wow fadeIn" data-wow-delay="0.7s">
+                        <div class="col-12">
                             <div class="d-flex">
                                 <div class="bg-light d-flex flex-shrink-0 align-items-center justify-content-center mt-1" style="width: 45px; height: 45px;">
                                     <span class="fw-bold text-secondary">04</span>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>Track Your Progress</h6>
-                                    <span>Monitor your payments, see your loan status, and track your remaining balance.</span>
+                                    <h6>@lang('messages.track_your_progress')</h6>
+                                    <span>@lang('messages.monitor_payments_loan_status').</span>
                                 </div>
                             </div>
                         </div>
                         <!-- Step 5 -->
-                        <div class="col-12 wow fadeIn" data-wow-delay="0.9s">
+                        <div class="col-12">
                             <div class="d-flex">
                                 <div class="bg-light d-flex flex-shrink-0 align-items-center justify-content-center mt-1" style="width: 45px; height: 45px;">
                                     <span class="fw-bold text-secondary">05</span>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>Complete Payment & Receive Your Product</h6>
-                                    <span>Once fully paid, your item will be delivered to you.</span>
+                                    <h6>@lang('messages.complete_payment_receive_product')</h6>
+                                    <span>@lang('messages.nce_fully_paid_delivered').</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-
-                    <a href="" class="btn btn-primary py-3 px-5">Get Started<i class="fa fa-arrow-right ms-3"></i></a>
+                    <a href="{{ url('/register') }}" class="btn btn-primary py-3 px-5">@lang('messages.get_started')<i class="fa fa-arrow-right ms-3"></i></a>
                 </div>
             </div>
         </div>
@@ -298,25 +292,25 @@
     <div class="container-fluid fact bg-dark  py-5">
         <div class="container">
             <div class="row g-4">
-                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
+                <div class="col-md-6 col-lg-3 text-center">
                     <i class="fa fa-check fa-2x text-white mb-3"></i>
                     <h2 class="text-white mb-2" data-toggle="counter-up">20</h2>
-                    <p class="text-white mb-0">Years Experience</p>
+                    <p class="text-white mb-0">@lang('messages.years_experience')</p>
                 </div>
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
                     <i class="fa fa-users-cog fa-2x text-white mb-3"></i>
                     <h2 class="text-white mb-2" data-toggle="counter-up">320</h2>
-                    <p class="text-white mb-0">Experts</p>
+                    <p class="text-white mb-0">@lang('messages.experts')</p>
                 </div>
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
                     <i class="fa fa-users fa-2x text-white mb-3"></i>
                     <h2 class="text-white mb-2" data-toggle="counter-up">8</h2>
-                    <p class="text-white mb-0">Patnership</p>
+                    <p class="text-white mb-0">@lang('messages.partnership')</p>
                 </div>
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
                     <i class="fa fa-product fa-2x text-white mb-3"></i>
                     <h2 class="text-white mb-2" data-toggle="counter-up">500</h2>
-                    <p class="text-white mb-0">Products</p>
+                    <p class="text-white mb-0">@lang('messages.products')</p>
                 </div>
             </div>
         </div>
@@ -324,28 +318,27 @@
 
     <div class="container-xxl service py-5">
         <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-
-                <h1 class="mb-5">Why Choose Us?</h1>
+            <div class="text-center">
+                <h1 class="mb-5">@lang('messages.why_choose_us')?</h1>
             </div>
-            <div class="row g-4 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="row g-4">
                 <div class="col-lg-4">
                     <div class="nav w-100 nav-pills me-4">
                         <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4 active" data-bs-toggle="pill" data-bs-target="#tab-pane-1" type="button">
-                            <i class="fa fa-warret fa-2x me-3"></i>
-                            <h4 class="m-0">Flexible Payments</h4>
+                            <i class="fa fa-wallet fa-2x me-3"></i>
+                            <h4 class="m-0">@lang('messages.flexible_payments')</h4>
                         </button>
                         <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-2" type="button">
-                            <i class="fa fa-layer fa-2x me-3"></i>
-                            <h4 class="m-0">Transparent Tracking</h4>
+                            <i class="fa fa-eye fa-2x me-3"></i>
+                            <h4 class="m-0">@lang('messages.transparent_tracking')</h4>
                         </button>
                         <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-3" type="button">
-                            <i class="fa fa- fa-2x me-3"></i>
-                            <h4 class="m-0">Secure Transactions</h4>
+                            <i class="fa fa-lock fa-2x me-3"></i>
+                            <h4 class="m-0">@lang('messages.secure_transactions')</h4>
                         </button>
                         <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-0" data-bs-toggle="pill" data-bs-target="#tab-pane-4" type="button">
-                            <i class="fa fa- fa-2x me-3"></i>
-                            <h4 class="m-0">Quick Approvals</h4>
+                            <i class="fa fa-bolt fa-2x me-3"></i>
+                            <h4 class="m-0">@lang('messages.quick_approvals')</h4>
                         </button>
                     </div>
                 </div>
@@ -355,18 +348,15 @@
                             <div class="row g-4">
                                 <div class="col-md-6" style="min-height: 350px;">
                                     <div class="position-relative h-100">
-                                        <img class="position-absolute img-fluid w-100 h-100" src="front-end/img/wm.png"
-                                            style="object-fit: cover;" alt="">
+                                        <img class="position-absolute img-fluid w-100 h-100" src="front-end/img/wm.png" style="object-fit: cover;" alt="">
                                     </div>
                                 </div>
-
                                 <div class="col-md-6">
-                                    <h3 class="mb-3">Flexible Payments.</h3>
-                                    <p class="mb-4">Pay at your own pace.</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Quality Servicing</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Expert Workers</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Modern Equipment</p>
-
+                                    <h3 class="mb-3">@lang('messages.flexible_payments')</h3>
+                                    <p class="mb-4">@lang('messages.pay_at_your_own_pace')</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>@lang('messages.multiple_installment_plans')</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>@lang('messages.no_hidden_fees')</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>@lang('messages.easy_online_payments')</p>
                                 </div>
                             </div>
                         </div>
@@ -374,17 +364,15 @@
                             <div class="row g-4">
                                 <div class="col-md-6" style="min-height: 350px;">
                                     <div class="position-relative h-100">
-                                        <img class="position-absolute img-fluid w-100 h-100" src="front-end/img/carousel-2.png"
-                                            style="object-fit: cover;" alt="">
+                                        <img class="position-absolute img-fluid w-100 h-100" src="front-end/img/carousel-2.png" style="object-fit: cover;" alt="">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <h3 class="mb-3">Transparent Tracking</h3>
-                                    <p class="mb-4">Real-time updates on payments.</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Quality Servicing</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Expert Workers</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Modern Equipment</p>
-
+                                    <h3 class="mb-3">@lang('messages.transparent_tracking')</h3>
+                                    <p class="mb-4">@lang('messages.get_real_time_updates')</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>@lang('messages.live_transaction_tracking')</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>@lang('messages.instant_notifications')</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>@lang('messages.detailed_reports')</p>
                                 </div>
                             </div>
                         </div>
@@ -392,17 +380,15 @@
                             <div class="row g-4">
                                 <div class="col-md-6" style="min-height: 350px;">
                                     <div class="position-relative h-100">
-                                        <img class="position-absolute img-fluid w-100 h-100" src="front-end/img/airfly.png"
-                                            style="object-fit: cover;" alt="">
+                                        <img class="position-absolute img-fluid w-100 h-100" src="front-end/img/airfly.png" style="object-fit: cover;" alt="">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <h3 class="mb-3">Secure Transaction</h3>
-                                    <p class="mb-4"> Your deposits are safe and encrypted</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Quality Servicing</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Expert Workers</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Modern Equipment</p>
-
+                                    <h3 class="mb-3">@lang('messages.secure_transactions')</h3>
+                                    <p class="mb-4">@lang('messages.transactions_encrypted_safeguarded')</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>@lang('messages.advanced_encryption')</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>@lang('messages.fraud_detection_system')</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>@lang('messages.safe_secure_payments')</p>
                                 </div>
                             </div>
                         </div>
@@ -410,17 +396,15 @@
                             <div class="row g-4">
                                 <div class="col-md-6" style="min-height: 350px;">
                                     <div class="position-relative h-100">
-                                        <img class="position-absolute img-fluid w-100 h-100" src="front-end/img/carousel-1.png"
-                                            style="object-fit: cover;" alt="">
+                                        <img class="position-absolute img-fluid w-100 h-100" src="front-end/img/carousel-1.png" style="object-fit: cover;" alt="">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <h3 class="mb-3">Quick Approvals</h3>
-                                    <p class="mb-4"> Get your item as soon as full payment is made.</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Quality Servicing</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Expert Workers</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Modern Equipment</p>
-
+                                    <h3 class="mb-3">@lang('messages.quick_approvals')</h3>
+                                    <p class="mb-4">@lang('messages.get_approvals_faster')</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>@lang('messages.instant_verification')</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>@lang('messages.minimal_documentation')</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>@lang('messages.fast_processing_time')</p>
                                 </div>
                             </div>
                         </div>
@@ -438,24 +422,23 @@
         </iframe>
     </section>
 
-
-
-
-
-    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center">
-                <h6 class="text-danger text-uppercase"> Highlights </h6>
-                <h1 class="mb-5">Products Showcase</h1>
+                {{-- <h6 class="text-danger text-uppercase"> Highlights </h6> --}}
+                <h1 class="mb-5">@lang('messages.products_showcase')</h1>
             </div>
+            @foreach ($products as $product)
             <div class="owl-carousel testimonial-carousel position-relative">
-                <div class="testimonial-item text-center">
-                    <img class="bg-light p-2 mx-auto mb-3" src="front-end/img/airfly.png">
-                    <h5 class="mb-0">Client Name</h5>
-                    <p>Profession</p>
+                <div class="testimonial-item text-center bg-light p-3">
+                    <img src="{{ $product->productImages->isEmpty() ? 'default.jpg' : $product->productImages->first()->image_url }}" alt="{{ $product->name }}" class="mb-3">
+                    <h5 class="mb-0">TZS {{ number_format($product->sales, 0, '.', ',') }}/=</h5>
+                    <p>{{ $product->item_name }}</p>
                 </div>
-
             </div>
+        @endforeach
+
+
         </div>
     </div>
 

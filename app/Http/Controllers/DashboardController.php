@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Advance;
 use App\Models\Application;
 use App\Models\Bank;
+use App\Models\Item;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -13,10 +14,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
+
+    public function welcome(){
+        $products = Cache::remember('random_products', 3600, function () {
+            return Item::with(['productImages' => function ($query) {
+                $query->orderBy('id')->limit(1); // Get only the first image
+            }])
+            ->inRandomOrder()
+            ->limit(10)
+            ->get();
+        });
+
+        return view('welcome', compact('products'));
+    }
+
+
     public function home()
     {
 
@@ -41,7 +58,7 @@ class DashboardController extends Controller
         } else {
 
             redirect()->back()->with('status', "You're not authorized");
-            
+
         }
     }
 

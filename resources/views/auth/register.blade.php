@@ -42,7 +42,7 @@
                 <h1 class="display-3 text-white mb-3 ">@lang('messages.application_form')</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center text-uppercase">
-                        <li class="breadcrumb-item"><a href="#">@lang('messages.home')</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="text-danger">@lang('messages.home')</a></li>
                         <li class="breadcrumb-item text-white active" aria-current="page">@lang('messages.application_form')</li>
                     </ol>
                 </nav>
@@ -100,7 +100,7 @@
                             <!-- City -->
                             <div class="col-12 col-sm-6">
                                 <select name="city" class="form-select border-0" style="height: 55px;" required>
-                                    <option value="">@lang('messages.select_city')</option>
+                                    <option value="">--@lang('messages.select_city')--</option>
                                     @foreach ($cities as $city)
                                     <option value="{{ $city->city_name }}">{{ $city->city_name }}</option>
                                     @endforeach
@@ -109,7 +109,7 @@
                             <!-- District -->
                             <div class="col-12 col-sm-6">
                                 <select name="district" class="form-select border-0" style="height: 55px;" required>
-                                    <option value="">@lang('messages.select_district')</option>
+                                    <option value="">--@lang('messages.select_district')--</option>
                                     @foreach ($districts as $district)
                                     <option value="{{ $district->region_name }}">{{ $district->region_name }}</option>
                                     @endforeach
@@ -118,7 +118,7 @@
                             <!-- Ward -->
                             <div class="col-12 col-sm-6">
                                 <select name="ward" class="form-select border-0" style="height: 55px;" required>
-                                    <option value="">@lang('messages.select_ward')</option>
+                                    <option value="">--@lang('messages.select_ward')--</option>
                                     @foreach ($wards as $ward)
                                     <option value="{{ $ward->ward_name }}">{{ $ward->ward_name }}</option>
                                     @endforeach
@@ -138,9 +138,9 @@
                             <div class="col-12 col-sm-6">
                                 <select name="gender" class="form-select border-0" value="{{ old('gender') }}" style="height: 55px;"
                                     required>
-                                    <option selected>@lang('messages.select_gender')</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
+                                    <option selected>--@lang('messages.select_gender')--</option>
+                                    <option value="male">@lang('messages.male')</option>
+                                    <option value="female">@lang('messages.female')</option>
                                 </select>
                             </div>
                             <div class="col-12 col-sm-6" id="birth_date">
@@ -150,16 +150,16 @@
                             <!-- ID Selection -->
                             <div class="col-12 col-sm-6">
                                 <select name="id_type" class="form-select border-0" id="idTypeSelect" style="height: 55px;">
-                                    <option selected value="">@lang('messages.select_id_type')</option>
-                                    <option value="driver_license">Driver's License</option>
-                                    <option value="national_id">National ID</option>
-                                    <option value="passport">Passport</option>
+                                    <option selected value="">--@lang('messages.select_id_type')--</option>
+                                    <option value="driver_license">@lang('messages.driver')</option>
+                                    <option value="national_id">@lang('messages.national_id')</option>
+                                    <option value="passport">@lang('messages.password')</option>
                                 </select>
                             </div>
 
                             <!-- Dynamic ID Inputs -->
                             <div class="col-12 col-sm-6" id="idNumberField" style="display: none;">
-                                <input type="text" name="id_number" class="form-control border-0" placeholder="ID Number"
+                                <input type="text" name="id_number" class="form-control border-0" placeholder="@lang('messages.id_number')"
                                     style="height: 55px;">
                             </div>
                             <div class="col-12 col-sm-6" id="idAttachmentField" style="display: none;">
@@ -170,19 +170,19 @@
                             <div class="col-12 col-sm-6">
                                 <select name="employment_status" class="form-select border-0" id="employmentStatusSelect"
                                     style="height: 55px;">
-                                    <option selected value="">@lang('messages.select_employment_status')</option>
-                                    <option value="Employed">Employed</option>
-                                    <option value="Self-Employed">Self-Employed</option>
-                                    <option value="Unemployed">Unemployed</option>
+                                    <option selected value="">--@lang('messages.select_employment_status')--</option>
+                                    <option value="Employed">@lang('messages.employed')</option>
+                                    <option value="Self-Employed">@lang('messages.self_employed')</option>
+                                    <option value="Unemployed">@lang('messages.unemployed')</option>
                                 </select>
                             </div>
                             <!-- Dynamic Employment Inputs -->
                             <div class="col-12 col-sm-6" id="occupationField" style="display: none;">
-                                <input type="text" name="occupation" class="form-control border-0" placeholder="Occupation"
+                                <input type="text" name="occupation" class="form-control border-0" placeholder="@lang('messages.occupation')"
                                     style="height: 55px;">
                             </div>
                             <div class="col-12 col-sm-6" id="organizationField" style="display: none;">
-                                <input type="text" name="organization" class="form-control border-0" placeholder="Organization"
+                                <input type="text" name="organization" class="form-control border-0" placeholder="@lang('messages.organization')"
                                     style="height: 55px;">
                             </div>
 
@@ -217,16 +217,18 @@
                                 </div>
                             </div>
 
-
                             <!-- Submit Button -->
-                            <div class="col-12">
+                            <div class="col-12 mt-4">
                                 <button class="btn bg-primary w-100 py-3 text-white" type="submit">@lang('messages.submit')</button>
                             </div>
+                            <div class="text-center mt-3">
+                                <a href="{{ url('/login') }}" class="text-danger">@lang('messages.have_account')</a>
+                            </div>
+
                         </div>
                     </form>
 
                     <script>
-
                         document.getElementById('idTypeSelect').addEventListener('change', function () {
                             const idNumberField = document.getElementById('idNumberField');
                             const idAttachmentField = document.getElementById('idAttachmentField');
