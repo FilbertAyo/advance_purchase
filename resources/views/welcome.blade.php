@@ -129,7 +129,7 @@
                         <div class="container">
                             <div class="row align-items-center justify-content-center justify-content-lg-start">
                                 <div class="col-10 col-lg-7 text-center text-lg-start">
-                                    <h6 class="text-white text-uppercase mb-3 animated slideInDown">// AIR FLYER //
+                                    <h6 class="text-white text-uppercase mb-3 animated slideInDown">// AIR FRYER //
                                     </h6>
                                     <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">@lang('messages.advance_payment_installment_scheme')</h1>
                                     <a href="{{ url('/register') }}"

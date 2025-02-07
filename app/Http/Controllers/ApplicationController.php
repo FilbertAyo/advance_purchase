@@ -18,7 +18,7 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $application = Application::orderBy('id', 'desc')->where('status','active')->get();
+        $application = Application::orderBy('id', 'desc')->where('status', 'active')->get();
 
         $user = User::where('userType', 0)->get();
         $items = Item::all();
@@ -101,7 +101,6 @@ class ApplicationController extends Controller
         }
 
         return redirect()->back()->with('success', 'Application sent successfully');
-
     }
 
 
@@ -111,7 +110,7 @@ class ApplicationController extends Controller
     public function show(string $id)
     {
 
-        $application = Application::findOrFail($id);
+        $application = Application::with('user.profile')->findOrFail($id);
 
         //retrive the records of advance from the database
         $advances = Advance::where('application_id', $application->id)->get();
@@ -162,21 +161,21 @@ class ApplicationController extends Controller
     }
 
     public function updateSerialNo(Request $request, $id)
-{
-    // Validate the incoming request data
-    $request->validate([
-        'serial_number' => 'required|string|max:255',
-    ]);
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'serial_number' => 'required|string|max:255',
+        ]);
 
-    // Find the application by ID
-    $application = Application::findOrFail($id);
+        // Find the application by ID
+        $application = Application::findOrFail($id);
 
-    // Update the serial number
-    $application->serial_number = $request->serial_number;
-    $application->save();
+        // Update the serial number
+        $application->serial_number = $request->serial_number;
+        $application->save();
 
-    return redirect()->route('application.show', $id)->with('success', 'Application Serial Number of the product updated successfully.');
-}
+        return redirect()->route('application.show', $id)->with('success', 'Application Serial Number of the product updated successfully.');
+    }
 
 
     /**
@@ -201,12 +200,12 @@ class ApplicationController extends Controller
         $application = Application::findOrFail($id);
         $banks = Bank::where('status', 'Active')->get();
 
-        return view('customer.cust_details', compact('application','banks'));
+        return view('customer.cust_details', compact('application', 'banks'));
     }
 
     public function inactive()
     {
-        $application = Application::orderBy('id', 'desc')->where('status','inactive')->get();
+        $application = Application::orderBy('id', 'desc')->where('status', 'inactive')->get();
 
         $user = User::where('userType', 0)->get();
         $items = Item::all();
@@ -227,6 +226,4 @@ class ApplicationController extends Controller
             return redirect()->back()->with('error', 'An error occurred while activating the application.');
         }
     }
-
-
 }

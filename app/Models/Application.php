@@ -16,6 +16,13 @@ class Application extends Model
         'serial_number',
         'paid_amount',
         'outstanding',
-        'created_by'
+        'created_by',
+        'status',
+        'delivery_status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'customer_id', 'id'); 
+    }
 }

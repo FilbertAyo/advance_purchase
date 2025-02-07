@@ -38,7 +38,7 @@
         {{-- @include('elements.toast') --}}
         @include('layouts.aside')
 
-@If(Auth::user()->status == 'active' )
+     @If(Auth::user()->status == 'active' )
         <main role="main" class="main-content">
                 {{ $slot }}
         </main> <!-- main -->

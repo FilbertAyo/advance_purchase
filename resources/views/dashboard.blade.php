@@ -81,21 +81,44 @@
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-3 text-center">
-                                                <span class="circle circle-sm bg-primary">
+                                                <span class="circle circle-sm bg-danger">
                                                     <i class="fe fe-16 fe-activity text-white mb-0"></i>
                                                 </span>
                                             </div>
                                             <div class="col">
-                                                <p class="small text-muted mb-0">Fully Paid Loan</p>
-                                                <span class="h3 mb-0">0</span>
+                                                <p class="small text-muted mb-0">New Application</p>
+                                                <span class="h3 mb-0">{{ $newApplicationNo }}</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-body">
+                                    <div class="py-3 text-center">
+                                        <p class="text-muted mb-2">Total Application</p>
+                                        <h2 class="mb-1">{{ $totalApplication }}</h2>
+                                      </div>
+                                  <div class="row items-align-center">
+                                    <div class="col-4 text-center">
+                                      <p class="mb-1 text-danger">Pending</p>
+                                      <h5 class="mb-1 text-danger">{{ $newApplicationNo }}</h5>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                      <p class="text-muted mb-1">Active</p>
+                                      <h5 class="mb-1">{{ $activeApplicationNo }}</h5>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                      <p class="text-muted mb-1">Full Paid</p>
+                                      <h5 class="mb-1">{{ $fullPaidNo }}</h5>
+                                    </div>
+                                  </div>
+                                </div> <!-- .card-body -->
+                              </div>
+                            </div>
+
                         </div> <!-- end section -->
-
-
                     </div> <!-- .col-12 -->
                 </div> <!-- .row -->
             </div> <!-- .container-fluid -->

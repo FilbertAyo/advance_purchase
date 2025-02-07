@@ -31,7 +31,7 @@
                       <a class="float-right small text-muted" href="#!">View all</a>
                     </div>
                     <div class="card-body">
-                      <table class="table table-hover table-borderless table-striped mt-n3 mb-n1">
+                      <table class="table table-hover table-bordered table-striped mt-n3 mb-n1">
                         <thead>
                           <tr>
                             <th>No</th>

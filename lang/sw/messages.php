@@ -106,6 +106,6 @@ return [
     'minimal_documentation' => 'Hati chache zinazohitajika',
     'fast_processing_time' => 'Muda mfupi wa uchakataji',
     'products_showcase' => 'Maonyesho ya Bidhaa',
-    'about_payment' => 'Mar Communications LTD inatoa huduma ya malipo ya awali, ikikuruhusu kuchagua bidhaa na kulipa kwa vipengele vidogo, vinavyoweza kudhibitiwa. Mara tu unapomaliza malipo yako, bidhaa itakufikia. Chaguo hili la malipo linaloweza kubadilika linakuwezesha kupata bidhaa unazohitaji bila mzigo wa kulipa kwa mara moja. Fuata maendeleo ya malipo yako, na mara bidhaa itakapolipwa kikamilifu, utaendelea kufurahia huduma hii na kuomba bidhaa zaidi kwa mpango huo huo wa malipo rahisi.',
+    'about_payment' => 'Mars Communications LTD inatoa huduma ya malipo ya awali, ikikuruhusu kuchagua bidhaa na kulipa kwa vipengele vidogo, vinavyoweza kudhibitiwa. Mara tu unapomaliza malipo yako, bidhaa itakufikia. Chaguo hili la malipo linaloweza kubadilika linakuwezesha kupata bidhaa unazohitaji bila mzigo wa kulipa kwa mara moja. Fuata maendeleo ya malipo yako, na mara bidhaa itakapolipwa kikamilifu, utaendelea kufurahia huduma hii na kuomba bidhaa zaidi kwa mpango huo huo wa malipo rahisi.',
 'about_service' => 'Kuhusu Huduma',
 ];

@@ -106,6 +106,6 @@ return [
     'minimal_documentation' => 'Minimal documentation',
     'fast_processing_time' => 'Fast processing time',
     'products_showcase' => 'Products Showcase',
-    'about_payment'=> 'Mar Communications LTD offers the advanced payment service, allowing you to choose a product and pay in small, manageable installments. Once you\'ve completed your payments, the product will be delivered to you. This flexible payment option makes it easier for you to get the products you need without the burden of paying in full upfront. Simply track your payment progress, and once a product is fully paid for, you can continue enjoying the service and apply for more products with the same convenient payment plan.',
+    'about_payment'=> 'Mars Communications LTD offers the advanced payment service, allowing you to choose a product and pay in small, manageable installments. Once you\'ve completed your payments, the product will be delivered to you. This flexible payment option makes it easier for you to get the products you need without the burden of paying in full upfront. Simply track your payment progress, and once a product is fully paid for, you can continue enjoying the service and apply for more products with the same convenient payment plan.',
     'about_service' => 'About the service',
 ];

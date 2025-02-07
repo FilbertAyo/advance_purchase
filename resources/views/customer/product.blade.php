@@ -27,16 +27,16 @@
                         <div class="col-6 col-md-4 col-lg-3 mb-3">
                             <div class="card border-0 bg-transparent py-3">
                                 <!-- Show only the first image -->
-                                @if ($product->productImages->count() > 0)
-                                    <img src="{{ asset($product->productImages->first()->image_url) }}" alt="..."
+                                @if ($product->productImages)
+                                <img src="{{ optional($product->productImages->first())->image_url ?? asset('images/no-image.jpg') }}" alt="..."
                                         class="card-img-top img-fluid rounded" style="height: 300px;">
                                 @endif
 
                                 <div class="card-body" style="background-color: #ededed;">
-                                    <h5 class="h4 card-title mb-1">{{ $product->item_name }}</h5>
+                                    <h5 class="h4 card-title mb-1 text-muted">{{ $product->item_name }}</h5>
                                     <h6 class="text-secondary"> Model: {{ $product->code }} , {{ $product->brand }}</h6>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted">TZS {{ number_format($product->sales) }}/=</span>
+                                        <h5 class="fw-bold">TZS {{ number_format($product->sales) }}/=</h5>
                                         <!-- Form to post product data -->
                                         <button type="button" class="btn btn-primary" data-toggle="modal"
                                             data-target="#buyModal-{{ $product->id }}">
@@ -46,8 +46,6 @@
                                 </div>
                             </div>
                         </div>
-
-
 
                         <div class="modal fade" id="buyModal-{{ $product->id }}" tabindex="-1" role="dialog"
                             aria-labelledby="buyModalLabel" aria-hidden="true">
@@ -68,7 +66,7 @@
                                                     <div class="carousel-inner">
                                                         @foreach ($product->productImages as $index => $image)
                                                             <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                                                <img src="{{ asset($image->image_url) }}" alt="..."
+                                                                <img src="{{ asset($image->image_url) }} " alt="..."
                                                                     class="d-block w-100 img-thumbnail"
                                                                     style="cursor: pointer;"
                                                                     onclick="changeImage('{{ asset($image->image_url) }}', {{ $product->id }})">

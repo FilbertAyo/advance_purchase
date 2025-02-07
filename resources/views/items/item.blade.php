@@ -56,7 +56,7 @@
                         <div class="card shadow">
                             <div class="card-body">
                                 <!-- table -->
-                                <table class="table datatables" id="dataTable-1">
+                                <table class="table table-bordered" id="dataTable-1">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -231,7 +231,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
 
                         <div class="form-group mb-3">

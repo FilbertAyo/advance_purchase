@@ -39,12 +39,13 @@
                     <div class="col-auto">
                         <div class="form-group">
                             @if(Auth::user()->userType == 1 || Auth::user()->userType ==2)
-                            <button type="button" class="btn mb-2 btn-primary" data-toggle="modal"
+                            <button type="button" class="btn mb-2 btn-primary btn-sm" data-toggle="modal"
                                 data-target=".modal-full">New Application<span
                                     class="fe fe-plus fe-16 ml-2"></span></button>
                                     @else
-                                    <button onclick="showSweetAlert()" class="btn mb-2 btn-primary">New Application<span
-                                    class="fe fe-plus fe-16 ml-2"></span></button>
+                                    <button class="btn mb-2 btn-primary btn-sm permission-alert">New Application<span
+                                        class="fe fe-plus fe-16 ml-2"></span></button>
+
                                     @endif
                         </div>
 
@@ -58,7 +59,7 @@
                         <div class="card shadow">
                             <div class="card-body">
                                 <!-- table -->
-                                <table class="table datatables" id="dataTable-1">
+                                <table class="table table-bordered" id="dataTable-1">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -129,7 +130,7 @@
                                             @endforeach
                                         @else
                                             <tr>
-                                                <td colspan="9" class="text-center">No Item found</td>
+                                                <td colspan="9" class="text-center">No Application found</td>
                                             </tr>
                                         @endif
 
@@ -137,7 +138,7 @@
                                 </table>
                             </div>
                         </div>
-                    </div> <!-- simple table -->
+                    </div>
 
                 </div> <!-- end section -->
             </div> <!-- .col-12 -->

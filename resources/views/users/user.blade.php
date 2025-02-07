@@ -56,11 +56,12 @@
 
                                                         @if($user->userType == 1)
                                                         Super User
-
                                                         @elseif($user->userType == 2)
                                                         Admin
                                                         @elseif($user->userType == 3)
                                                         Cashier
+                                                        @elseif($user->userType == 4)
+                                                       Delivery
                                                         @endif
 
                                                     </span>
@@ -208,6 +209,7 @@
                                              <option value="1">SuperUser</option>
                                              <option value="2">Admin</option>
                                              <option value="3">Cashier</option>
+                                             <option value="4">Delivery</option>
                                          </optgroup>
                                      </select>
                                      <div class="invalid-feedback"> Please select a valid state. </div>

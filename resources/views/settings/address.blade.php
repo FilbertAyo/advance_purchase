@@ -66,7 +66,7 @@
                         <div class="card shadow">
                             <div class="card-body">
                                 <!-- table -->
-                                <table class="table datatables" id="dataTable-1">
+                                <table class="table table-bordered" id="dataTable-1">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -150,7 +150,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="editCityModal{{ $city->id }}" tabindex="-1" role="dialog" aria-labelledby="editCityModalLabel{{ $city->id }}" aria-hidden="true">
+    {{-- <div class="modal fade" id="editCityModal{{ $city->id }}" tabindex="-1" role="dialog" aria-labelledby="editCityModalLabel{{ $city->id }}" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -178,6 +178,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 </x-app-layout>

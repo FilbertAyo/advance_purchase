@@ -45,7 +45,7 @@ class DashboardController extends Controller
             $applications = Application::where('customer_id', $customerId)->get();
             return view('customer.customer', compact('applications'));
 
-        } elseif ($userType == '1' || $userType == '2' || $userType == '3') {
+        } elseif ($userType == '1' || $userType == '2' || $userType == '3' || $userType == '4') {
 
             $collection = Advance::all()->sum('added_amount');
             $customerNo = User::where('userType', 0)->count();
@@ -53,7 +53,13 @@ class DashboardController extends Controller
                 ->where('status', 'active')
                 ->count();
             $adminNo = User::whereIn('userType', [1, 2, 3])->count();
-            return view('dashboard', compact('adminNo', 'customerNo', 'collection','activeCustomer'));
+
+            $totalApplication = Application::all()->count();
+            $newApplicationNo = Application::where('status','inactive')->count();
+            $activeApplicationNo = Application::where('status','active')->count();
+            $fullPaidNo = Application::where('outstanding',0)->count();
+
+            return view('dashboard', compact('adminNo', 'customerNo', 'collection','activeCustomer','newApplicationNo', 'totalApplication','activeApplicationNo','fullPaidNo'));
 
         } else {
 
@@ -64,7 +70,7 @@ class DashboardController extends Controller
 
     public function user()
     {
-        $user = User::whereIn('userType', [1, 2, 3])->get();
+        $user = User::whereIn('userType', [1, 2, 3,4])->get();
 
         return view('users.user', compact('user'));
     }

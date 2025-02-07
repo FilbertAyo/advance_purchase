@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\App;
@@ -78,6 +79,9 @@ Route::get('/test', function () {
     return view('test');
 });
 
-
-
 Route::get('locale/{lang}',[LocaleController::class, 'setLocale']);
+
+Route::get('/deliveries',[DeliveryController::class,'allDelivery'])->middleware(['auth', 'verified']);
+Route::put('/delivery_update/{id}', [DeliveryController::class, 'deliveryUpdate'])->name('delivery.update')->middleware(['auth', 'verified']);
+Route::get('delivered',[DeliveryController::class,'delivered'])->middleware(['auth', 'verified']);
+Route::get('/pending_delivery',[DeliveryController::class,'deliveryPending'])->middleware(['auth', 'verified']);

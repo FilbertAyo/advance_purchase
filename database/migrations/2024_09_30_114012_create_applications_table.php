@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('outstanding');
             $table->string('created_by');
             $table->string('status')->default('inactive');
+            $table->string('delivery_status')->default('Not Delivered');
             $table->timestamps();
         });
     }
