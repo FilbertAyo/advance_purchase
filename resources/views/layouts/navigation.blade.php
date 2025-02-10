@@ -16,12 +16,7 @@
                         <span class="fe fe-grid fe-16"></span>
                     </a>
                 </li>
-                <li class="nav-item nav-notif">
-                    {{-- <a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-notif">
-                        <span class="fe fe-bell fe-16"></span>
-                        <span class="dot dot-md bg-danger"></span>
-                    </a> --}}
-                </li>
+                
                 <li class="nav-item dropdown">
                     <!-- Laravel dropdown integration -->
                     <a class="nav-link text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button"
@@ -32,15 +27,18 @@
                         <div>{{ Auth::user()->first_name }}</div> <!-- Display Laravel user's name -->
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a>
+                        <div class="dropdown-item">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</div>
 
-                        <!-- Laravel logout -->
+
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            <div class="px-3 mt-1">
+                                <a class="dropdown-item btn bg-danger text-white " href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </a>
+                            </div>
+
                         </form>
                     </div>
                 </li>

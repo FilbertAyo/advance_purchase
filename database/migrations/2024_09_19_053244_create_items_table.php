@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->String('item_name');
             $table->text('description');
-            $table->string('cost');
+            $table->string('cost')->nullable();
             $table->string('sales');
             $table->string('category');
             $table->string('brand');
             $table->string('code');
-            $table->string('expire_date');
+            $table->string('expire_date')->nullable();
             $table->string('created_by');
             $table->string('image')->nullable();
             $table->timestamps();

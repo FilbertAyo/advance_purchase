@@ -14,4 +14,10 @@ class Advance extends Model
         'outstanding',
         'updated_by'
     ];
+
+    public function application()
+    {
+        return $this->belongsTo(Application::class);
+    }
+
 }

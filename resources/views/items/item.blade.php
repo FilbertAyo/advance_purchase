@@ -169,8 +169,7 @@
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
                                 <label for="validationCustom3">Cost (Per Smallest Item Unit)</label>
-                                <input type="text" class="form-control" id="validationCustom3" name="cost"
-                                    required>
+                                <input type="text" class="form-control" id="validationCustom3" name="cost">
                                 <div class="valid-feedback"> Looks good! </div>
                             </div>
 
@@ -217,8 +216,7 @@
 
                         </div>
 
-
-                        <div class="form-row mb-3">
+{{--                    <div class="form-row mb-3">
 
                             <div class="col-md-6 mb-3">
                                 <label for="date-input1">Expire date</label>
@@ -231,7 +229,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group mb-3">
                             <label for="validationTextarea1">Item description</label>

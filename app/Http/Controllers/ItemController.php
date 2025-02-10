@@ -35,12 +35,10 @@ class ItemController extends Controller
         $validated = $request->validate([
             'item_name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'cost' => 'required|numeric',
             'sales' => 'required|numeric',
             'category' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
             'code' => 'nullable|string|max:100',
-            'expire_date' => 'nullable|date',
             'created_by' => 'required|string|max:255',
         ]);
 
@@ -148,13 +146,29 @@ class ItemController extends Controller
         return redirect()->back()->with('success', 'Item deleted successfully');
     }
 
+
     public function product(Request $request)
     {
-        $category = $request->get('category'); // Get the category from the request
-        $products = Item::when($category, function ($query, $category) {
-            return $query->where('category', $category); // Filter by category if provided
-        })->get();
+        $category = $request->get('category');
+        $query = $request->get('query');
 
-        return view('customer.product', compact('products', 'category'));
+        // Get all products (for category filtering)
+        $allProducts = Item::all();
+
+        // Filter products based on category and search query
+        $products = Item::when($category, function ($queryBuilder, $category) {
+                return $queryBuilder->where('category', $category);
+            })
+            ->when($query, function ($queryBuilder, $query) {
+                return $queryBuilder->where(function ($subQuery) use ($query) {
+                    $subQuery->where('item_name', 'LIKE', "%{$query}%")
+                             ->orWhere('code', 'LIKE', "%{$query}%")
+                             ->orWhere('brand', 'LIKE', "%{$query}%");
+                });
+            })
+            ->get();
+
+        return view('customer.product', compact('products', 'category', 'allProducts'));
     }
+
 }

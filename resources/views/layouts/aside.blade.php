@@ -124,6 +124,21 @@
                 </a>
                 <ul class="collapse list-unstyled pl-4 w-100 w-100" id="pages">
                     <li class="nav-item">
+                        <a class="nav-link pl-3" href="{{ route('report.statements') }}">
+                            <span class="ml-1 item-text">Statements</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link pl-3" href="{{ route('report.outstanding') }}">
+                            <span class="ml-1 item-text">Outstanding</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link pl-3" href="{{ route('report.paid') }}">
+                            <span class="ml-1 item-text">Full Paid</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link pl-3" href="{{ route('maintenance') }}">
                             <span class="ml-1 item-text">Detailed Report</span>
                         </a>

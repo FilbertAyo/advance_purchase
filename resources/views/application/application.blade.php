@@ -32,7 +32,7 @@
 
                         <div class="row align-items-center">
                             <div class="col">
-                                <h4 class="mb-0 page-title">Application</h4>
+                                <h4 class="mb-0 page-title">Active Application</h4>
                             </div>
                         </div>
 

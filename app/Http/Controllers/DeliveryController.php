@@ -11,7 +11,7 @@ class DeliveryController extends Controller
 {
     public function allDelivery(){
 
-        $application = Application::orderBy('id', 'desc')->where('status','active')->get();
+        $application = Application::orderBy('id', 'desc')->where('status','active')->where('outstanding',0)->get();
 
         // $user = User::where('userType', 0)->get();
         // $items = Item::all();
@@ -31,7 +31,7 @@ class DeliveryController extends Controller
 
     public function delivered()
     {
-        $application = Application::orderBy('id', 'desc')->where('status', 'active')->where('delivery_status','delivered')->get();
+        $application = Application::orderBy('id', 'desc')->where('status', 'active')->where('status','active')->where('outstanding',0)->where('delivery_status','delivered')->get();
 
         // $user = User::where('userType', 0)->get();
         // $items = Item::all();
@@ -39,7 +39,7 @@ class DeliveryController extends Controller
     }
     public function deliveryPending()
     {
-        $application = Application::orderBy('id', 'desc')->where('status', 'active')->where('delivery_status','Not Delivered')->get();
+        $application = Application::orderBy('id', 'desc')->where('status', 'active')->where('status','active')->where('outstanding',0)->where('delivery_status','Not Delivered')->get();
 
         // $user = User::where('userType', 0)->get();
         // $items = Item::all();

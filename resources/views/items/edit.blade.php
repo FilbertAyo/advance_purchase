@@ -46,7 +46,7 @@
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom3">Cost (Per Smallest Item Unit)</label>
                                             <input type="text" class="form-control" id="validationCustom3"
-                                                name="cost" value="{{ $item->cost }}" required>
+                                                name="cost" value="{{ $item->cost }}" >
                                             <div class="valid-feedback"> Looks good! </div>
                                         </div>
 
@@ -112,23 +112,7 @@
 
                                     </div>
 
-                                    <div class="form-row mb-3">
 
-
-
-                                        <div class="col-md-6 mb-3">
-                                            <label for="date-input1">Expire date</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control drgpicker" id="date-input1"
-                                                  aria-describedby="button-addon2"
-                                                    value="{{ $item->expire_date }}" name="expire_date">
-                                                <div class="input-group-append">
-                                                    <div class="input-group-text" id="button-addon-date"><span
-                                                            class="fe fe-calendar fe-16 mx-2"></span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     <button type="submit" class="btn btn-primary mt-3">Update Product</button>
                                 </form>

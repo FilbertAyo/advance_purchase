@@ -8,7 +8,9 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
     <title>Mars Communication - Samsung TV Guard</title>
-    <!-- Simple bar CSS -->
+
+    <link rel="shortcut icon" type="{{ asset('images/iconW.png') }}" href="{{ asset('images/iconW.png') }}">
+
     <link rel="stylesheet" href="{{ asset('css/simplebar.css') }}">
     <!-- Fonts CSS -->
     <link
@@ -32,8 +34,10 @@
 </head>
 
 <body class="vertical light">
-    <div class="wrapper">
 
+    @if(in_array(Auth::user()->userType, [1, 2, 3, 4]))
+
+    <div class="wrapper">
         @include('layouts.navigation')
         {{-- @include('elements.toast') --}}
         @include('layouts.aside')
@@ -45,8 +49,21 @@
         @else
         @include('errors.deactivated')
         @endif
-    </div> <!-- .wrapper -->
+    </div>
 
+    @else
+
+    <div class="wrapper vh-100">
+        <div class="align-items-center h-100 d-flex w-50 mx-auto">
+          <div class="mx-auto text-center">
+            <h2 class="mb-1 font-weight-bold text-danger">Permission Denied!</h2>
+            <h4 class="mb-3 text-muted">You don't have permission to access this page.</h4>
+            <a href="{{ url()->previous() }}" class="btn btn-lg btn-dark px-5">Go Back</a>
+          </div>
+        </div>
+      </div>
+
+    @endif
 
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
@@ -81,8 +98,6 @@
     <script src='{{ asset('js/uppy.min.js') }}'></script>
     <script src='{{ asset('js/quill.min.js') }}'></script>
 
-
-    {{-- table --}}
     <script src='{{ asset('js/jquery.dataTables.min.js') }}'></script>
     <script src='{{ asset('js/dataTables.bootstrap4.min.js') }}'></script>
 

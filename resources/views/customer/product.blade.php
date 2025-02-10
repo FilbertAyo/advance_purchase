@@ -4,118 +4,169 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-12 col-lg-10">
-                <div class="row align-items-center my-4">
+
+                <div class="mx-auto text-center justify-content-center">
+                    <h2 class="page-title mb-0">What do you want?</h2>
+                    <p class="help-text text-muted">Search for a product and start to pay in installment.</p>
+                    <form class="searchform searchform-lg" action="{{ route('products.search') }}" method="GET">
+                        <input class="form-control form-control-lg bg-white rounded-pill pl-5"
+                               type="search"
+                               name="query"
+                               placeholder="Search"
+                               aria-label="Search"
+                               value="{{ request('query') }}">
+                    </form>
+
+                </div>
+
+                <div class="row align-items-center my-3">
                     <div class="col">
                         <h2 class="page-title">
                             @if (request('category'))
                                 {{ request('category') }}
+                            @else
+                                All Products
                             @endif
                         </h2>
                     </div>
-                    <div class="col-auto">
-                        <button type="button" class="btn btn-secondary">
+
+                    <li class="nav-item dropdown col-auto d-flex">
+                        <a href="#" id="ui-elementsDropdown" class="nav-link btn-sm btn-danger" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="fe fe-filter fe-16"></span>
+                        </a>
+                        <button type="button" class="btn btn-sm ml-2" onclick="reloadPage()">
+                            <i class="fe fe-16 fe-refresh-ccw text-muted"></i>
                         </button>
-                    </div>
+
+                        <div class="dropdown-menu mr-5" aria-labelledby="ui-elementsDropdown">
+                            <a class="nav-link pl-lg-2" href="{{ url('/product?category=Television') }}"><span
+                                    class="ml-1">Television</span></a>
+                            <a class="nav-link pl-lg-2" href="{{ url('/product?category=Air Conditioner') }}"><span
+                                    class="ml-1">Air Conditioner</span></a>
+                            <a class="nav-link pl-lg-2" href="{{ url('/product?category=Fridges') }}"><span
+                                    class="ml-1">Fridges</span></a>
+                            <a class="nav-link pl-lg-2" href="{{ url('/product?category=Chest freezer') }}"><span
+                                    class="ml-1">Chest freezer</span></a>
+                            <a class="nav-link pl-lg-2" href="{{ url('/product?category=Sound Bar') }}"><span
+                                    class="ml-1">Sound Bar</span></a>
+                            <a class="nav-link pl-lg-2" href="{{ url('/product?category=Small Home Appliances') }}"><span
+                                    class="ml-1">Small Home Appliances</span></a>
+                            <a class="nav-link pl-lg-2" href="{{ url('/product?category=Washing Machine') }}"><span
+                                    class="ml-1">Washing Machine</span></a>
+                            <a class="nav-link pl-lg-2" href="{{ url('/product?category=Cookers') }}"><span
+                                    class="ml-1">Cookers</span></a>
+                        </div>
+
                 </div>
                 <h6 class="mb-3">List of Products</h6>
 
                 <div class="row mb-4">
 
+                    @if ($products->isEmpty())
+                    <div class="col-12">
+                        <p class="text-center text-danger mt-5">No products found.</p>
+                    </div>
 
-                    @foreach ($products as $product)
-                        <div class="col-6 col-md-4 col-lg-3 mb-3">
-                            <div class="card border-0 bg-transparent py-3">
-                                <!-- Show only the first image -->
-                                @if ($product->productImages)
-                                <img src="{{ optional($product->productImages->first())->image_url ?? asset('images/no-image.jpg') }}" alt="..."
-                                        class="card-img-top img-fluid rounded" style="height: 300px;">
+                    @else
+                        @foreach ($products as $product)
+                            <div class="col-6 col-md-4 col-lg-2 mb-3">
+                                <div class="card border-1 h-100 d-flex flex-column bg-light">
+                                    @if ($product->productImages)
+                                  <img src="{{ asset(optional($product->productImages->first())->image_url ?? 'images/no-image.jpg') }}"
+                                        alt="Product Image" class="card-img-top img-fluid rounded py-1"
+                                        style="height: 180px; width: 100%; object-fit: contain; ">
                                 @endif
 
-                                <div class="card-body" style="background-color: #ededed;">
-                                    <h5 class="h4 card-title mb-1 text-muted">{{ $product->item_name }}</h5>
-                                    <h6 class="text-secondary"> Model: {{ $product->code }} , {{ $product->brand }}</h6>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="fw-bold">TZS {{ number_format($product->sales) }}/=</h5>
-                                        <!-- Form to post product data -->
-                                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#buyModal-{{ $product->id }}">
-                                            Buy
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                    <div class="d-flex flex-column justify-content-between p-2 mt-1">
+                                        <h5 class="card-title text-muted text-truncate text-sm">{{ $product->item_name }}
+                                        </h5>
+                                        <h6 class="text-secondary text-xs">Model: {{ $product->code }} ,
+                                            {{ $product->brand }}</h6>
 
-                        <div class="modal fade" id="buyModal-{{ $product->id }}" tabindex="-1" role="dialog"
-                            aria-labelledby="buyModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="buyModalLabel">Confirm Your Purchase</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <!-- Small images for carousel -->
-                                                <div id="carouselExampleControls-{{ $product->id }}" class="carousel slide"
-                                                    data-ride="carousel">
-                                                    <div class="carousel-inner">
-                                                        @foreach ($product->productImages as $index => $image)
-                                                            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                                                <img src="{{ asset($image->image_url) }} " alt="..."
-                                                                    class="d-block w-100 img-thumbnail"
-                                                                    style="cursor: pointer;"
-                                                                    onclick="changeImage('{{ asset($image->image_url) }}', {{ $product->id }})">
-                                                            </div>
-                                                        @endforeach
-                                                    </div>
-                                                    <a class="carousel-control-prev"
-                                                        href="#carouselExampleControls-{{ $product->id }}" role="button"
-                                                        data-slide="prev">
-                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                        <span class="sr-only">Previous</span>
-                                                    </a>
-                                                    <a class="carousel-control-next"
-                                                        href="#carouselExampleControls-{{ $product->id }}" role="button"
-                                                        data-slide="next">
-                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                        <span class="sr-only">Next</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <!-- Product details section -->
-                                                <h4>{{ $product->item_name }}</h4>
-                                                <p>Model: {{ $product->code }}</p>
-                                                <p>Brand: {{ $product->brand }}</p>
-                                                <p><strong>Price: </strong> TZS {{ number_format($product->sales) }}/=</p>
-                                                <p><strong>Short Description</strong></p>
-                                                <p class="text-muted">{{ $product->description }}</p>
-
-                                                <form action="{{ route('application.store') }}" method="POST"
-                                                    id="buyForm-{{ $product->id }}">
-                                                    @csrf
-                                                    <input type="hidden" name="created_by" value="Customer">
-                                                    <input type="hidden" name="paid_amount" value="0">
-                                                    <input type="hidden" name="customer_name"
-                                                        value="{{ Auth::user()->id }} {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}">
-                                                    <input type="hidden" name="item_name"
-                                                        value="{{ $product->sales }} {{ $product->item_name }} {{ $product->code }}">
-                                                    <button type="submit" class="btn btn-success btn-block mt-3">Confirm
-                                                        Purchase</button>
-                                                </form>
-                                            </div>
+                                        <div class="mt-auto d-flex justify-content-between align-items-center">
+                                            <h6 class="fw-bold text-sm">TZS {{ number_format($product->sales) }}/=</h6>
+                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                                data-target="#buyModal-{{ $product->id }}">
+                                                Buy
+                                            </button>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+
+                            <div class="modal fade" id="buyModal-{{ $product->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="buyModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="buyModalLabel">Confirm Your Purchase</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <!-- Small images for carousel -->
+                                                    <div id="carouselExampleControls-{{ $product->id }}"
+                                                        class="carousel slide" data-ride="carousel">
+                                                        <div class="carousel-inner">
+                                                            @foreach ($product->productImages as $index => $image)
+                                                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                                                    <img src="{{ asset($image->image_url) }} " alt="..."
+                                                                        class="d-block w-100 img-thumbnail"
+                                                                        style="cursor: pointer;"
+                                                                        onclick="changeImage('{{ asset($image->image_url) }}', {{ $product->id }})">
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                        <a class="carousel-control-prev"
+                                                            href="#carouselExampleControls-{{ $product->id }}" role="button"
+                                                            data-slide="prev">
+                                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                            <span class="sr-only">Previous</span>
+                                                        </a>
+                                                        <a class="carousel-control-next"
+                                                            href="#carouselExampleControls-{{ $product->id }}"
+                                                            role="button" data-slide="next">
+                                                            <span class="carousel-control-next-icon"
+                                                                aria-hidden="true"></span>
+                                                            <span class="sr-only">Next</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 mt-3">
+                                                    <!-- Product details section -->
+                                                    <h4>{{ $product->item_name }}</h4>
+                                                    <p>Model: {{ $product->code }}</p>
+                                                    <p>Brand: {{ $product->brand }}</p>
+                                                    <p><strong>Price: </strong> TZS {{ number_format($product->sales) }}/=</p>
+                                                    <p><strong>Short Description</strong></p>
+                                                    <p class="text-muted">{{ $product->description }}</p>
+
+                                                    <form action="{{ route('application.store') }}" method="POST"
+                                                        id="buyForm-{{ $product->id }}">
+                                                        @csrf
+                                                        <input type="hidden" name="created_by" value="Customer">
+                                                        <input type="hidden" name="paid_amount" value="0">
+                                                        <input type="hidden" name="customer_name"
+                                                            value="{{ Auth::user()->id }} {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}">
+                                                        <input type="hidden" name="item_name"
+                                                            value="{{ $product->sales }} {{ $product->item_name }} {{ $product->code }}">
+                                                        <button type="submit" class="btn btn-success btn-block mt-3">Confirm
+                                                            Purchase</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+
 
 
                 </div> <!-- .row -->

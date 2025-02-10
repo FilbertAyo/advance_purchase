@@ -28,7 +28,7 @@ class CustomerController extends Controller
         $cities =  City::all();
         $districts = Region::all();
         $wards = Ward::all();
-
+        
         $user = User::where('status', 'inactive')->where('userType', 0)->with('profile')->get();
 
         return view('users.unverified_customer', compact('user', 'cities', 'districts', 'wards'));

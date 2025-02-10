@@ -8,6 +8,7 @@ use App\Models\Application;
 use App\Models\Bank;
 use App\Models\Item;
 use App\Models\User;
+use App\Models\User_Relative;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -43,15 +44,15 @@ class DashboardController extends Controller
 
             $customerId = Auth::id();
             $applications = Application::where('customer_id', $customerId)->get();
-            return view('customer.customer', compact('applications'));
+            $relative = User_Relative::where('user_id', $customerId)->get();
+            return view('customer.customer', compact('applications','relative'));
+
 
         } elseif ($userType == '1' || $userType == '2' || $userType == '3' || $userType == '4') {
 
             $collection = Advance::all()->sum('added_amount');
             $customerNo = User::where('userType', 0)->count();
-            $activeCustomer = User::where('userType', 0)
-                ->where('status', 'active')
-                ->count();
+            $activeCustomer = User::where('userType', 0)->where('status', 'active')->count();
             $adminNo = User::whereIn('userType', [1, 2, 3])->count();
 
             $totalApplication = Application::all()->count();

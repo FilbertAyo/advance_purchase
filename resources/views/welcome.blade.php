@@ -8,8 +8,7 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <!-- Favicon -->
-    <link href="front-end/front-end/img/favicon.ico" rel="icon">
+    <link rel="shortcut icon" type="{{ asset('images/iconW.png') }}" href="{{ asset('images/iconW.png') }}">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
