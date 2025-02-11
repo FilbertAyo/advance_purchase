@@ -156,7 +156,7 @@
     </div>
     <!-- Carousel End -->
 
-    <div class="container-xxl py-5">
+    <div class="container-xxl py-3">
         <div class="container">
             <div class="text-center">
                 <h6 class="text-danger text-uppercase">@lang('messages.easily_manage_advance_payments')</h6>
@@ -274,7 +274,7 @@
                                 </div>
                                 <div class="ps-3">
                                     <h6>@lang('messages.complete_payment_receive_product')</h6>
-                                    <span>@lang('messages.nce_fully_paid_delivered').</span>
+                                    <span>@lang('messages.once_fully_paid_delivered').</span>
                                 </div>
                             </div>
                         </div>
@@ -318,6 +318,7 @@
     <div class="container-xxl service py-5">
         <div class="container">
             <div class="text-center">
+                <h6 class="text-primary text-uppercase text-danger"> Our service</h6>
                 <h1 class="mb-5">@lang('messages.why_choose_us')?</h1>
             </div>
             <div class="row g-4">
@@ -413,33 +414,48 @@
         </div>
     </div>
 
-    <section class="p-1">
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.5951619290745!2d39.28414437499556!3d-6.818992593178741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185c4b05a1a7c36d%3A0x879448c8362f87fd!2sSamora%20Ave%2C%20Dar%20es%20Salaam!5e0!3m2!1sen!2stz!4v1733818825960!5m2!1sen!2stz"
-            width="100%" height="450" style="border: 0;" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-    </section>
-
-    <div class="container-xxl py-5">
+    <div class="container-xxl py-3" id="contact">
         <div class="container">
             <div class="text-center">
-                {{-- <h6 class="text-danger text-uppercase"> Highlights </h6> --}}
-                <h1 class="mb-5">@lang('messages.products_showcase')</h1>
+                <h6 class="text-primary text-uppercase text-danger"> Contact Us </h6>
+                <h1 class="mb-5">Contact For Any Query</h1>
             </div>
-            @foreach ($products as $product)
-            <div class="owl-carousel testimonial-carousel position-relative">
-                <div class="testimonial-item text-center bg-light p-3">
-                    <img src="{{ $product->productImages->isEmpty() ? 'default.jpg' : $product->productImages->first()->image_url }}" alt="{{ $product->name }}" class="mb-3">
-                    <h5 class="mb-0">TZS {{ number_format($product->sales, 0, '.', ',') }}/=</h5>
-                    <p>{{ $product->item_name }}</p>
+            <div class="row g-4">
+                <div class="col-12">
+                    <div class="row gy-4">
+                        <div class="col-md-4">
+                            <div class="bg-light d-flex flex-column justify-content-center p-4 text-center">
+                                <h5 class="">Phone Number</h5>
+                                <p class="m-0"><i class="fa fa-phone text-primary me-2"></i>+255 74140-0900</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-light d-flex flex-column justify-content-center p-4 text-center">
+                                <h5 class="">Email</h5>
+                                <p class="m-0"><i class="fa fa-envelope-open text-primary me-2"></i>marscommunicationltd@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-light d-flex flex-column justify-content-center p-4 text-center">
+                                <h5 class="">Social Media</h5>
+                                <p class="m-0"><i class="fa fa-website text-primary me-2"></i>@marstanzania</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="col-md-12">
+                    <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.5951619290745!2d39.28414437499556!3d-6.818992593178741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185c4b05a1a7c36d%3A0x879448c8362f87fd!2sSamora%20Ave%2C%20Dar%20es%20Salaam!5e0!3m2!1sen!2stz!4v1733818825960!5m2!1sen!2stz"
+                    width="100%" height="450" style="border: 0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                </div>
+
             </div>
-        @endforeach
-
-
         </div>
     </div>
+
+
 
     @include('elements.footer')
 

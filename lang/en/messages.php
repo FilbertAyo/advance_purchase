@@ -57,7 +57,7 @@ return [
     'id_number' => 'Id Number',
     'occupation' => 'Occupation',
     'organization' => 'Organization',
-    'advance_payment_installment_scheme' => 'Advance Payment Installment Scheme',
+    'advance_payment_installment_scheme' => 'Pre Payment Installment Purchase',
     'application' => 'Application',
     'easily_manage_advance_payments' => 'Easily Manage Advance Payments',
     'flexible_plans' => 'Flexible Plans',

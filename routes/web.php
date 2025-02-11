@@ -23,7 +23,7 @@ Route::get('/dashboard', [DashboardController::class, 'home'])
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile-settings', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile-settings', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
@@ -54,7 +54,6 @@ Route::put('/details/{id}/edit', [ApplicationController::class, 'updateSerialNo'
 // Route::get('')
 
 Route::post('/user/toggle-status/{id}', [ProfileController::class, 'toggleStatus'])->name('user.toggleStatus');
-// Route::resource('products',ProductController::class)->middleware(['auth', 'verified']);
 Route::get('/product', [ItemController::class, 'product'])->middleware(['auth', 'verified']);
 
 Route::resource('address', AddressController::class);

@@ -9,7 +9,7 @@
                         <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                                    aria-controls="home" aria-selected="true">All</a>
+                                    aria-controls="home" aria-selected="true">All Items</a>
                             </li>
                         </ul>
                     </div>
@@ -56,7 +56,7 @@
                         <div class="card shadow">
                             <div class="card-body">
                                 <!-- table -->
-                                <table class="table table-bordered" id="dataTable-1">
+                                <table class="table table-bordered table-sm" id="dataTable-1">
                                     <thead>
                                         <tr>
                                             <th>No</th>

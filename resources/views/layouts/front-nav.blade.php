@@ -23,15 +23,15 @@
         </div>
     </div>
 </div>
-<nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top">
+<nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
     <a href="{{ url('/') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-        <img src="front-end/img/shortblogo.png" alt="" style="height: 60px;">
+        <img src="front-end/img/shortblogo.png" alt="" style="height: 50px;">
     </a>
 
     <!-- Language Switcher (Visible on Small Screens, Left of Toggle Button) -->
-    <div class="d-flex d-lg-none ms-3">
+    <div class="d-flex d-lg-none">
         <div class="dropdown">
-            <button class="btn btn-sm bg-white dropdown-toggle d-flex align-items-center" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-sm bg-transparent dropdown-toggle d-flex align-items-center" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                 <img id="selectedFlag" src="https://flagcdn.com/w40/us.png" alt="English" width="25" class="me-1">
             </button>
             <ul class="dropdown-menu" aria-labelledby="languageDropdown">
@@ -46,12 +46,13 @@
                     </a>
                 </li>
             </ul>
+
         </div>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </div>
 
-    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-    </button>
 
 
     <div class="collapse navbar-collapse mx-5" id="navbarCollapse">

@@ -13,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Pest\Plugins\Parallel\Support\CompactPrinter;
@@ -43,9 +44,20 @@ class RegisteredUserController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'middle_name' => ['nullable', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:255', 'unique:users,phone'],
+            'phone' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:users,phone',
+                'regex:/^0(7|6)\d{8}$/',
+            ],
             'email' => ['nullable', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => [
+                'required',
+                'confirmed',
+                Password::min(8)->letters()->mixedCase()->numbers()->symbols()->uncompromised(),
+            ],
+
             'id_attachment' => 'nullable',
         ]);
 
@@ -73,7 +85,7 @@ class RegisteredUserController extends Controller
             $id_attach = 'attachments/' . $attachmentName;
         }
 
-       User_Profile::create([
+        User_Profile::create([
             'user_id' => $user->id,
             'city' => $request->city,
             'district' => $request->district,
