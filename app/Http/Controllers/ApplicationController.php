@@ -6,6 +6,7 @@ use App\Models\Advance;
 use App\Models\Application;
 use App\Models\Bank;
 use App\Models\Item;
+use App\Models\Screenshot;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -114,8 +115,9 @@ class ApplicationController extends Controller
 
         //retrive the records of advance from the database
         $advances = Advance::where('application_id', $application->id)->get();
+        $screenshots = Screenshot::where('application_id', $id)->get();
 
-        return view('application.app_view', compact('application', 'advances'));
+        return view('application.app_view', compact('application', 'advances','screenshots'));
     }
 
     /**
@@ -199,8 +201,10 @@ class ApplicationController extends Controller
 
         $application = Application::findOrFail($id);
         $banks = Bank::where('status', 'Active')->get();
+        $statements = Advance::where('application_id', $id)->where('added_amount', '>', 0)->get();
+        $screenshots = Screenshot::where('application_id', $id)->get();
 
-        return view('customer.cust_details', compact('application', 'banks'));
+        return view('customer.cust_details', compact('application', 'banks', 'statements', 'screenshots'));
     }
 
     public function inactive()
@@ -225,5 +229,45 @@ class ApplicationController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while activating the application.');
         }
+    }
+
+    public function screenshot(Request $request)
+    {
+        $request->validate([
+            'screenshot' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'application_id' => 'required|exists:applications,id',
+        ]);
+
+        // Store the screenshot
+        if ($request->hasFile('screenshot')) {
+            $image = $request->file('screenshot'); // Get the uploaded file
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('screenshots'), $imageName);
+
+            // Save to database
+            Screenshot::create([
+                'application_id' => $request->application_id,
+                'screenshot' => 'screenshots/' . $imageName,
+            ]);
+
+            return back()->with('success', 'Screenshot uploaded successfully!');
+        }
+
+        return back()->with('error', 'Failed to upload screenshot.');
+    }
+    public function screenshotDestroy($id)
+    {
+        $screenshot = Screenshot::findOrFail($id);
+
+        // Delete the file from storage
+        $filePath = public_path($screenshot->screenshot);
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+
+        // Delete the record from the database
+        $screenshot->delete();
+
+        return back()->with('success', 'Screenshot deleted successfully!');
     }
 }

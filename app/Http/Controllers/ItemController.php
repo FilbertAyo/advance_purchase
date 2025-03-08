@@ -10,19 +10,24 @@ use Illuminate\Support\Facades\File;
 
 class ItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+   
+    public function index(Request $request)
     {
-        $item = Item::orderBy('id', 'desc')->get();
+        $query = Item::orderBy('id', 'desc');
 
-        return view('items.item', compact('item'));
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('item_name', 'like', "%$search%")
+                  ->orWhere('category', 'like', "%$search%")
+                  ->orWhere('brand', 'like', "%$search%");
+        }
+
+        $items = $query->paginate(10);
+
+        return view('items.item', compact('items'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         //
@@ -80,19 +85,19 @@ class ItemController extends Controller
     }
 
     public function deleteImage($id)
-{
-    $image = Product_Image::findOrFail($id);
+    {
+        $image = Product_Image::findOrFail($id);
 
-    // Delete the image file from storage
-    if (File::exists(public_path($image->image_url))) {
-        File::delete(public_path($image->image_url));
+        // Delete the image file from storage
+        if (File::exists(public_path($image->image_url))) {
+            File::delete(public_path($image->image_url));
+        }
+
+        // Delete the record from the database
+        $image->delete();
+
+        return back()->with('success', 'Image deleted successfully.');
     }
-
-    // Delete the record from the database
-    $image->delete();
-
-    return back()->with('success', 'Image deleted successfully.');
-}
 
     /**
      * Display the specified resource.
@@ -157,18 +162,17 @@ class ItemController extends Controller
 
         // Filter products based on category and search query
         $products = Item::when($category, function ($queryBuilder, $category) {
-                return $queryBuilder->where('category', $category);
-            })
+            return $queryBuilder->where('category', $category);
+        })
             ->when($query, function ($queryBuilder, $query) {
                 return $queryBuilder->where(function ($subQuery) use ($query) {
                     $subQuery->where('item_name', 'LIKE', "%{$query}%")
-                             ->orWhere('code', 'LIKE', "%{$query}%")
-                             ->orWhere('brand', 'LIKE', "%{$query}%");
+                        ->orWhere('code', 'LIKE', "%{$query}%")
+                        ->orWhere('brand', 'LIKE', "%{$query}%");
                 });
             })
             ->get();
 
         return view('customer.product', compact('products', 'category', 'allProducts'));
     }
-
 }

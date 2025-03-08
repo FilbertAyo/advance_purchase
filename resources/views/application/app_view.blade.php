@@ -159,58 +159,57 @@
 
                 @if ($application->status == 'active')
 
-                    <div class="row align-items-center mb-3 border-bottom no-gutters">
-                        <div class="col">
-                            <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
-                                        role="tab" aria-controls="home" aria-selected="true">Advance Payment Statements</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                        <div class="col-auto">
-                            @if (in_array(Auth::user()->userType, [1, 4]) && $application->outstanding == 0)
-
-                                @if($application->serial_number == null)
-                                <button type="button" class="btn mb-2 btn-success btn-sm" data-toggle="modal"
-                                    data-target="#serialNo" data-whatever="@mdo">
-                                    Update Serial No
-                                </button>
-                                @endif
-
-                            @elseif ($application->outstanding > 0)
-                                @if (in_array(Auth::user()->userType, [1, 3]))
-                                    <!-- Show Update Amount Button for userType 1 or 4 when outstanding > 0 -->
-                                    <button type="button" class="btn mb-2 btn-primary btn-sm" data-toggle="modal"
-                                        data-target="#varyModal" data-whatever="@mdo">
-                                        Update Amount
-                                        <span class="fe fe-edit fe-16 ml-2"></span>
-                                    </button>
-                                @else
-                                    <!-- Show Disabled Update Amount Button for other user types -->
-                                    <button class="btn mb-2 btn-primary btn-sm permission-alert">
-                                        Update Amount
-                                        <span class="fe fe-edit fe-16 ml-2"></span>
-                                    </button>
-                                @endif
-                            @else
-                                <button class="btn mb-2 btn-success btn-sm permission-alert">
-                                    Update Serial No
-                                    <span class="fe fe-edit fe-16 ml-2"></span>
-                                </button>
-                            @endif
-
-                        </div>
-
-                    </div>
 
                     @include('elements.spinner')
 
                     <div class="row my-2">
 
 
-                        <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="row align-items-center mb-2">
+                                <div class="col">
+                                    <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
+                                                role="tab" aria-controls="home" aria-selected="true">Advance Payment Statements</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <div class="col-auto">
+                                    @if (in_array(Auth::user()->userType, [1, 4]) && $application->outstanding == 0)
+
+                                        @if($application->serial_number == null)
+                                        <button type="button" class="btn mb-2 btn-success btn-sm" data-toggle="modal"
+                                            data-target="#serialNo" data-whatever="@mdo">
+                                            Update Serial No
+                                        </button>
+                                        @endif
+
+                                    @elseif ($application->outstanding > 0)
+                                        @if (in_array(Auth::user()->userType, [1, 3]))
+                                            <!-- Show Update Amount Button for userType 1 or 4 when outstanding > 0 -->
+                                            <button type="button" class="btn mb-2 btn-primary btn-sm" data-toggle="modal"
+                                                data-target="#varyModal" data-whatever="@mdo">
+                                                Update Amount
+                                                <span class="fe fe-edit fe-16 ml-2"></span>
+                                            </button>
+                                        @else
+                                            <!-- Show Disabled Update Amount Button for other user types -->
+                                            <button class="btn mb-2 btn-primary btn-sm permission-alert">
+                                                Update Amount
+                                                <span class="fe fe-edit fe-16 ml-2"></span>
+                                            </button>
+                                        @endif
+                                    @else
+                                        <button class="btn mb-2 btn-success btn-sm permission-alert">
+                                            Update Serial No
+                                            <span class="fe fe-edit fe-16 ml-2"></span>
+                                        </button>
+                                    @endif
+
+                                </div>
+                            </div>
                             <div class="card shadow">
                                 <div class="card-body">
                                     <!-- table -->
@@ -244,7 +243,62 @@
                                     </table>
                                 </div>
                             </div>
-                        </div> <!-- simple table -->
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="row align-items-center mb-2">
+
+                                <div class="col">
+                                    <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
+                                                role="tab" aria-controls="home" aria-selected="true">Payment Screenshot</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                            <div class="card shadow mb-4 p-3">
+                                <table class="table table-bordered table-hover mb-0 table-sm" id="statementsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Image</th>
+                                            <th>Date Updated</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if ($screenshots->count())
+                                            @php $no = 1; @endphp
+                                            @foreach ($screenshots as $screen)
+                                                <tr>
+                                                    <td>{{ $no++ }}</td>
+                                                    <td><img src="{{ asset($screen->screenshot) }}" alt="" style="height: 30px;"></td>
+                                                    <td>{{ $screen->created_at }}</td>
+                                                    <td>
+                                                        <a href="{{ asset( $screen->screenshot) }}" target="_blank"
+                                                            class="btn btn-sm btn-primary">
+                                                            <span
+                                                            class="fe fe-eye fe-16"></span></a>
+
+
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr class="alert alert-danger">
+                                                <td colspan="6" class="text-center">No Screenshot found</td>
+                                            </tr>
+                                        @endif
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
 
                     </div> <!-- end section -->
 

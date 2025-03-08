@@ -55,32 +55,34 @@
 
 
                                     <div class="form-row">
+
                                         <div class="col-md-6 mb-3">
                                             <label for="openingStock">Category</label>
                                             <select class="form-control select2" id="validationSelect0" name="category" required>
                                                 <optgroup label="Select Item">
-                                                    <option value="Television">Television </option>
-                                                    <option value="Air Conditioner"> Air Conditioner </option>
-                                                    <option value="Fridges">Fridges </option>
-                                                    <option value="Chest Freezer">Chest Freezer</option>
-                                                    <option value="Sound Bar">Sound Bar</option>
-                                                    <option value="Small Home Appliances">Small Home Appliances</option>
-
-                                                    <option value="Washing Machine">Washing Machine</option>
-                                                    <option value="Cookers">Cookers</option>
+                                                    <option value="Television" {{ $item->category == 'Television' ? 'selected' : '' }}>Television</option>
+                                                    <option value="Air Conditioner" {{ $item->category == 'Air Conditioner' ? 'selected' : '' }}>Air Conditioner</option>
+                                                    <option value="Fridge" {{ $item->category == 'Fridge' ? 'selected' : '' }}>Fridge</option>
+                                                    <option value="Chest Freezer" {{ $item->category == 'Chest Freezer' ? 'selected' : '' }}>Chest Freezer</option>
+                                                    <option value="Sound Bar" {{ $item->category == 'Sound Bar' ? 'selected' : '' }}>Sound Bar</option>
+                                                    <option value="Small Home Appliances" {{ $item->category == 'Small Home Appliances' ? 'selected' : '' }}>Small Home Appliances</option>
+                                                    <option value="Washing Machine" {{ $item->category == 'Washing Machine' ? 'selected' : '' }}>Washing Machine</option>
+                                                    <option value="Cooker" {{ $item->category == 'Cooker' ? 'selected' : '' }}>Cooker</option>
+                                                    <option value="W/Dispenser" {{ $item->category == 'W/Dispenser' ? 'selected' : '' }}>W/Dispenser</option>
+                                                    <option value="V/Cleaner" {{ $item->category == 'V/Cleaner' ? 'selected' : '' }}>V/Cleaner</option>
                                                 </optgroup>
                                             </select>
-
                                             <div class="valid-feedback">Looks good!</div>
                                         </div>
+
                                         <div class="col-md-6 mb-3">
                                             <label for="arrivalStock">Brand</label>
                                             <select class="form-control select2" id="validationSelect0" name="brand" required>
                                                 <optgroup label="Select Item">
-                                                    <option value="HISENSE">HISENSE </option>
-                                                    <option value="SAMSUNG"> SAMSUNG </option>
-                                                    <option value="LG">LG </option>
-                                                    <option value="TOSHIBA">TOSHIBA</option>
+                                                    <option value="HISENSE" {{ $item->brand == 'HISENSE' ? 'selected' : '' }}>HISENSE</option>
+                                                    <option value="SAMSUNG" {{ $item->brand == 'SAMSUNG' ? 'selected' : '' }}>SAMSUNG</option>
+                                                    <option value="LG" {{ $item->brand == 'LG' ? 'selected' : '' }}>LG</option>
+                                                    <option value="TOSHIBA" {{ $item->brand == 'TOSHIBA' ? 'selected' : '' }}>TOSHIBA</option>
                                                 </optgroup>
                                             </select>
                                             <div class="valid-feedback">Looks good!</div>

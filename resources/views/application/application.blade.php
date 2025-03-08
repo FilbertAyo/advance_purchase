@@ -83,7 +83,8 @@
 
 
                                                                     <a href="{{ route('application.show', $item->id) }}"
-                                                                        class="btn btn-sm  btn-warning text-white"><span
+                                                                        class="btn btn-sm  btn-warning text-white">
+                                                                        <span
                                                                             class="fe fe-eye fe-16"></span>
                                                                         </a>
 

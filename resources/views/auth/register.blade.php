@@ -281,37 +281,22 @@
                     </form>
 
                     <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Welcome to our platform. By accessing or using our services, you agree to be
-                                        bound by the following terms:</p>
-                                    <ul>
-                                        <li><strong>Account Responsibility:</strong> You are responsible for maintaining
-                                            the confidentiality of your account and password.</li>
-                                        <li><strong>Prohibited Activities:</strong> You may not use our services for any
-                                            illegal or unauthorized purposes.</li>
-                                        <li><strong>Service Modifications:</strong> We reserve the right to modify or
-                                            discontinue any part of our services at any time.</li>
-                                        <li><strong>Liability Disclaimer:</strong> We are not liable for any direct,
-                                            indirect, incidental, or consequential damages resulting from the use of our
-                                            services.</li>
-                                    </ul>
-                                    <p>Please ensure you review these terms carefully before proceeding.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                </div>
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-fullscreen">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            @include('elements.terms')
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
+                </div>
+
                 </div>
             </div>
         </div>

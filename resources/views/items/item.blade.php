@@ -55,73 +55,79 @@
                     <div class="col-md-12">
                         <div class="card shadow">
                             <div class="card-body">
-                                <!-- table -->
-                                <table class="table table-bordered table-sm" id="dataTable-1">
+
+                                <form method="GET" action="{{ route('item.index') }}" class="mb-3">
+                                    <div class="input-group">
+                                        <input type="text" name="search" class="form-control" placeholder="Search items..." value="{{ request('search') }}">
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                    </div>
+                                </form>
+
+                                <table class="table table-bordered table-sm">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Name</th>
                                             <th>Cost</th>
-                                            <th>Seling Price</th>
+                                            <th>Selling Price</th>
                                             <th>Category</th>
                                             <th>Brand</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if ($item->count() > 0)
-                                            @foreach ($item as $index => $item)
+                                        @if ($items->count() > 0)
+                                            @foreach ($items as $index => $item)
                                                 <tr>
-                                                    <td>{{ $index + 1 }}</td>
+                                                    <!-- Adjusted index to work with pagination -->
+                                                    <td>{{ ($items->currentPage() - 1) * $items->perPage() + $index + 1 }}</td>
                                                     <td>{{ $item->item_name }}</td>
                                                     <td>{{ $item->cost }}</td>
                                                     <td>{{ $item->sales }}</td>
                                                     <td>{{ $item->category }}</td>
                                                     <td>{{ $item->brand }}</td>
                                                     <td>
-
                                                         <div style="display: flex; gap: 2px;">
-                                                            <!-- Adjust spacing between buttons as needed -->
-                                                            <a href="{{ route('item.edit', $item->id) }}"
-                                                                class="btn btn-sm btn-primary">
-                                                                <span class="fe fe-edit fe-16"></span></a>
+                                                            <a href="{{ route('item.edit', $item->id) }}" class="btn btn-sm btn-primary">
+                                                                <span class="fe fe-edit fe-16"></span>
+                                                            </a>
 
-                                                            <a href="{{ route('item.show', $item->id) }}"
-                                                                class="btn btn-sm  btn-warning text-white"><span
-                                                                    class="fe fe-eye fe-16"></span></a>
+                                                            <a href="{{ route('item.show', $item->id) }}" class="btn btn-sm btn-warning text-white">
+                                                                <span class="fe fe-eye fe-16"></span>
+                                                            </a>
 
-                                                            <form id="deleteForm-{{ $item->id }}"
-                                                            action="{{ route('item.destroy', $item->id) }}"
-                                                                method="POST"
-                                                                >
+                                                            <form id="deleteForm-{{ $item->id }}" action="{{ route('item.destroy', $item->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" onclick="showSweetAlert(event, '{{ $item->id }}')"
-                                                                    class="btn btn-sm btn-danger"><span
-                                                                        class="fe fe-trash-2 fe-16"></span></button>
+                                                                <button type="submit" onclick="showSweetAlert(event, '{{ $item->id }}')" class="btn btn-sm btn-danger">
+                                                                    <span class="fe fe-trash-2 fe-16"></span>
+                                                                </button>
                                                             </form>
-
-
                                                         </div>
                                                     </td>
                                                 </tr>
                                             @endforeach
                                         @else
                                             <tr>
-                                                <td colspan="9" class="text-center">No Product found</td>
+                                                <td colspan="7" class="text-center">No Product found</td>
                                             </tr>
                                         @endif
-
                                     </tbody>
                                 </table>
+
+                                <div class="d-flex justify-content-center mt-3">
+                                    {{ $items->appends(['search' => request('search')])->links('vendor.pagination.bootstrap-4') }}
+                                </div>
+
                             </div>
                         </div>
-                    </div> <!-- simple table -->
+                    </div>
 
-                </div> <!-- end section -->
-            </div> <!-- .col-12 -->
-        </div> <!-- .row -->
-    </div> <!-- .container-fluid -->
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <div class="modal fade modal-full" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
@@ -189,13 +195,14 @@
                                     <optgroup label="Select Item">
                                         <option value="Television">Television </option>
                                         <option value="Air Conditioner"> Air Conditioner </option>
-                                        <option value="Fridges">Fridges </option>
+                                        <option value="Fridge">Fridge </option>
                                         <option value="Chest Freezer">Chest Freezer</option>
                                         <option value="Sound Bar">Sound Bar</option>
                                         <option value="Small Home Appliances">Small Home Appliances</option>
-
                                         <option value="Washing Machine">Washing Machine</option>
-                                        <option value="Cookers">Cookers</option>
+                                        <option value="Cooker">Cooker</option>
+                                        <option value="W/Dispenser">W/Dispenser</option>
+                                        <option value="V/Cleaner">V/Cleaner</option>
                                     </optgroup>
                                 </select>
 
@@ -216,20 +223,6 @@
 
                         </div>
 
-{{--                    <div class="form-row mb-3">
-
-                            <div class="col-md-6 mb-3">
-                                <label for="date-input1">Expire date</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control drgpicker" id="date-input1"
-                                        aria-describedby="button-addon2" name="expire_date">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text" id="button-addon-date"><span
-                                                class="fe fe-calendar fe-16 mx-2"></span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
 
                         <div class="form-group mb-3">
                             <label for="validationTextarea1">Item description</label>

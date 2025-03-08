@@ -13,6 +13,7 @@ use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SmsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -101,3 +102,7 @@ Route::get('/test', function () {
     return view('profile.edit');
 });
 
+Route::get('/sendSms',[SmsController::class,'sendSms']);
+
+Route::post('/screenshot/store', [ApplicationController::class, 'screenshot'])->name('screenshot.store');
+Route::delete('/screenshot/{id}', [ApplicationController::class, 'screenshotDestroy'])->name('screenshot.destroy');
