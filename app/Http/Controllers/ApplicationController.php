@@ -198,7 +198,6 @@ class ApplicationController extends Controller
 
     public function view($id)
     {
-
         $application = Application::findOrFail($id);
         $banks = Bank::where('status', 'Active')->get();
         $statements = Advance::where('application_id', $id)->where('added_amount', '>', 0)->get();

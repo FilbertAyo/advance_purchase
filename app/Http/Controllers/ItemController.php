@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\File;
 
 class ItemController extends Controller
 {
-   
+
     public function index(Request $request)
     {
         $query = Item::orderBy('id', 'desc');
@@ -64,7 +64,7 @@ class ItemController extends Controller
     {
         // Validate the request
         $validatedData = $request->validate([
-            'image_url.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate each file
+            'image_url.*' => 'required|image|mimes:jpeg,png,jpg,gif', // Validate each file
             'item_id' => 'required|exists:items,id', // Ensure item_id exists and is valid
         ]);
 
@@ -128,7 +128,7 @@ class ItemController extends Controller
 
         $item->update($request->all());
 
-        return redirect()->route('item.index')->with('success', "Item updated successfully");
+        return redirect()->back()->with('success', "Item updated successfully");
     }
     /**
      * Remove the specified resource from storage.
@@ -151,16 +151,19 @@ class ItemController extends Controller
         return redirect()->back()->with('success', 'Item deleted successfully');
     }
 
+    public function product_view($id)
+    {
+        $product = Item::findOrFail($id);
+        $images = Product_Image::where('item_id', $id)->get();
+
+        return view('customer.product_view', compact('product', 'images'));
+    }
 
     public function product(Request $request)
     {
         $category = $request->get('category');
         $query = $request->get('query');
 
-        // Get all products (for category filtering)
-        $allProducts = Item::all();
-
-        // Filter products based on category and search query
         $products = Item::when($category, function ($queryBuilder, $category) {
             return $queryBuilder->where('category', $category);
         })
@@ -171,8 +174,13 @@ class ItemController extends Controller
                         ->orWhere('brand', 'LIKE', "%{$query}%");
                 });
             })
-            ->get();
+            ->paginate(12);
 
-        return view('customer.product', compact('products', 'category', 'allProducts'));
+        if ($request->ajax()) {
+            return view('customer.partials.product_list', compact('products'))->render();
+        }
+
+        return view('customer.product', compact('products', 'category'));
     }
+
 }

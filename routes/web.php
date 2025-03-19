@@ -56,6 +56,7 @@ Route::put('/details/{id}/edit', [ApplicationController::class, 'updateSerialNo'
 
 Route::post('/user/toggle-status/{id}', [ProfileController::class, 'toggleStatus'])->name('user.toggleStatus');
 Route::get('/product', [ItemController::class, 'product'])->middleware(['auth', 'verified']);
+Route::get('/product_view/{id}',[ItemController::class,'product_view'])->middleware(['auth', 'verified']);
 
 Route::resource('address', AddressController::class);
 Route::get('/regions', [AddressController::class, 'regions'])->middleware(['auth', 'verified']);

@@ -46,12 +46,13 @@
                                     <dd class="col-sm-4 mb-3">
                                         <span class="dot dot-md bg-warning mr-2"></span> {{ $item->brand }}
                                     </dd>
+                                    <dt class="col-sm-2 mb-3 text-muted">Price</dt>
+                                    <dd class="col-sm-4 mb-3">TZS {{ number_format($item->sales) }}</dd>
                                     <dt class="col-sm-2 mb-3 text-muted">As of Date</dt>
                                     <dd class="col-sm-4 mb-3">{{ $item->created_at }}</dd>
                                     <dt class="col-sm-2 mb-3 text-muted">Last Update</dt>
                                     <dd class="col-sm-4 mb-3">{{ $item->updated_at }}</dd>
-                                    <dt class="col-sm-2 mb-3 text-muted">Expire date</dt>
-                                    <dd class="col-sm-4 mb-3">{{ $item->expire_date }}</dd>
+
                                     <dt class="col-sm-2 mb-3 text-muted">Last updated by</dt>
                                     <dd class="col-sm-4 mb-3">
                                         <strong>{{ $item->created_by }}</strong>
@@ -80,7 +81,7 @@
                 <div class="row">
 
 
-                    
+
                     @foreach ($item->productImages as $image)
                         <div class="col-md-3">
                             <div class="card shadow mb-4 position-relative">

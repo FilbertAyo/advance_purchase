@@ -68,7 +68,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Name</th>
-                                            <th>Cost</th>
+                                            {{-- <th>Cost</th> --}}
                                             <th>Selling Price</th>
                                             <th>Category</th>
                                             <th>Brand</th>
@@ -82,7 +82,7 @@
                                                     <!-- Adjusted index to work with pagination -->
                                                     <td>{{ ($items->currentPage() - 1) * $items->perPage() + $index + 1 }}</td>
                                                     <td>{{ $item->item_name }}</td>
-                                                    <td>{{ $item->cost }}</td>
+                                                    {{-- <td>{{ $item->cost }}</td> --}}
                                                     <td>{{ $item->sales }}</td>
                                                     <td>{{ $item->category }}</td>
                                                     <td>{{ $item->brand }}</td>
@@ -109,7 +109,7 @@
                                             @endforeach
                                         @else
                                             <tr>
-                                                <td colspan="7" class="text-center">No Product found</td>
+                                                <td colspan="6" class="text-center">No Product found</td>
                                             </tr>
                                         @endif
                                     </tbody>
