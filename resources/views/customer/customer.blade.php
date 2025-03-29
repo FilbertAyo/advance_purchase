@@ -70,10 +70,10 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Product</th>
-                                            <th>Paid</th>
+                                            {{-- <th>Paid</th>
                                             <th>Outstanding</th>
                                             <th>Date issued</th>
-                                            <th>Status</th>
+                                            <th>Status</th> --}}
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -84,7 +84,7 @@
                                                     <td>{{ $index + 1 }}</td>
                                                     <td>{{ $application->item_name }}<br /><span
                                                             class="small text-muted">{{ $application->price }}</span></td>
-                                                    <td><span class="text-success">{{ $application->paid_amount }}</span>
+                                                    {{-- <td><span class="text-success">{{ $application->paid_amount }}</span>
                                                     </td>
                                                     <td><span class="text-danger">{{ $application->outstanding }}</span>
                                                     </td>
@@ -96,7 +96,7 @@
                                                         @else
                                                             <span class="dot dot-lg bg-success mr-2"></span>Complete
                                                         @endif
-                                                    </td>
+                                                    </td> --}}
                                                     <td><a href="{{ url('/details', $application->id) }}"
                                                             class="btn btn-primary mr-2 btn-sm">View</a></td>
                                                 </tr>

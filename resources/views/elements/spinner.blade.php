@@ -55,7 +55,7 @@
 
 
 @if ($errors->any())
-   
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             Swal.fire({
@@ -143,4 +143,6 @@
         return false; // Prevent default form submission behavior
     }
 </script>
+
+
 

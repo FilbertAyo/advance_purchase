@@ -214,11 +214,6 @@
                             </div>
                         </div>
 
-                        <div class="form-row">
-                                <input type="hidden" class="form-control" id="openingStock"
-                                    name="paid_amount" value="0" required>
-                        </div>
-
                         <button type="submit" class="btn btn-primary mt-3">Submit Application</button>
                     </form>
                 </div>

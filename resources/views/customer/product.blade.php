@@ -68,7 +68,7 @@
                     @else
                         @foreach ($products as $product)
                             <div class="col-6 col-md-3 col-lg-3 mb-3">
-                                <div class="card border-1 h-100 d-flex flex-column bg-light">
+                                <div class="card border-1 h-100 d-flex flex-column bg-white">
                                     @if ($product->productImages)
                                         <img src="{{ asset(optional($product->productImages->first())->image_url ?? 'images/no-image.jpg') }}"
                                             alt="Product Image" class="card-img-top img-fluid rounded py-1"

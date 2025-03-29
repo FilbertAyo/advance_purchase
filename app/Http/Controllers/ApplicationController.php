@@ -57,9 +57,7 @@ class ApplicationController extends Controller
         $firstName = $customerNameParts[1];
         $lastName = $customerNameParts[2];
 
-        // Extract the first part as the price
         $itemPrice = array_shift($itemNameParts);
-        // Join the remaining parts as the item name
         $itemName = implode(' ', $itemNameParts);
 
         // Check the last application for this customer
@@ -68,12 +66,13 @@ class ApplicationController extends Controller
             ->first();
 
         if ($lastApplication && $lastApplication->outstanding > 0) {
-            // If the outstanding is greater than zero, reject the application
             return redirect()->back()->with('error', 'You have an outstanding balance. Please settle it before applying for a new Product.');
         }
 
-        // Calculate the outstanding amount for the new application
         $outstanding = $itemPrice - $request->paid_amount;
+
+        //discount as per last purchase
+        $discountAmount = $lastApplication?->price*0.07 ?? 0;
 
         DB::beginTransaction();
 
@@ -83,14 +82,13 @@ class ApplicationController extends Controller
                 'price' => $itemPrice,
                 'item_name' => $itemName,
                 'customer_name' => $firstName . ' ' . $lastName,
-                'paid_amount' => $request->paid_amount,
+                'paid_amount' => $discountAmount,
                 'outstanding' => $outstanding,
                 'created_by' => $request->created_by,
             ]);
-
             Advance::create([
                 'application_id' => $application->id,
-                'added_amount' => $request->paid_amount,
+                'added_amount' => $discountAmount,
                 'outstanding' => $outstanding,
                 'updated_by' => $request->created_by,
             ]);

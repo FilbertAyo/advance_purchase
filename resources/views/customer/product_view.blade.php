@@ -20,13 +20,12 @@
                             Product Details
                         </h2>
                     </div>
-
                     <li class="nav-item dropdown col-auto d-flex">
-
                         <button type="button" class="btn btn-sm ml-2" onclick="reloadPage()">
                             <i class="fe fe-16 fe-refresh-ccw text-muted"></i>
                         </button>
                 </div>
+
 
                 <div class="card p-3">
                     <div class="row mb-4">
@@ -84,8 +83,8 @@
                             <form action="{{ route('application.store') }}" method="POST"
                                 id="buyForm-{{ $product->id }}">
                                 @csrf
-                                <input type="hidden" name="created_by" value="Customer">
-                                <input type="hidden" name="paid_amount" value="0">
+                                <input type="hidden" name="created_by" value="Discount">
+                                {{-- <input type="hidden" name="paid_amount" value="0"> --}}
                                 <input type="hidden" name="customer_name"
                                     value="{{ Auth::user()->id }} {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}">
                                 <input type="hidden" name="item_name"

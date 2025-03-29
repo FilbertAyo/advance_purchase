@@ -59,8 +59,6 @@
                     </div>
                 </div>
 
-
-
                 <div class="row">
                     <div class="col-md-6">
                         <div class="row align-items-center mb-2">
@@ -70,7 +68,7 @@
                         </div>
 
                         <div class="card shadow mb-4 p-3">
-                            <table class="table table-bordered table-hover mb-0 table-sm" id="statementsTable">
+                            <table class="table table-bordered table-hover mb-0 table-sm">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -90,7 +88,7 @@
                                         @endforeach
                                     @else
                                         <tr class="alert alert-danger">
-                                            <td colspan="6" class="text-center">No statements found</td>
+                                            <td colspan="3" class="text-center">No statements found</td>
                                         </tr>
                                     @endif
 
@@ -110,7 +108,7 @@
 
                                     <div class="form-group">
                                         <a href="#" class="btn btn-secondary" data-bs-toggle="modal"
-                                            data-bs-target="#screenshot">Update Screenshot</a>
+                                            data-bs-target="#screenshot">Screenshot</a>
                                     </div>
                                 </form>
                             </div>
@@ -152,7 +150,7 @@
                                         @endforeach
                                     @else
                                         <tr class="alert alert-danger">
-                                            <td colspan="6" class="text-center">No Screenshot found</td>
+                                            <td colspan="4" class="text-center">No Screenshot found</td>
                                         </tr>
                                     @endif
 
@@ -160,7 +158,6 @@
                             </table>
                         </div>
                     </div>
-
 
                 </div>
 

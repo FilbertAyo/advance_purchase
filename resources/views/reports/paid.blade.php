@@ -52,7 +52,7 @@
                                     <td>{{ $outstanding->paid_amount }}</td>
                                     <td>{{ $outstanding->updated_at }}</td>
                                     <td>
-                                        <a href="{{ route('invoice', $outstanding->id) }}" class="btn btn-sm btn-primary">Invoice</a>
+                                        <a href="{{ route('invoice', $outstanding->id) }}" class="btn btn-sm btn-primary">Receipt</a>
                                     </td>
                                 </tr>
                                 @endforeach

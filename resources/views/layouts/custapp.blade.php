@@ -46,38 +46,38 @@
                                     style="height: 40px">
                             </div>
                         </a>
-                        <button class="navbar-toggler mt-2 mr-auto toggle-sidebar text-muted">
+                        <!-- Navbar Toggle Button -->
+                        <button class="navbar-toggler mt-2 mr-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="fe fe-menu navbar-toggler-icon"></i>
                         </button>
-                        <div class="navbar-slide bg-white ml-lg-4" id="navbarSupportedContent">
-                            <a href="#" class="btn toggle-sidebar d-lg-none text-muted ml-2 mt-3"
-                                data-toggle="toggle">
-                                <i class="fe fe-x"><span class="sr-only"></span></i>
+
+                        <!-- Navbar Content -->
+                        <div class="collapse navbar-collapse navbar-slide bg-white ml-lg-4" id="navbarSupportedContent">
+                            <!-- Close button for mobile -->
+                            <a href="#" class="btn d-lg-none text-muted ml-2 mt-3" data-toggle="collapse" data-target="#navbarSupportedContent">
+                                <i class="fe fe-x"></i>
                             </a>
+
                             <ul class="navbar-nav mr-auto">
-                                <li class="nav-item dropdown">
+                                <li class="nav-item">
                                     <a href="{{ url('/dashboard') }}" class="nav-link">
-                                        <span class="ml-lg-2">Dashboard</span><span class="sr-only">(current)</span>
+                                        <span class="ml-lg-2">Dashboard</span>
                                     </a>
                                 </li>
-                                <li class="nav-item dropdown">
+                                <li class="nav-item">
                                     <a href="{{ url('/product') }}" class="nav-link">
                                         <span class="ml-lg-2">Products</span>
                                         <span class="badge badge-pill badge-primary">New</span>
                                     </a>
                                 </li>
                             </ul>
-                            </li>
-                            </ul>
                         </div>
-                        <form class="form-inline ml-md-auto d-none d-lg-flex ">
-                            <input class="form-control mr-sm-2 bg-transparent border-0 pl-4 text-muted" type="hidden">
-                        </form>
-                        <ul class="navbar-nav d-flex flex-row">
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link text-muted" href="#" id="navbarDropdown" role="button"
-                                    data-toggle="modal" data-target=".modal-shortcut">
+                        <!-- User Profile -->
+                        <ul class="navbar-nav d-flex flex-row">
+                            <li class="nav-item">
+                                <a class="nav-link text-muted" href="#" data-toggle="modal" data-target=".modal-shortcut">
                                     <span class="avatar avatar-sm">
                                         <img src="{{ asset(Auth::user()->profile->profile_image ?? 'images/photo.jpeg') }}"
                                             alt="User" style="width: 50px; height: 50px; object-fit: cover;"
@@ -86,10 +86,10 @@
                                 </a>
                             </li>
                         </ul>
-                        </li>
-                        </ul>
                     </div>
                 </nav>
+
+
                 <div class="modal fade modal-shortcut modal-slide" tabindex="-1" role="dialog"
                     aria-labelledby="defaultModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
