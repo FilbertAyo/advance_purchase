@@ -153,9 +153,16 @@
             </li>
         </ul>
 
-        <a href="https://advancepurchase.marscommltd.com/" target="_blank" class="btn btn-primary mt-3">
-            <i class="fe fe-click fe-16"></i>
-            <span class="ml-3 item-text">Visit Website</span>
-        </a>
+
+        <!-- Logout Button at Bottom -->
+        <form method="POST" action="{{ route('logout') }}" class="mt-auto">
+            @csrf
+            <div class="mt-3">
+                <a class="btn bg-danger text-white w-100" href="{{ route('logout') }}"
+                   onclick="event.preventDefault(); this.closest('form').submit();">
+                    {{ __('Log Out') }}
+                </a>
+            </div>
+        </form>
     </nav>
 </aside>

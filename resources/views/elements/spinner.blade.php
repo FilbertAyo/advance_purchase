@@ -30,25 +30,49 @@
 @if (session('success'))
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "{{ session('success') }}",
-                showConfirmButton: false,
-                timer: 2000
-            });
+            toastr.success("{{ session('success') }}", "Done", {
+                    positionClass: "toast-top-right",
+                    timeOut: 5e3,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+                })
+
         });
     </script>
 @elseif (session('error'))
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            Swal.fire({
-                position: "center",
-                icon: "error",
-                title: "{{ session('error') }}",
-                showConfirmButton: false,
-                timer: 2000
-            });
+            toastr.error("{{ session('error') }}", "Error!", {
+                    positionClass: "toast-top-right",
+                    timeOut: 5e3,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+                })
+
         });
     </script>
 @endif
@@ -58,19 +82,27 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            Swal.fire({
-                position: "center",
-                icon: "error",
-                title: "Validation Error",
-                html: `
-                    <ul style="text-align: left; list-style: none; padding: 0;">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                `,
-                showConfirmButton: true
-            });
+            @foreach ($errors->all() as $error)
+            toastr.error("{{ $error }}", "Error!", {
+                    positionClass: "toast-top-right",
+                    timeOut: 5e3,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+                });
+                @endforeach
+
         });
     </script>
 @endif
@@ -145,4 +177,9 @@
 </script>
 
 
+<link rel="stylesheet" href="{{ asset('toastr/css/toastr.min.css') }}">
 
+<script src="{{ asset('toastr/global.min.js') }}"></script>
+<script src="{{ asset('toastr/quixnav-init.js') }}"></script>
+<script src="{{ asset('toastr/toastr.min.js') }}"></script>
+<script src="{{ asset('toastr/toastr-init.js') }}"></script>

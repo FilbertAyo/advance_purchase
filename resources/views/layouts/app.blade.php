@@ -17,6 +17,7 @@
         href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <!-- Icons CSS -->
+
     <link rel="stylesheet" href="{{ asset('css/feather.css') }}">
     <link rel="stylesheet" href="{{ asset('css/select2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}">
@@ -35,36 +36,37 @@
 
 <body class="vertical light">
 
-    @if(in_array(Auth::user()->userType, [1, 2, 3, 4]))
+    @if (in_array(Auth::user()->userType, [1, 2, 3, 4]))
 
-    <div class="wrapper">
-        @include('layouts.navigation')
-        {{-- @include('elements.toast') --}}
-        @include('layouts.aside')
+        <div class="wrapper">
+            @include('layouts.navigation')
+            {{-- @include('elements.toast') --}}
+            @include('layouts.aside')
 
-     @If(Auth::user()->status == 'active' )
-        <main role="main" class="main-content">
-                {{ $slot }}
-        </main> <!-- main -->
-        @else
-        @include('errors.deactivated')
-        @endif
-    </div>
 
-    @else
-
-    <div class="wrapper vh-100">
-        <div class="align-items-center h-100 d-flex w-50 mx-auto">
-          <div class="mx-auto text-center">
-            <h2 class="mb-1 font-weight-bold text-danger">Permission Denied!</h2>
-            <h4 class="mb-3 text-muted">You don't have permission to access this page.</h4>
-            <a href="{{ url()->previous() }}" class="btn btn-lg btn-dark px-5">Go Back</a>
-          </div>
+            @if (Auth::user()->status == 'active')
+                <main role="main" class="main-content">
+                    {{ $slot }}
+                </main> <!-- main -->
+            @else
+                @include('errors.deactivated')
+            @endif
         </div>
-      </div>
+    @else
+        <div class="wrapper vh-100">
+            <div class="align-items-center h-100 d-flex w-50 mx-auto">
+                <div class="mx-auto text-center">
+                    <h2 class="mb-1 font-weight-bold text-danger">Permission Denied!</h2>
+                    <h4 class="mb-3 text-muted">You don't have permission to access this page.</h4>
+                    <a href="{{ url()->previous() }}" class="btn btn-lg btn-dark px-5">Go Back</a>
+                </div>
+            </div>
+        </div>
 
     @endif
 
+
+    {{-- main js  --}}
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/moment.min.js') }}"></script>
@@ -105,8 +107,8 @@
         $('#dataTable-1').DataTable({
             autoWidth: true,
             "lengthMenu": [
-                [10, 20, 40 ],
-                [10, 20, 40 ]
+                [10, 20, 40],
+                [10, 20, 40]
 
                 // [10, 20, 50 , 100, -1],
                 // [10, 20, 50 , 100, "All"]
@@ -308,7 +310,12 @@
         gtag('js', new Date());
         gtag('config', 'UA-56159088-1');
     </script>
-    
+
+
+
+
+
+
 </body>
 
 </html>
