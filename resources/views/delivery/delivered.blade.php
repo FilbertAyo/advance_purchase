@@ -49,7 +49,7 @@
                         <div class="card shadow">
                             <div class="card-body">
                                 <!-- table -->
-                                <table class="table table-bordered table-hover" id="dataTable-1">
+                                <table class="table table-bordered table-sm table-hover" id="dataTable-1">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -80,7 +80,7 @@
                                                         <div style="display: flex; gap: 2px;">
 
                                                             <a href="{{ route('application.show', $item->id) }}"
-                                                                class="btn btn-sm  btn-warning text-white"><span
+                                                                class="btn btn-sm  btn-secondary text-white"><span
                                                                     class="fe fe-eye fe-16"></span>
                                                                 </a>
                                                         </div>

@@ -86,11 +86,11 @@
                                 <input type="hidden" name="created_by" value="Discount">
                                 {{-- <input type="hidden" name="paid_amount" value="0"> --}}
                                 <input type="hidden" name="customer_name"
-                                    value="{{ Auth::user()->id }} {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}">
+                                    value="{{ Auth::user()->id }} {{ Auth::user()->first_name }} {{ Auth::user()->middle_name }} {{ Auth::user()->last_name }}-[ID:{{ Auth::user()->userId }}]">
                                 <input type="hidden" name="item_name"
                                     value="{{ $product->sales }} {{ $product->item_name }} {{ $product->code }}">
 
-                                <button type="submit" class="btn btn-dark btn-block mt-3">Confirm Purchase</button>
+                                <x-primary-button label="Confirm Purchase" class="w-100 mt-3 btn-dark " />
                             </form>
                         </div>
                     </div>

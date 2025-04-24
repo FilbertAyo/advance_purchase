@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Address;
 use App\Models\City;
 use App\Models\District;
-use App\Models\Region;
 use App\Models\Ward;
 use Illuminate\Http\Request;
 
@@ -16,23 +15,37 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $city = City::all();
+        $city = City::withCount('districts')->get();
 
-        return view('settings.address',compact('city'));
+        return view('settings.address', compact('city'));
     }
 
-    public function regions(){
+    public function regions()
+    {
         $city = City::all();
-        $regions = Region::all();
+        $regions = District::withCount('wards')->get();
 
-        return view('settings.regions', compact('regions','city'));
+        return view('settings.regions', compact('regions', 'city'));
     }
 
-    public function wards(){
-        $regions = Region::all();
+    public function wards()
+    {
+        $districts = District::all();
         $wards = Ward::all();
 
-        return view('settings.wards', compact('regions','wards'));
+        return view('settings.wards', compact('districts', 'wards'));
+    }
+
+    public function getDistricts($city_id)
+    {
+        $districts = District::where('city_id', $city_id)->get();
+        return response()->json($districts);
+    }
+
+    public function getWards($district_id)
+    {
+        $wards = Ward::where('district_id', $district_id)->get();
+        return response()->json($wards);
     }
 
 
@@ -49,17 +62,25 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'city_name' => 'required|unique:cities,city_name',
+        ]);
+
         City::create($request->all());
+
         return redirect()->back()->with('success', 'New city added successfully');
     }
 
-    public function regionStore(Request $request){
 
-        Region::create($request->all());
+    public function regionStore(Request $request)
+    {
+
+        District::create($request->all());
         return redirect()->back()->with('success', 'New region added successfully');
     }
 
-    public function wardStore(Request $request){
+    public function wardStore(Request $request)
+    {
 
         Ward::create($request->all());
         return redirect()->back()->with('success', 'New ward added successfully');
@@ -103,11 +124,12 @@ class AddressController extends Controller
 
     public function regionDestroy(string $id)
     {
-        $region = Region::findOrFail($id);
+        $region = District::findOrFail($id);
         $region->delete();
         return redirect()->back()->with('success', 'Region deleted successfully');
     }
-    public function wardDestroy(string $id){
+    public function wardDestroy(string $id)
+    {
         $ward = Ward::findOrFail($id);
         $ward->delete();
         return redirect()->back()->with('success', 'Ward deleted successfully');

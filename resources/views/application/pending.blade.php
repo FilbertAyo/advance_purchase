@@ -59,7 +59,7 @@
                         <div class="card shadow">
                             <div class="card-body">
                                 <!-- table -->
-                                <table class="table table-bordered" id="dataTable-1">
+                                <table class="table table-bordered table-sm" id="dataTable-1">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -78,7 +78,7 @@
                                             @foreach ($application as $index => $item)
                                                 <tr>
                                                     <td>{{ $index + 1 }}</td>
-                                                    <td>{{ $item->customer_name }}</td>
+                                                    <td>{{ preg_replace('/-\[ID:\d+\]/', '', $item->customer_name) }}</td>
                                                     <td>{{ $item->item_name }}</td>
                                                     <td>{{ $item->price }}</td>
                                                     <td><span class="text-success">{{ $item->paid_amount}}</span></td>
@@ -94,12 +94,9 @@
 
                                                         <div style="display: flex; gap: 2px;">
 
-                                                            {{-- <a href="{{ route('application.edit', $item->id) }}"
-                                                                class="btn btn-sm btn-primary">
-                                                                <span class="fe fe-edit fe-16"></span>
-                                                            </a> --}}
+
                                                             <a href="{{ route('application.show', $item->id) }}"
-                                                                class="btn btn-sm  btn-warning text-white"><span
+                                                                class="btn btn-sm  btn-secondary text-white"><span
                                                                     class="fe fe-eye fe-16"></span>
                                                                 </a>
 
@@ -186,8 +183,8 @@
                                         @foreach ($user as $user)
                                         @if($user->status == 'active')
                                         {{-- very important snippet ,Never change it  --}}
-                                            <option value="{{ $user->id }} {{ $user->first_name }} {{ $user->last_name }}-[ID:{{ $user->userId }}]">
-                                                {{ $user->first_name }} {{ $user->last_name }} [ID:{{ $user->userId }}]
+                                            <option value="{{ $user->id }} {{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}-[ID:{{ $user->userId }}]">
+                                                {{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }} [ID:{{ $user->userId }}]
                                             </option>
                                             @endif
                                         @endforeach
@@ -199,7 +196,7 @@
 
                             <div class="col-md-6 mb-3">
                                 <label for="validationSelect0">Item Name</label>
-                                <select class="form-control select2" id="validationSelect0" name="item_name" required>
+                                <select class="form-control select2" id="validationSelect7" name="item_name" required>
                                     <optgroup label="Select Item">
                                         @foreach ($items as $item)
                                             <option value="{{ $item->sales }} {{ $item->item_name }} {{ $item->code }}">
@@ -214,7 +211,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary mt-3">Submit Application</button>
+                        <x-primary-button label="Submit" class="w-100 mt-3" />
                     </form>
                 </div>
             </div>

@@ -55,7 +55,8 @@ class ApplicationController extends Controller
 
         $customerId = $customerNameParts[0];
         $firstName = $customerNameParts[1];
-        $lastName = $customerNameParts[2];
+        $middleName = $customerNameParts[2] ?? '';
+        $lastName = $customerNameParts[3];
 
         $itemPrice = array_shift($itemNameParts);
         $itemName = implode(' ', $itemNameParts);
@@ -81,7 +82,7 @@ class ApplicationController extends Controller
                 'customer_id' => $customerId,
                 'price' => $itemPrice,
                 'item_name' => $itemName,
-                'customer_name' => $firstName . ' ' . $lastName,
+                'customer_name' => $firstName . ' '.$middleName.' '. $lastName,
                 'paid_amount' => $discountAmount,
                 'outstanding' => $outstanding,
                 'created_by' => $request->created_by,

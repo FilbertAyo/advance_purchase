@@ -21,15 +21,15 @@
                         </a>
                         @endif
 
-                        <button type="button" class="btn btn-sm" onclick="reloadPage()">
-                            <i class="fe fe-16 fe-refresh-ccw text-muted"></i>
-                        </button>
-
                         @if ($application->status == 'inactive')
                             @if (Auth::user()->userType == 1 || Auth::user()->userType == 2)
-                                <button type="button" class="btn mb-2 btn-success btn-sm" data-toggle="modal"
-                                    data-target="#varyModal1" data-whatever="@mdo">Activate
-                                    <span class="fe fe-check fe-16 ml-2"></span></button>
+
+
+                                    <form method="POST" action="{{ route('application.activate', $application->id) }}">
+                                        @csrf
+                                        <x-primary-button label="Activate"/>
+                                    </form>
+
                             @else
                                 <button class="btn mb-2 btn-success btn-sm permission-alert">Activate
                                     <span class="fe fe-check fe-16 ml-2"></span></button>
@@ -283,8 +283,6 @@
                                                             class="btn btn-sm btn-primary">
                                                             <span
                                                             class="fe fe-eye fe-16"></span></a>
-
-
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -307,37 +305,6 @@
             </div> <!-- .col-12 -->
         </div> <!-- .row -->
     </div> <!-- .container-fluid -->
-
-
-    <div class="modal fade" id="varyModal1" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="varyModalLabel">Activation</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="{{ route('application.activate', $application->id) }}">
-                        @csrf
-
-                        <div>
-                            <h5 class="modal-title">Are you sure you want to activate this application for
-                                {{ $application->customer_name }}?</h5>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">No</button>
-                            <button type="submit" class="btn mb-2 btn-primary">Yes, Activate</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
 
 
@@ -376,7 +343,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn mb-2 btn-primary">Save and Close</button>
+                            <x-primary-button label="Save" class="mb-2"/>
                         </div>
                     </form>
                 </div>
@@ -414,7 +381,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn mb-2 btn-primary">Save and Close</button>
+                            <x-primary-button label="Save" class="mb-2"/>
                         </div>
                     </form>
                 </div>
@@ -445,7 +412,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">No</button>
-                        <button type="submit" class="btn mb-2 btn-primary">Yes, Delivered</button>
+                        <x-primary-button label="Yes, Delivered" class="mb-2"/>
                     </div>
                 </form>
             </div>

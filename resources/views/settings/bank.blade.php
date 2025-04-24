@@ -11,7 +11,6 @@
                                 <a class="nav-link active" href="{{ route('address.index') }}"
                                     >Banks</a>
                             </li>
-
                         </ul>
                     </div>
                     <div class="col-auto">
@@ -57,7 +56,7 @@
                         <div class="card shadow">
                             <div class="card-body">
                                 <!-- table -->
-                                <table class="table table-bordered" id="dataTable-1">
+                                <table class="table table-bordered table-sm" id="dataTable-1">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -163,10 +162,7 @@
                             <div class="invalid-feedback">Please provide a valid account name.</div>
                         </div>
 
-
-
-                        <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <x-primary-button label="Save" />
                     </form>
 
                 </div>

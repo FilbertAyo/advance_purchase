@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Mars communications ltd</title>
+    <title>Mars - Application form</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -86,7 +86,8 @@
                             <!-- Phone -->
                             <div class="col-12 col-sm-6">
                                 <input type="tel" name="phone" class="form-control border-0"
-                                    placeholder="@lang('messages.phone_number')" value="{{ old('phone') }}" style="height: 55px;" required>
+                                    placeholder="@lang('messages.phone_number')" value="{{ old('phone') }}" style="height: 55px;"
+                                    required>
                                 <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                             </div>
 
@@ -102,39 +103,34 @@
                                 <h4>@lang('messages.address_details')</h4>
                             </div>
                             <!-- City -->
+                            <!-- City -->
                             <div class="col-12 col-sm-6">
-                                <select name="city" class="form-select border-0" style="height: 55px;" required>
+                                <select name="city" id="city" class="form-select border-0" style="height: 55px;"
+                                    required>
                                     <option value="">--@lang('messages.select_city')--</option>
                                     @foreach ($cities as $city)
-                                        <option value="{{ $city->city_name }}"
-                                            {{ old('city') == $city->city_name ? 'selected' : '' }}>
+                                        <option value="{{ $city->city_name }}" data-id="{{ $city->id }}">
                                             {{ $city->city_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
+
+                            <!-- District -->
                             <div class="col-12 col-sm-6">
-                                <select name="district" class="form-select border-0" style="height: 55px;" required>
+                                <select name="district" id="district" class="form-select border-0"
+                                    style="height: 55px;" required>
                                     <option value="">--@lang('messages.select_district')--</option>
-                                    @foreach ($districts as $district)
-                                        <option value="{{ $district->region_name }}"
-                                            {{ old('district') == $district->region_name ? 'selected' : '' }}>
-                                            {{ $district->region_name }}
-                                        </option>
-                                    @endforeach
                                 </select>
                             </div>
 
+                            <!-- Ward -->
                             <div class="col-12 col-sm-6">
-                                <select name="ward" class="form-select border-0" style="height: 55px;" required>
+                                <select name="ward" id="ward" class="form-select border-0"
+                                    style="height: 55px;" required>
                                     <option value="">--@lang('messages.select_ward')--</option>
-                                    @foreach ($wards as $ward)
-                                        <option value="{{ $ward->ward_name }}"
-                                            {{ old('ward') == $ward->ward_name ? 'selected' : '' }}>
-                                            {{ $ward->ward_name }}
-                                        </option>
-                                    @endforeach
                                 </select>
                             </div>
+
 
                             <!-- Street -->
                             <div class="col-12 col-sm-6">
@@ -260,13 +256,12 @@
 
                             <!-- Submit Button -->
                             <div class="col-12 mt-4">
-                                <button class="btn bg-primary w-100 py-3 text-white"
-                                    type="submit">@lang('messages.submit')</button>
+                                <x-primary-button label="Submit" class="w-100 py-3" />
                             </div>
 
                             <div class="form-check mt-4">
                                 <input class="form-check-input" type="checkbox" id="termsCheckbox" name="terms"
-                                {{ old('terms') ? 'checked' : '' }} required>
+                                    {{ old('terms') ? 'checked' : '' }} required>
                                 <label class="form-check-label" for="termsCheckbox">
                                     By checking this box, you confirm that you have read, understood, and agreed to our
                                     <a href="#" class="text-dark text-decoration-underline"
@@ -281,21 +276,22 @@
                     </form>
 
                     <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-fullscreen">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            @include('elements.terms')
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-fullscreen">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                @include('elements.terms')
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
                 </div>
             </div>
@@ -355,7 +351,6 @@
     </script>
 
 
-
     <script>
         function togglePasswordVisibility(inputId, toggleIconId) {
             const input = document.getElementById(inputId);
@@ -371,6 +366,47 @@
                 icon.classList.add('fa-eye');
             }
         }
+    </script>
+    <script>
+        $('#city').on('change', function() {
+            var cityId = $('#city option:selected').data('id');
+            if (cityId) {
+                $.ajax({
+                    url: '/get-districts/' + cityId,
+                    type: 'GET',
+                    success: function(data) {
+                        $('#district').empty().append(
+                        '<option value="">-- Select District --</option>');
+                        $('#ward').empty().append('<option value="">-- Select Ward --</option>');
+                        $.each(data, function(key, district) {
+                            $('#district').append(
+                                '<option value="' + district.district_name + '" data-id="' +
+                                district.id + '">' + district.district_name + '</option>'
+                            );
+                        });
+                    }
+                });
+            }
+        });
+
+        $('#district').on('change', function() {
+            var districtId = $('#district option:selected').data('id');
+            if (districtId) {
+                $.ajax({
+                    url: '/get-wards/' + districtId,
+                    type: 'GET',
+                    success: function(data) {
+                        $('#ward').empty().append('<option value="">-- Select Ward --</option>');
+                        $.each(data, function(key, ward) {
+                            $('#ward').append(
+                                '<option value="' + ward.ward_name + '" data-id="' + ward
+                                .id + '">' + ward.ward_name + '</option>'
+                            );
+                        });
+                    }
+                });
+            }
+        });
     </script>
 
 

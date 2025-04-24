@@ -66,11 +66,12 @@
                         <div class="card shadow">
                             <div class="card-body">
                                 <!-- table -->
-                                <table class="table table-bordered" id="dataTable-1">
+                                <table class="table table-bordered table-sm" id="dataTable-1">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>City</th>
+                                            <th>No. Districts</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -80,13 +81,11 @@
                                                 <tr>
                                                     <td>{{ $index + 1 }}</td>
                                                     <td>{{ $city->city_name }}</td>
+                                                    <td>{{ $city->districts_count }}</td>
 
                                                     <td>
                                                         <div style="display: flex; gap: 2px;">
-                                                            <!-- Adjust spacing between buttons as needed -->
-                                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editCityModal{{ $city->id }}">
-                                                                <span class="fe fe-edit fe-16"></span>
-                                                            </a>
+
 
                                                             <form id="deleteForm-{{ $city->id }}"
                                                             action="{{ route('address.destroy', $city->id) }}"
@@ -142,42 +141,12 @@
                             <div class="invalid-feedback">Please provide a valid city name.</div>
                         </div>
 
-                        <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary">Add City</button>
+                        <x-primary-button label="Save" />
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    {{-- <div class="modal fade" id="editCityModal{{ $city->id }}" tabindex="-1" role="dialog" aria-labelledby="editCityModalLabel{{ $city->id }}" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editCityModalLabel{{ $city->id }}">Edit City</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="{{ route('address.update', $city->id) }}" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT') <!-- Method Spoofing for Update -->
-
-                        <!-- City Name Input -->
-                        <div class="form-group">
-                            <label for="cityName{{ $city->id }}">City Name</label>
-                            <input type="text" class="form-control" id="cityName{{ $city->id }}" name="city_name"
-                                value="{{ $city->city_name }}" required>
-                            <div class="invalid-feedback">Please provide a valid city name.</div>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary">Update City</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 
 </x-app-layout>

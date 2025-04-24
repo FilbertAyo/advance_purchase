@@ -66,7 +66,7 @@
                         <div class="card shadow">
                             <div class="card-body">
                                 <!-- table -->
-                                <table class="table table-bordered" id="dataTable-1">
+                                <table class="table table-bordered table-sm" id="dataTable-1">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -83,11 +83,6 @@
 
                                                     <td>
                                                         <div style="display: flex; gap: 2px;">
-
-                                                            <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modifyLocationModal_{{ $ward->id }}">
-                                                                <span class="fe fe-edit fe-16"></span>
-                                                            </a>
-
                                                             <form id="deleteForm-{{ $ward->id }}"
                                                             action="{{ route('ward.destroy', $ward->id) }}"
                                                                 method="POST"
@@ -138,9 +133,9 @@
                         <div class="form-group">
                             <label for="wardName">City</label>
 
-                            <select type="text" class="form-control" id="wardName" name="region_id" required>
-                                @foreach($regions as $region)
-                                <option value="{{$region->id }}">{{ $region->region_name }}</option>
+                            <select type="text" class="form-control" id="wardName" name="district_id" required>
+                                @foreach($districts as $district)
+                                <option value="{{$district->id }}">{{ $district->district_name }}</option>
                                 @endforeach
                             </select>
 
@@ -152,8 +147,7 @@
                             <div class="invalid-feedback">Please provide a valid ward name.</div>
                         </div>
 
-                        <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary">Add ward</button>
+                        <x-primary-button label="Save" />
                     </form>
                 </div>
             </div>

@@ -17,23 +17,23 @@
                     </div>
                     <div class="col-auto">
 
-                        <button type="button" class="btn btn-sm" onclick="reloadPage()">
-                            <i class="fe fe-16 fe-refresh-ccw text-muted"></i>
-                        </button>
 
                         @if ($user->status == 'inactive')
                             @if (Auth::user()->userType == 1 || Auth::user()->userType == 2)
-                                <button type="button" class="btn mb-2 btn-primary btn-sm" data-toggle="modal"
-                                    data-target="#varyModal" data-whatever="@mdo">Verify
-                                    <span class="fe fe-check fe-16 ml-2"></span></button>
+
+                                    <form method="POST" action="{{ route('customer.update', $user->id) }}" >
+                                        @csrf
+                                        @method('PUT')
+                                        <x-primary-button label="Verify"/>
+                                    </form>
                             @else
                                 <button class="btn mb-2 btn-primary btn-sm permission-alert">Verify
                                     <span class="fe fe-check fe-16 ml-2"></span></button>
+
+
                             @endif
 
                         @endif
-
-                        {{-- <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Verify</a> --}}
 
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                     <div class="col-md-12">
                         <div class="card shadow mb-4">
                             <div class="card-header">
-                                <strong class="card-title">{{ $user->first_name }} {{ $user->last_name }} <span
+                                <strong class="card-title">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }} <span
                                         class="text-danger">[ID: {{ $user->userId }}]</span></strong>
 
                             </div>
@@ -116,7 +116,7 @@
                             <div class="card shadow">
                                 <div class="card-body">
                                     <!-- table -->
-                                    <table class="table datatables" id="dataTable-1">
+                                    <table class="table datatables table-bordered table-sm" id="dataTable-1">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
@@ -156,7 +156,7 @@
 
 
                                                                 <a href="{{ route('application.show', $item->id) }}"
-                                                                    class="btn btn-sm  btn-warning text-white"><span
+                                                                    class="btn btn-sm  btn-secondary text-white"><span
                                                                         class="fe fe-eye fe-16"></span>
                                                                 </a>
 
@@ -166,7 +166,7 @@
                                                                         method="POST">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <button type="button"
+                                                                        <button type="button" disabled
                                                                             onclick="showSweetAlert(event, '{{ $item->id }}')"
                                                                             class="btn btn-sm btn-danger">
                                                                             <span class="fe fe-trash-2 fe-16"></span>
@@ -204,37 +204,6 @@
 
     </div> <!-- .row -->
     </div> <!-- .container-fluid -->
-
-
-    <div class="modal fade" id="varyModal" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="varyModalLabel">Verification</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="{{ route('customer.update', $user->id) }}" validate>
-                        @csrf
-                        @method('PUT')
-
-                        <div>
-                            <h5 class="modal-title">Are you sure you want to Register this User?</h5>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">No</button>
-                            <button type="submit" class="btn mb-2 btn-primary">Yes , Register</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
 
 
     <!-- Modal Structure -->

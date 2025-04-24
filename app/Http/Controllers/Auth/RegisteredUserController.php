@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
-use App\Models\Region;
+use App\Models\District;
 use App\Models\User;
 use App\Models\User_Profile;
 use App\Models\Ward;
@@ -27,7 +27,7 @@ class RegisteredUserController extends Controller
     public function create(): View
     {
         $cities =  City::all();
-        $districts = Region::all();
+        $districts = District::all();
         $wards = Ward::all();
 
         return view('auth.register', Compact('cities', 'districts', 'wards'));

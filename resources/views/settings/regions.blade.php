@@ -37,7 +37,7 @@
 
                 <div class="row align-items-center">
                     <div class="col">
-                        <h4 class="mb-0 page-title"> List of Regions</h4>
+                        <h4 class="mb-0 page-title"> List of Districts</h4>
 
                     </div>
 
@@ -45,12 +45,12 @@
                         <div class="form-group">
                             @if(Auth::user()->userType == 1 || Auth::user()->userType == 2)
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addregionModal">
-                                New region<span
+                                New District<span
                                 class="fe fe-plus fe-16 ml-2"></span>
                             </button>
 
                                     @else
-                                    <button  class="btn mb-2 btn-primary permission-alert" > New region <span
+                                    <button  class="btn mb-2 btn-primary permission-alert" > New District<span
                                         class="fe fe-plus fe-16 ml-2"></span></button>
                                     @endif
                         </div>
@@ -66,11 +66,12 @@
                         <div class="card shadow">
                             <div class="card-body">
                                 <!-- table -->
-                                <table class="table table-bordered" id="dataTable-1">
+                                <table class="table table-bordered table-sm" id="dataTable-1">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>region</th>
+                                            <th>District</th>
+                                            <th>No. Wards</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -79,14 +80,10 @@
                                             @foreach ($regions as $index => $region)
                                                 <tr>
                                                     <td>{{ $index + 1 }}</td>
-                                                    <td>{{ $region->region_name }}</td>
-
+                                                    <td>{{ $region->district_name }}</td>
+                                                    <td>{{ $region->wards_count }}</td>
                                                     <td>
                                                         <div style="display: flex; gap: 2px;">
-
-                                                            <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modifyLocationModal_{{ $region->id }}">
-                                                                <span class="fe fe-edit fe-16"></span>
-                                                            </a>
 
                                                             <form id="deleteForm-{{ $region->id }}"
                                                             action="{{ route('region.destroy', $region->id) }}"
@@ -116,7 +113,7 @@
 
                 </div> <!-- end section -->
             </div> <!-- .col-12 -->
-        </div> <!-- .row -->
+        </div> 
     </div>
 
 
@@ -126,7 +123,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addregionModalLabel">Add New region</h5>
+                    <h5 class="modal-title" id="addregionModalLabel">Add New District</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -148,12 +145,11 @@
 
                         <div class="form-group">
                             <label for="regionName">region</label>
-                            <input type="text" class="form-control" id="regionName" name="region_name" required>
+                            <input type="text" class="form-control" id="regionName" name="district_name" required>
                             <div class="invalid-feedback">Please provide a valid region name.</div>
                         </div>
 
-                        <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary">Add region</button>
+                        <x-primary-button label="Save" />
                     </form>
                 </div>
             </div>

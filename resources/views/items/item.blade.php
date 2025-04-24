@@ -175,13 +175,13 @@
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
                                 <label for="validationCustom3">Cost (Per Smallest Item Unit)</label>
-                                <input type="text" class="form-control" id="validationCustom3" name="cost">
+                                <input type="number" class="form-control" id="validationCustom3" name="cost">
                                 <div class="valid-feedback"> Looks good! </div>
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label for="validationCustom3">Sales Price (Per Smallest Item Unit)</label>
-                                <input type="text" class="form-control" id="validationCustom3" name="sales"
+                                <input type="number" class="form-control" id="validationCustom3" name="sales"
                                     required>
                                 <div class="valid-feedback"> Looks good! </div>
                             </div>
@@ -233,7 +233,7 @@
                         </div>
 
 
-                        <button type="submit" class="btn btn-primary mt-3">Add Item</button>
+                        <x-primary-button label="Save" class="w-100 mt-3" />
                     </form>
                 </div>
             </div>

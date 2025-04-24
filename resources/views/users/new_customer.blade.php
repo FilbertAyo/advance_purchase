@@ -30,7 +30,7 @@
                             <div class="card shadow">
                                 <div class="card-body">
                                     <!-- table -->
-                                    <table class="table datatables" id="dataTable-1">
+                                    <table class="table datatables table-bordered table-sm" id="dataTable-1">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
@@ -54,29 +54,12 @@
                                                         <td>
                                                             <div style="display: flex; gap: 2px;">
                                                                 <a href="{{ route('customer.show', $user->id) }}"
-                                                                    class="btn btn-sm  btn-warning text-white"><span
+                                                                    class="btn btn-sm btn-secondary text-white"><span
                                                                         class="fe fe-eye fe-16"></span></a>
-
-                                                                        @if(Auth::user()->userType == 1 || Auth::user()->userType == 2)
-                                                                <form
-                                                                    action="{{ route('customer.destroy', $user->id) }}"
-                                                                    method="POST"
-                                                                    onsubmit="return showSweetAlert(event, '{{ $user->id }}');">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="btn btn-sm btn-danger"><span
-                                                                            class="fe fe-trash-2 fe-16"></span></button>
-                                                                </form>
-
-                                                                @else
 
                                                                 <button
                                                                     class="btn btn-sm btn-danger permission-alert"><span
                                                                         class="fe fe-trash-2 fe-16 permission-alert"></span></button>
-
-                                                                @endif
-
 
                                                             </div>
                                                         </td>
@@ -88,11 +71,11 @@
                                     </table>
                                 </div>
                             </div>
-                        </div> <!-- simple table -->
+                        </div>
 
 
-                </div> <!-- .row -->
-            </div> <!-- .container-fluid -->
+                </div>
+            </div>
 
 
 

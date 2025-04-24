@@ -108,15 +108,8 @@
 
                                     </div>
 
-                                    <div class="form-row">
-
-
-
-                                    </div>
-
-
-
-                                    <button type="submit" class="btn btn-primary mt-3">Update Product</button>
+                                
+                                    <x-primary-button label="Update" class="w-100 mt-3" />
                                 </form>
 
                                 <script>

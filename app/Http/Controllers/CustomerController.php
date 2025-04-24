@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Application;
 use App\Models\City;
+use App\Models\District;
 use App\Models\Region;
 use App\Models\User;
 use App\Models\Ward;
@@ -26,10 +27,10 @@ class CustomerController extends Controller
 
     public function unverifiedCustomer(){
         $cities =  City::all();
-        $districts = Region::all();
+        $districts = District::all();
         $wards = Ward::all();
-        
-        $user = User::where('status', 'inactive')->where('userType', 0)->with('profile')->get();
+
+        $user = User::where('status', 'inactive')->where('userType', 0)->with('profile')->with('profile.ward', 'profile.district', 'profile.city')->get();
 
         return view('users.unverified_customer', compact('user', 'cities', 'districts', 'wards'));
     }

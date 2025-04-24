@@ -8,6 +8,7 @@ use App\Models\Application;
 use App\Models\Bank;
 use App\Models\Item;
 use App\Models\User;
+use App\Models\User_Profile;
 use App\Models\User_Relative;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -80,27 +81,54 @@ class DashboardController extends Controller
     {
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
+            'middle_name' => ['nullable', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:255', 'unique:' . User::class],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::min(6)],
         ]);
 
+        $userId = $this->generateUniqueUserId();
+
         $user = User::create([
             'first_name' => $request->first_name,
             'middle_name' => $request->middle_name,
             'last_name' => $request->last_name,
             'phone' => $request->phone,
-            'branch' => $request->branch,
             'userType' => $request->userType,
+            'userId' => $userId,
             'status' => $request->status,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+
+        User_Profile::create([
+            'user_id' => $user->id,
+            'city' => $request->city,
+            'district' => $request->district,
+            'ward' => $request->ward,
+            'street' => $request->street,
+            'gender' => $request->gender,
+            'birth_date' => $request->birth_date,
+            'id_type' => $request->id_type,
+            'id_number' => $request->id_number,
+            'employment_status' => $request->employment_status,
+            'occupation' => $request->occupation,
+            'organization' => $request->organization,
+        ]);
+
         event(new Registered($user));
 
-        return redirect()->back()->with('success', 'New user added successfully');
+        return redirect()->back()->with('success', 'New Customer registered successfully');
+    }
+    private function generateUniqueUserId()
+    {
+        do {
+            $userId = random_int(10000000, 99999999);
+        } while (User::where('userId', $userId)->exists()); // Check for uniqueness
+
+        return $userId;
     }
 
     public function destroy($id)

@@ -27,7 +27,7 @@
 
          <!-- Submit Button -->
          <div class="flex items-center justify-end mt-4">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+            <x-primary-button label="Login" class="w-100" />
         </div>
 
         <!-- Remember Me -->
@@ -46,7 +46,5 @@
     <!-- Partnering with Section -->
     <div class="footer-partner" style="position: absolute; bottom: 0; width: 100%; text-align: center; padding: 10px;">
         <p><strong>Advanced Purchase Agreement</strong></p>
-
-
     </div>
 </x-guest-layout>

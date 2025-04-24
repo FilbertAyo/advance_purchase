@@ -43,7 +43,7 @@
                                 <div class="card shadow">
                                     <div class="card-body">
                                         <!-- table -->
-                                        <table class="table table-bordered" id="dataTable-1">
+                                        <table class="table table-bordered table-sm" id="dataTable-1">
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
@@ -62,7 +62,7 @@
                                                     @foreach ($application as $index => $item)
                                                         <tr>
                                                             <td>{{ $index + 1 }}</td>
-                                                            <td>{{ $item->customer_name }}</td>
+                                                            <td>{{ preg_replace('/-\[ID:\d+\]/', '', $item->customer_name) }}</td>
                                                             <td>{{ $item->item_name }}</td>
                                                             <td>{{ $item->price }}</td>
                                                             <td><span class="text-success">{{ $item->paid_amount}}</span></td>
@@ -80,34 +80,11 @@
                                                             <td>
 
                                                                 <div style="display: flex; gap: 2px;">
-
-
                                                                     <a href="{{ route('application.show', $item->id) }}"
-                                                                        class="btn btn-sm  btn-warning text-white">
+                                                                        class="btn btn-sm btn-secondary text-white">
                                                                         <span
                                                                             class="fe fe-eye fe-16"></span>
                                                                         </a>
-
-                                                                        @if(Auth::user()->userType == 1 || Auth::user()->userType == 3)
-
-                                                                        <form id="deleteForm-{{ $item->id }}"
-                                                                            action="{{ route('application.destroy', $item->id) }}"
-                                                                            method="POST"
-                                                                           >
-                                                                          @csrf
-                                                                          @method('DELETE')
-                                                                            <button type="button" onclick="showSweetAlert(event, '{{ $item->id }}')"
-                                                                                class="btn btn-sm btn-danger">
-                                                                            <span class="fe fe-trash-2 fe-16"></span>
-                                                                        </button>
-
-                                                                      </form>
-                                                                      @else
-                                                                      <button
-                                                                      class="btn btn-sm btn-danger permission-alert" ><span
-                                                                          class="fe fe-trash-2 fe-16 permission-alert"></span></button>
-                                                                      @endif
-
 
                                                                 </div>
                                                             </td>
