@@ -47,7 +47,6 @@
                     </div>
                 </div>
 
-
                 @include('elements.spinner')
 
                 <div class="row my-2">
@@ -57,18 +56,18 @@
                             <div class="card-body">
 
                                 <form method="GET" action="{{ route('item.index') }}" class="mb-3">
-                                    <div class="input-group">
+                                    <div class="input-group" style="gap: 5px;">
                                         <input type="text" name="search" class="form-control" placeholder="Search items..." value="{{ request('search') }}">
                                         <button type="submit" class="btn btn-primary">Search</button>
                                     </div>
                                 </form>
 
-                                <table class="table table-bordered table-sm">
+                                <table id="printTable" class="table table-bordered table-sm">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Name</th>
-                                            {{-- <th>Cost</th> --}}
+                                            <th>Model No.</th>
                                             <th>Selling Price</th>
                                             <th>Category</th>
                                             <th>Brand</th>
@@ -79,10 +78,9 @@
                                         @if ($items->count() > 0)
                                             @foreach ($items as $index => $item)
                                                 <tr>
-                                                    <!-- Adjusted index to work with pagination -->
                                                     <td>{{ ($items->currentPage() - 1) * $items->perPage() + $index + 1 }}</td>
                                                     <td>{{ $item->item_name }}</td>
-                                                    {{-- <td>{{ $item->cost }}</td> --}}
+                                                    <td>{{ $item->code }}</td>
                                                     <td>{{ $item->sales }}</td>
                                                     <td>{{ $item->category }}</td>
                                                     <td>{{ $item->brand }}</td>
@@ -92,7 +90,7 @@
                                                                 <span class="fe fe-edit fe-16"></span>
                                                             </a>
 
-                                                            <a href="{{ route('item.show', $item->id) }}" class="btn btn-sm btn-warning text-white">
+                                                            <a href="{{ route('item.show', $item->id) }}" class="btn btn-sm btn-secondary text-white">
                                                                 <span class="fe fe-eye fe-16"></span>
                                                             </a>
 

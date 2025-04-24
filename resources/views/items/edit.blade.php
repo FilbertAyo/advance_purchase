@@ -108,7 +108,18 @@
 
                                     </div>
 
-                                
+                                    <div class="form-row">
+
+                                        <div class="col-md-12 mb-3">
+                                            <label for="validationCustom3">Description</label>
+                                            <textarea class="form-control" id="validationCustom3"
+                                                name="description" required>{{ $item->description }}</textarea>
+                                        </div>
+
+
+                                    </div>
+
+
                                     <x-primary-button label="Update" class="w-100 mt-3" />
                                 </form>
 
