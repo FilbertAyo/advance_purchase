@@ -59,7 +59,7 @@
                                     </dd>
 
                                     <dt class="col-sm-12 text-muted">Description</dt>
-                                    <dd class="col-sm-12"> {{ $item->description }} </dd>
+                                    <dd class="col-sm-12"> {!! nl2br(e($item->description)) !!}</dd>
                                 </dl>
 
                             </div> <!-- .card-body -->

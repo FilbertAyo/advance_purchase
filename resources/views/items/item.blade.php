@@ -224,7 +224,7 @@
 
                         <div class="form-group mb-3">
                             <label for="validationTextarea1">Item description</label>
-                            <textarea class="form-control" id="validationTextarea1" placeholder="Description" required="" rows="3"
+                            <textarea class="form-control" id="validationTextarea1" placeholder="Description" rows="10" cols="50"
                                 name="description"></textarea>
                             <div class="invalid-feedback"> Please enter a description in the textarea.
                             </div>

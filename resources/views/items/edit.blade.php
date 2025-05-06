@@ -112,7 +112,7 @@
 
                                         <div class="col-md-12 mb-3">
                                             <label for="validationCustom3">Description</label>
-                                            <textarea class="form-control" id="validationCustom3"
+                                            <textarea class="form-control"  rows="10" cols="50"
                                                 name="description" required>{{ $item->description }}</textarea>
                                         </div>
 

@@ -74,7 +74,7 @@
                             <p><strong>Model:</strong> {{ $product->code }}</p>
                             <p><strong>Brand:</strong> {{ $product->brand }}</p>
                             <p><strong>Short Description:</strong></p>
-                            <p> {{ $product->description }}</p>
+                            <p> {!! nl2br(e($product->description)) !!}</p>
 
                             <div class="mt-4">
                                 <p class="text-danger"><strong>make it yours!</strong></p>
