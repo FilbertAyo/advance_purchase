@@ -55,9 +55,18 @@
                         <div class="card shadow">
                             <div class="card-body">
 
-                                <form method="GET" action="{{ route('item.index') }}" class="mb-3">
-                                    <div class="input-group" style="gap: 5px;">
-                                        <input type="text" name="search" class="form-control" placeholder="Search items..." value="{{ request('search') }}">
+                                <form method="GET" action="{{ route('item.index') }}" class="row card-header">
+                                    <div class="col-md-6 d-flex">
+                                        <label class="mr-2 align-self-center">Per page:</label>
+                                        <select name="per_page" class="form-control w-auto me-2" onchange="this.form.submit()">
+                                            <option value="10" {{ request('per_page') == '10' ? 'selected' : '' }}>10</option>
+                                            <option value="20" {{ request('per_page') == '20' ? 'selected' : '' }}>20</option>
+                                            <option value="50" {{ request('per_page') == '50' ? 'selected' : '' }}>50</option>
+                                            <option value="100" {{ request('per_page') == '100' ? 'selected' : '' }}>100</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 d-flex">
+                                        <input type="text" name="search" class="form-control w-100 mr-2" placeholder="Search items..." value="{{ request('search') }}">
                                         <button type="submit" class="btn btn-primary">Search</button>
                                     </div>
                                 </form>
@@ -113,8 +122,13 @@
                                     </tbody>
                                 </table>
 
-                                <div class="d-flex justify-content-center mt-3">
-                                    {{ $items->appends(['search' => request('search')])->links('vendor.pagination.bootstrap-4') }}
+                                <div class="d-flex justify-content-between">
+                                    <div class="align-self-center">
+                                        <p>Showing {{ $items->firstItem() }} to {{ $items->lastItem() }} of {{ $items->total() }} Items</p>
+                                    </div>
+                                    <div class="align-self-center">
+                                        {{ $items->appends(['search' => request('search')])->links('vendor.pagination.bootstrap-4') }}
+                                    </div>
                                 </div>
 
                             </div>

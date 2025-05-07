@@ -22,10 +22,17 @@ Route::get('/', [DashboardController::class, 'welcome']);
 Route::get('/dashboard', [DashboardController::class, 'home'])
     ->middleware(['auth', 'verified'])->name('dashboard');
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile-settings', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile-settings', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/my-dashboard', [DashboardController::class, 'myDashboard'])->name('my.dashboard');
+
+    Route::post('/user/toggle-status/{id}', [ProfileController::class, 'toggleStatus'])->name('user.toggleStatus');
+    Route::get('/products/list', [ItemController::class, 'product'])->name('products.list');
+    Route::get('/product_view/{id}', [ItemController::class, 'product_view']);
 });
 
 require __DIR__ . '/auth.php';
@@ -54,9 +61,7 @@ Route::get('/details/{id}', [ApplicationController::class, 'view'])->name('appli
 Route::put('/details/{id}/edit', [ApplicationController::class, 'updateSerialNo'])->name('serialNo.update');
 // Route::get('')
 
-Route::post('/user/toggle-status/{id}', [ProfileController::class, 'toggleStatus'])->name('user.toggleStatus');
-Route::get('/product', [ItemController::class, 'product'])->middleware(['auth', 'verified']);
-Route::get('/product_view/{id}',[ItemController::class,'product_view'])->middleware(['auth', 'verified']);
+
 
 Route::resource('address', AddressController::class);
 Route::get('/regions', [AddressController::class, 'regions'])->middleware(['auth', 'verified']);
@@ -74,23 +79,23 @@ Route::get('/bank', [DashboardController::class, 'bank'])->middleware(['auth', '
 Route::post('bank_store', [DashboardController::class, 'bank_store'])->middleware(['auth', 'verified']);
 Route::patch('/bank/{id}/disable', [DashboardController::class, 'disable'])->name('bank.disable');
 
-Route::resource('branch',BranchController::class);
+Route::resource('branch', BranchController::class);
 
-Route::get('locale/{lang}',[LocaleController::class, 'setLocale']);
+Route::get('locale/{lang}', [LocaleController::class, 'setLocale']);
 
-Route::get('/deliveries',[DeliveryController::class,'allDelivery'])->middleware(['auth', 'verified']);
+Route::get('/deliveries', [DeliveryController::class, 'allDelivery'])->middleware(['auth', 'verified']);
 Route::put('/delivery_update/{id}', [DeliveryController::class, 'deliveryUpdate'])->name('delivery.update')->middleware(['auth', 'verified']);
-Route::get('delivered',[DeliveryController::class,'delivered'])->middleware(['auth', 'verified']);
-Route::get('/pending_delivery',[DeliveryController::class,'deliveryPending'])->middleware(['auth', 'verified']);
+Route::get('delivered', [DeliveryController::class, 'delivered'])->middleware(['auth', 'verified']);
+Route::get('/pending_delivery', [DeliveryController::class, 'deliveryPending'])->middleware(['auth', 'verified']);
 Route::get('/products/search', [ItemController::class, 'product'])->name('products.search');
 
 Route::post('/relative/store', [ProfileController::class, 'storeRelative'])->name('relative.store');
 Route::delete('/relative/{id}', [ProfileController::class, 'destroyRelative'])->name('relative.destroy');
 Route::post('/profile_picture/update', [ProfileController::class, 'updateProfile'])->name('prof.update');
 
-Route::get('report/statements',[ReportController::class,'statements'])->name('report.statements')->middleware(['auth', 'verified']);
-Route::get('report/outstanding',[ReportController::class,'outstanding'])->name('report.outstanding')->middleware(['auth', 'verified']);
-Route::get('report/paid',[ReportController::class,'paid'])->name('report.paid')->middleware(['auth', 'verified']);
+Route::get('report/statements', [ReportController::class, 'statements'])->name('report.statements')->middleware(['auth', 'verified']);
+Route::get('report/outstanding', [ReportController::class, 'outstanding'])->name('report.outstanding')->middleware(['auth', 'verified']);
+Route::get('report/paid', [ReportController::class, 'paid'])->name('report.paid')->middleware(['auth', 'verified']);
 Route::get('report/invoice/{id}', [ReportController::class, 'invoice'])->name('invoice')->middleware(['auth', 'verified']);
 
 // Route::get('/export-excel', [ReportController::class, 'exportExcel'])->name('export.excel');
@@ -107,7 +112,7 @@ Route::get('/test', function () {
     return view('profile.edit');
 });
 
-Route::get('/sendSms',[SmsController::class,'sendSms']);
+Route::get('/sendSms', [SmsController::class, 'sendSms']);
 
 Route::post('/screenshot/store', [ApplicationController::class, 'screenshot'])->name('screenshot.store');
 Route::delete('/screenshot/{id}', [ApplicationController::class, 'screenshotDestroy'])->name('screenshot.destroy');

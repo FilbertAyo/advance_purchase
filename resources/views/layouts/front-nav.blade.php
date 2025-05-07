@@ -65,7 +65,7 @@
 
         @if (Route::has('login'))
             @auth
-                <a href="{{ url('/dashboard') }}" class="nav-item nav-link bg-primary text-white py-3 px-4">Dashboard</a>
+                <a href="{{ route('dashboard') }}" class="nav-item nav-link bg-primary text-white py-3 px-4">Dashboard</a>
             @else
                 <a href="{{ route('login') }}" class="nav-item nav-link bg-primary text-white py-3 px-4">
                     <i class="fas fa-sign-in-alt me-2"></i>@lang('messages.login')

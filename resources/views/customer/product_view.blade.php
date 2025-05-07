@@ -26,7 +26,6 @@
                         </button>
                 </div>
 
-
                 <div class="card p-3">
                     <div class="row mb-4">
                         <div class="col-md-6">

@@ -20,17 +20,68 @@
 
                         <div class="row">
                             <div class="col-md-6 col-xl-3 mb-4">
+                                <div class="card shadow bg-success text-white border-0">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col-2 text-center">
+                                                <span class="circle circle-sm bg-success-light">
+                                                    <i class="fe fe-16 fe-pocket text-white mb-0"></i>
+                                                </span>
+                                            </div>
+                                            <div class="col pr-0">
+                                                <p class="small mb-0">Total collections</p>
+                                                <span class="h4 mb-0 text-white">TZS {{ number_format( $collection ) }}/=</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-3 mb-4">
+                                <div class="card shadow bg-success text-white border-0">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col-2 text-center">
+                                                <span class="circle circle-sm bg-success-light">
+                                                    <i class="fe fe-16 fe-pocket text-white mb-0"></i>
+                                                </span>
+                                            </div>
+                                            <div class="col pr-0">
+                                                <p class="small mb-0">Collections with Withheld</p>
+                                                <span class="h4 mb-0 text-white">TZS {{ number_format( $collection ) }}/=</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-3 mb-4">
+                                <div class="card shadow bg-danger text-white border-0">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col-2 text-center">
+                                                <span class="circle circle-sm bg-danger-light">
+                                                    <i class="fe fe-16 fe-pocket text-white mb-0"></i>
+                                                </span>
+                                            </div>
+                                            <div class="col pr-0">
+                                                <p class="small text-muted mb-0">Total Refund</p>
+                                                <span class="h4 mb-0 text-white">TZS 500000/=</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-3 mb-4">
                                 <div class="card shadow bg-primary text-white border-0">
                                     <div class="card-body">
                                         <div class="row align-items-center">
-                                            <div class="col-3 text-center">
+                                            <div class="col-2 text-center">
                                                 <span class="circle circle-sm bg-primary-light">
                                                     <i class="fe fe-16 fe-pocket text-white mb-0"></i>
                                                 </span>
                                             </div>
                                             <div class="col pr-0">
-                                                <p class="small text-muted mb-0">Total collections</p>
-                                                <span class="h4 mb-0 text-white">TZS {{ number_format( $collection ) }}/=</span>
+                                                <p class="small text-muted mb-0">Withheld Amount</p>
+                                                <span class="h4 mb-0 text-white">TZS 400000/=</span>
                                             </div>
                                         </div>
                                     </div>

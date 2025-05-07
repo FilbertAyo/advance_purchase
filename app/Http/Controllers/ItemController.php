@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Product_Image;
+use App\Models\User_Relative;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
 class ItemController extends Controller
 {
-
     public function index(Request $request)
     {
         $query = Item::orderBy('id', 'desc');
@@ -22,7 +23,8 @@ class ItemController extends Controller
                   ->orWhere('brand', 'like', "%$search%");
         }
 
-        $items = $query->paginate(10);
+        $perPage = $request->input('per_page', 10); // Default to 10 if no pagination option is selected
+        $items = $query->paginate($perPage);
 
         return view('items.item', compact('items'));
     }
@@ -161,26 +163,32 @@ class ItemController extends Controller
 
     public function product(Request $request)
     {
+        $customerId = Auth::id();
+        $relative = User_Relative::where('user_id', $customerId)->get();
+
         $category = $request->get('category');
         $query = $request->get('query');
 
         $products = Item::when($category, function ($queryBuilder, $category) {
-            return $queryBuilder->where('category', $category);
-        })
+                return $queryBuilder->where('category', $category);
+            })
             ->when($query, function ($queryBuilder, $query) {
                 return $queryBuilder->where(function ($subQuery) use ($query) {
                     $subQuery->where('item_name', 'LIKE', "%{$query}%")
-                        ->orWhere('code', 'LIKE', "%{$query}%")
-                        ->orWhere('brand', 'LIKE', "%{$query}%");
+                             ->orWhere('code', 'LIKE', "%{$query}%")
+                             ->orWhere('brand', 'LIKE', "%{$query}%");
                 });
             })
             ->paginate(12);
+
+        $products->onEachSide(1); // ✅ Add this here after paginate
 
         if ($request->ajax()) {
             return view('customer.partials.product_list', compact('products'))->render();
         }
 
-        return view('customer.product', compact('products', 'category'));
+        return view('customer.product', compact('products', 'category', 'relative'));
     }
+
 
 }

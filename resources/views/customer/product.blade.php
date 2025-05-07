@@ -5,6 +5,40 @@
         <div class="row justify-content-center">
             <div class="col-12 col-lg-10">
 
+
+                @if ($relative->isEmpty())
+
+                <div id="relativeModal" class="modal" tabindex="-1" role="dialog"
+                    aria-labelledby="relativeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="relativeModalLabel">Complete Your Profile</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>You haven't filled in your relative details yet. Complete them to continue?
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="{{ route('profile.edit') }}" class="btn btn-primary">Finish Now</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    // Delay the modal opening for 5 seconds
+                    setTimeout(function() {
+                        $('#relativeModal').modal('show');
+                    }, 20000);
+
+                </script>
+            @endif
+
                 <div class="mx-auto text-center justify-content-center">
                     <h2 class="page-title mb-0">What do you want?</h2>
                     <p class="help-text text-muted">Search for a product and start to pay in installment.</p>

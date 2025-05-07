@@ -40,7 +40,7 @@
 
                 <nav class="navbar navbar-expand-lg navbar-light bg-white flex-row border-bottom shadow">
                     <div class="container-fluid">
-                        <a class="navbar-brand mx-lg-1 mr-0" href="{{ url('/dashboard') }}">
+                        <a class="navbar-brand mx-lg-1 mr-0" href="{{ route('dashboard') }}">
                             <div class="w-100 d-flex">
                                 <img src="{{ asset('images/marslogo.png') }}" class="navbar-brand-img" alt=""
                                     style="height: 40px">
@@ -58,23 +58,20 @@
                             <a href="#" class="btn d-lg-none text-muted ml-2 mt-3" data-toggle="collapse" data-target="#navbarSupportedContent">
                                 <i class="fe fe-x"></i>
                             </a>
-
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item">
-                                    <a href="{{ url('/dashboard') }}" class="nav-link">
-                                        <span class="ml-lg-2">Dashboard</span>
+                                    <a href="{{ route('products.list') }}" class="nav-link active show">
+                                        <span class="ml-lg-2">Products</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('/product') }}" class="nav-link">
-                                        <span class="ml-lg-2">Products</span>
-                                        <span class="badge badge-pill badge-primary">New</span>
+                                    <a href="{{ route('my.dashboard') }}" class="nav-link">
+                                        <span class="ml-lg-2">Dashboard</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
 
-                        <!-- User Profile -->
                         <ul class="navbar-nav d-flex flex-row">
                             <li class="nav-item">
                                 <a class="nav-link text-muted" href="#" data-toggle="modal" data-target=".modal-shortcut">

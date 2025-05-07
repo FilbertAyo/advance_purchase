@@ -43,11 +43,7 @@ class DashboardController extends Controller
 
         if ($userType == '0') {
 
-            $customerId = Auth::id();
-            $applications = Application::where('customer_id', $customerId)->get();
-            $relative = User_Relative::where('user_id', $customerId)->get();
-            return view('customer.customer', compact('applications','relative'));
-
+            return redirect()->route('products.list');
 
         } elseif ($userType == '1' || $userType == '2' || $userType == '3' || $userType == '4') {
 
@@ -67,6 +63,20 @@ class DashboardController extends Controller
 
             redirect()->back()->with('status', "You're not authorized");
 
+        }
+    }
+
+    public function myDashboard()
+    {
+        $userType = Auth::user()->userType;
+
+        if ($userType == '0') {
+            $customerId = Auth::id();
+            $applications = Application::where('customer_id', $customerId)->get();
+            $relative = User_Relative::where('user_id', $customerId)->get();
+            return view('customer.customer', compact('applications','relative'));
+        } else {
+            return redirect()->back()->with('status', "You're not authorized");
         }
     }
 
