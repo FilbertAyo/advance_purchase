@@ -27,23 +27,44 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile-settings', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile-settings', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/user/toggle-activation/{id}', [ProfileController::class, 'toggleStatus'])->name('user.toggleStatus');
 
     Route::get('/my-dashboard', [DashboardController::class, 'myDashboard'])->name('my.dashboard');
+    Route::get('/analytics/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/user', [DashboardController::class, 'user']);
+    Route::get('/bank', [DashboardController::class, 'bank']);
+    Route::post('bank_store', [DashboardController::class, 'bank_store']);
+    Route::patch('/bank/{id}/disable', [DashboardController::class, 'disable'])->name('bank.disable');
 
-    Route::post('/user/toggle-status/{id}', [ProfileController::class, 'toggleStatus'])->name('user.toggleStatus');
     Route::get('/products/list', [ItemController::class, 'product'])->name('products.list');
     Route::get('/product_view/{id}', [ItemController::class, 'product_view']);
+    Route::resource('item', ItemController::class);
+    Route::post('/items/{item}/upload-image', [ItemController::class, 'uploadImage'])->name('items.upload_image');
+    Route::delete('/items/image/{id}', [ItemController::class, 'deleteImage'])->name('items.delete_image');
+
+    Route::resource('application', ApplicationController::class);
+    Route::get('/pending_application', [ApplicationController::class, 'inactive'])->name('application.inactive');
+    Route::post('/activate/{id}', [ApplicationController::class, 'activate'])->name('application.activate');
+    Route::get('/details/{id}', [ApplicationController::class, 'view'])->name('application.details');
+    Route::put('/details/{id}/edit', [ApplicationController::class, 'updateSerialNo'])->name('serialNo.update');
+    Route::delete('/advances/{id}', [ApplicationController::class, 'advanceDestroy'])->name('advances.destroy');
+    Route::put('/application/{id}/refund', [ApplicationController::class, 'refundRequest'])->name('refund.request');
+    Route::put('/application/{id}/refund-cancel', [ApplicationController::class, 'refundCancel'])->name('refund.cancel');
+    Route::put('/application/{id}/refund-approve', [ApplicationController::class, 'refundApprove'])->name('refund.approve');
+
+    Route::get('/delivery/{filter?}', [DeliveryController::class, 'delivery'])->name('delivery.filter');
+
+    Route::get('report/statements', [ReportController::class, 'statements'])->name('report.statements');
+    Route::get('report/outstanding', [ReportController::class, 'outstanding'])->name('report.outstanding');
+    Route::get('report/paid', [ReportController::class, 'paid'])->name('report.paid');
+    Route::get('report/invoice/{id}', [ReportController::class, 'invoice'])->name('invoice');
+    Route::get('report/refunds', [ReportController::class, 'refunds'])->name('report.refunds');
 });
 
 require __DIR__ . '/auth.php';
 
-Route::resource('item', ItemController::class)->middleware(['auth', 'verified']);
-Route::post('/items/{item}/upload-image', [ItemController::class, 'uploadImage'])->name('items.upload_image');
-Route::delete('/items/image/{id}', [ItemController::class, 'deleteImage'])->name('items.delete_image');
 
 
-
-Route::get('/user', [DashboardController::class, 'user'])->middleware(['auth', 'verified']);
 
 Route::get('/unverified', [CustomerController::class, 'unverifiedCustomer'])->middleware(['auth', 'verified']);
 Route::post('/register', [DashboardController::class, 'register']);
@@ -51,16 +72,6 @@ Route::post('/registration_form', [RegisteredUserController::class, 'store']);
 Route::delete('/user/{id}', [DashboardController::class, 'destroy'])->name('user.destroy')->middleware(['auth', 'verified']);
 
 Route::resource('customer', CustomerController::class)->middleware(['auth', 'verified']);
-Route::resource('application', ApplicationController::class)->middleware(['auth', 'verified']);
-Route::get('/pending_application', [ApplicationController::class, 'inactive'])->middleware(['auth', 'verified'])->name('application.inactive');
-Route::post('/activate/{id}', [ApplicationController::class, 'activate'])
-    ->middleware(['auth', 'verified'])
-    ->name('application.activate');
-
-Route::get('/details/{id}', [ApplicationController::class, 'view'])->name('application.details')->middleware(['auth', 'verified']);
-Route::put('/details/{id}/edit', [ApplicationController::class, 'updateSerialNo'])->name('serialNo.update');
-// Route::get('')
-
 
 
 Route::resource('address', AddressController::class);
@@ -72,18 +83,13 @@ Route::post('/ward_store', [AddressController::class, 'wardStore']);
 Route::delete('/ward/{id}', [AddressController::class, 'wardDestroy'])->name('ward.destroy')->middleware(['auth', 'verified']);
 
 Route::get('/get-districts/{city_id}', [AddressController::class, 'getDistricts']);
-Route::get('/get-wards/{district_id}', [AddressController::class, 'getWards']);
-
-
-Route::get('/bank', [DashboardController::class, 'bank'])->middleware(['auth', 'verified']);
-Route::post('bank_store', [DashboardController::class, 'bank_store'])->middleware(['auth', 'verified']);
-Route::patch('/bank/{id}/disable', [DashboardController::class, 'disable'])->name('bank.disable');
+Route::get('/get-wards/{district_id}', [AddressController::class, 'getWards']);;
 
 Route::resource('branch', BranchController::class);
 
 Route::get('locale/{lang}', [LocaleController::class, 'setLocale']);
 
-Route::get('/deliveries', [DeliveryController::class, 'allDelivery'])->middleware(['auth', 'verified']);
+// Route::get('/deliveries', [DeliveryController::class, 'allDelivery'])->middleware(['auth', 'verified']);
 Route::put('/delivery_update/{id}', [DeliveryController::class, 'deliveryUpdate'])->name('delivery.update')->middleware(['auth', 'verified']);
 Route::get('delivered', [DeliveryController::class, 'delivered'])->middleware(['auth', 'verified']);
 Route::get('/pending_delivery', [DeliveryController::class, 'deliveryPending'])->middleware(['auth', 'verified']);
@@ -93,10 +99,6 @@ Route::post('/relative/store', [ProfileController::class, 'storeRelative'])->nam
 Route::delete('/relative/{id}', [ProfileController::class, 'destroyRelative'])->name('relative.destroy');
 Route::post('/profile_picture/update', [ProfileController::class, 'updateProfile'])->name('prof.update');
 
-Route::get('report/statements', [ReportController::class, 'statements'])->name('report.statements')->middleware(['auth', 'verified']);
-Route::get('report/outstanding', [ReportController::class, 'outstanding'])->name('report.outstanding')->middleware(['auth', 'verified']);
-Route::get('report/paid', [ReportController::class, 'paid'])->name('report.paid')->middleware(['auth', 'verified']);
-Route::get('report/invoice/{id}', [ReportController::class, 'invoice'])->name('invoice')->middleware(['auth', 'verified']);
 
 // Route::get('/export-excel', [ReportController::class, 'exportExcel'])->name('export.excel');
 

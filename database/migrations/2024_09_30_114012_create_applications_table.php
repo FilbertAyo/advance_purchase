@@ -18,11 +18,14 @@ return new class extends Migration
             $table->string('item_name');
             $table->string('price');
             $table->string('serial_number')->nullable();
-            $table->string('paid_amount');
+            $table->string('paid_amount')->nullable();
+            $table->string('withheld_amount')->nullable();
             $table->string('outstanding');
+            $table->string('refund_amount')->nullable();
             $table->string('created_by');
             $table->string('status')->default('inactive');
             $table->string('delivery_status')->default('Not Delivered');
+            $table->string('reason')->nullable();
             $table->timestamps();
         });
     }

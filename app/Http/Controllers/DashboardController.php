@@ -42,28 +42,47 @@ class DashboardController extends Controller
         $userType = Auth::user()->userType;
 
         if ($userType == '0') {
-
             return redirect()->route('products.list');
-
         } elseif ($userType == '1' || $userType == '2' || $userType == '3' || $userType == '4') {
-
-            $collection = Advance::all()->sum('added_amount');
-            $customerNo = User::where('userType', 0)->count();
-            $activeCustomer = User::where('userType', 0)->where('status', 'active')->count();
-            $adminNo = User::whereIn('userType', [1, 2, 3])->count();
-
-            $totalApplication = Application::all()->count();
-            $newApplicationNo = Application::where('status','inactive')->count();
-            $activeApplicationNo = Application::where('status','active')->count();
-            $fullPaidNo = Application::where('outstanding',0)->count();
-
-            return view('dashboard', compact('adminNo', 'customerNo', 'collection','activeCustomer','newApplicationNo', 'totalApplication','activeApplicationNo','fullPaidNo'));
-
+            return redirect()->route('admin.dashboard');
         } else {
-
             redirect()->back()->with('status', "You're not authorized");
-
         }
+    }
+
+    public function dashboard()
+    {
+        $applications = Application::all();
+        $collection = $applications->sum('paid_amount') ?? 0;
+        $withheldAmount = $applications->sum('withheld_amount') ?? 0;
+        $totalRefund = $applications->sum('refund_amount') ?? 0;
+
+        $amount_withheld = $collection - $totalRefund;
+        $amount_without_held = $collection - ($withheldAmount + $totalRefund);
+
+        $customerNo = User::where('userType', 0)->count();
+        $activeCustomer = User::where('userType', 0)->where('status', 'active')->count();
+        $adminNo = User::whereIn('userType', [1, 2, 3])->count();
+
+        $totalApplication = $applications->count();
+        $newApplicationNo = $applications->where('status', 'inactive')->count();
+        $activeApplicationNo = $applications->where('status', 'active')->count();
+        $fullPaidNo = $applications->where('outstanding', 0)->where('status', '!=', 'refunded')->count();
+
+        return view('dashboard', compact(
+            'adminNo',
+            'customerNo',
+            'collection',
+            'activeCustomer',
+            'newApplicationNo',
+            'totalApplication',
+            'activeApplicationNo',
+            'fullPaidNo',
+            'withheldAmount',
+            'totalRefund',
+            'amount_withheld',
+            'amount_without_held'
+        ));
     }
 
     public function myDashboard()

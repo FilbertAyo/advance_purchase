@@ -8,19 +8,20 @@
                     <div class="col">
                         <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{ route('address.index') }}"
-                                    >All</a>
+                                <a class="nav-link {{ request()->segment(2) == '' ? 'active' : '' }}"
+                                   href="{{ route('delivery.filter') }}">All</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"  href="{{ url('/pending_delivery') }}"
-                                  >Pending</a>
+                                <a class="nav-link {{ request()->segment(2) == 'pending' ? 'active' : '' }}"
+                                   href="{{ route('delivery.filter', 'pending') }}">Pending</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"  href="{{ url('/delivered') }}"
-                                  >Delivered</a>
+                                <a class="nav-link {{ request()->segment(2) == 'delivered' ? 'active' : '' }}"
+                                   href="{{ route('delivery.filter', 'delivered') }}">Delivered</a>
                             </li>
                         </ul>
                     </div>
+
                     <div class="col-auto">
                         <button type="button" class="btn btn-sm">
                             <i class="fe fe-16 fe-printer text-muted"></i>
@@ -106,34 +107,6 @@
 
 
 
-
-    <div class="modal fade" id="addCityModal" tabindex="-1" role="dialog" aria-labelledby="addCityModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addCityModalLabel">Add New City</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="{{ route('address.store') }}" enctype="multipart/form-data" novalidate>
-                        @csrf
-
-                        <!-- City Input -->
-                        <div class="form-group">
-                            <label for="cityName">City</label>
-                            <input type="text" class="form-control" id="cityName" name="city_name" required>
-                            <div class="invalid-feedback">Please provide a valid city name.</div>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary">Add City</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 </x-app-layout>

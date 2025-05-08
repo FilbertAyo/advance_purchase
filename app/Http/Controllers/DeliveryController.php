@@ -9,14 +9,23 @@ use Illuminate\Http\Request;
 
 class DeliveryController extends Controller
 {
-    public function allDelivery(){
+    public function delivery($filter = null)
+    {
+        $query = Application::orderBy('id', 'desc')
+            ->where('status', 'active')
+            ->where('outstanding', 0);
 
-        $application = Application::orderBy('id', 'desc')->where('status','active')->where('outstanding',0)->get();
+        if ($filter === 'delivered') {
+            $query->where('delivery_status', 'delivered');
+        } elseif ($filter === 'pending') {
+            $query->where('delivery_status', 'Not Delivered');
+        }
 
-        // $user = User::where('userType', 0)->get();
-        // $items = Item::all();
-        return view('delivery.all',compact('application'));
+        $application = $query->get();
+
+        return view('delivery.all', compact('application', 'filter'));
     }
+
     public function deliveryUpdate(Request $request, $id)
     {
 
@@ -27,23 +36,6 @@ class DeliveryController extends Controller
         $application->save();
 
         return redirect()->route('application.show', $id)->with('success', 'Application Delivery Status of this application updated successfully.');
-    }
-
-    public function delivered()
-    {
-        $application = Application::orderBy('id', 'desc')->where('status', 'active')->where('status','active')->where('outstanding',0)->where('delivery_status','delivered')->get();
-
-        // $user = User::where('userType', 0)->get();
-        // $items = Item::all();
-        return view('delivery.delivered', compact('application'));
-    }
-    public function deliveryPending()
-    {
-        $application = Application::orderBy('id', 'desc')->where('status', 'active')->where('status','active')->where('outstanding',0)->where('delivery_status','Not Delivered')->get();
-
-        // $user = User::where('userType', 0)->get();
-        // $items = Item::all();
-        return view('delivery.pending', compact('application'));
     }
 
 

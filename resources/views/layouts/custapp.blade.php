@@ -29,6 +29,7 @@
     <!-- App CSS -->
     <link rel="stylesheet" href="{{ asset('css/app-light.css') }}" id="lightTheme">
     <link rel="stylesheet" href="{{ asset('css/app-dark.css') }}" id="darkTheme" disabled>
+    
 </head>
 
 <body class="horizontal light">
@@ -59,16 +60,18 @@
                                 <i class="fe fe-x"></i>
                             </a>
                             <ul class="navbar-nav mr-auto">
-                                <li class="nav-item">
-                                    <a href="{{ route('products.list') }}" class="nav-link active show">
+                                <li class="nav-item {{ Request::is('products.list') ? 'active' : '' }}">
+                                    <a href="{{ route('products.list') }}" class="nav-link">
                                         <span class="ml-lg-2">Products</span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item {{ Request::is('my.dashboard') ? 'active' : '' }}">
                                     <a href="{{ route('my.dashboard') }}" class="nav-link">
                                         <span class="ml-lg-2">Dashboard</span>
                                     </a>
                                 </li>
+
+
                             </ul>
                         </div>
 

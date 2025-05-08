@@ -6,7 +6,8 @@
 
         <div class="w-100 mb-4 d-flex">
             <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="{{ route('dashboard') }}">
-                <img src="{{ asset('images/marslogo.png') }}" class="navbar-brand-img" alt="" style="height: 60px">
+                <img src="{{ asset('images/marslogo.png') }}" class="navbar-brand-img" alt=""
+                    style="height: 60px">
             </a>
         </div>
 
@@ -16,32 +17,6 @@
                     <i class="fe fe-home fe-16"></i>
                     <span class="ml-3 item-text">Dashboard</span>
                 </a>
-            </li>
-        </ul>
-
-        <ul class="navbar-nav flex-fill w-100">
-            <li class="nav-item dropdown {{ Request::is('user', 'address*', 'bank') ? 'active' : '' }}">
-                <a href="#settings" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
-                    <i class="fe fe-settings fe-16"></i>
-                    <span class="ml-3 item-text">Settings</span>
-                </a>
-                <ul class="collapse list-unstyled pl-4 w-100" id="settings">
-                    <li class="nav-item {{ Request::is('user') ? 'active' : '' }}">
-                        <a class="nav-link pl-3" href="{{ url('/user') }}">
-                            <span class="ml-1 item-text">All Users</span>
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Request::is('address*') ? 'active' : '' }}">
-                        <a class="nav-link pl-3" href="{{ route('address.index') }}">
-                            <span class="ml-1 item-text">Address</span>
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Request::is('bank') ? 'active' : '' }}">
-                        <a class="nav-link pl-3" href="{{ url('/bank') }}">
-                            <span class="ml-1 item-text">Bank</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
         </ul>
 
@@ -72,10 +47,12 @@
                     <span class="ml-3 item-text">Customers</span>
                 </a>
                 <ul class="collapse list-unstyled pl-4 w-100" id="customer">
-                    <a class="nav-link pl-3 {{ Request::is('customer*') ? 'active' : '' }}" href="{{ route('customer.index') }}">
+                    <a class="nav-link pl-3 {{ Request::is('customer*') ? 'active' : '' }}"
+                        href="{{ route('customer.index') }}">
                         <span class="ml-1">Active Customers</span>
                     </a>
-                    <a class="nav-link pl-3 {{ Request::is('unverified') ? 'active' : '' }}" href="{{ url('/unverified') }}">
+                    <a class="nav-link pl-3 {{ Request::is('unverified') ? 'active' : '' }}"
+                        href="{{ url('/unverified') }}">
                         <span class="ml-1">Requests</span>
                     </a>
                 </ul>
@@ -86,26 +63,28 @@
                     <span class="ml-3 item-text">Application</span>
                 </a>
                 <ul class="collapse list-unstyled pl-4 w-100" id="contact">
-                    <a class="nav-link pl-3 {{ Request::is('application') ? 'active' : '' }}" href="{{ route('application.index') }}">
+                    <a class="nav-link pl-3 {{ Request::is('application') ? 'active' : '' }}"
+                        href="{{ route('application.index') }}">
                         <span class="ml-1">Active Application</span>
                     </a>
-                    <a class="nav-link pl-3 {{ Request::is('application/inactive') ? 'active' : '' }}" href="{{ route('application.inactive') }}">
+                    <a class="nav-link pl-3 {{ Request::is('application/inactive') ? 'active' : '' }}"
+                        href="{{ route('application.inactive') }}">
                         <span class="ml-1">Pending</span>
                     </a>
+                </ul>
+
+                <ul class="navbar-nav flex-fill w-100">
+                    <li class="nav-item {{ Request::is('deliveries') ? 'active' : '' }}">
+                        <a href="{{ route('delivery.filter') }}" class="nav-link">
+                            <i class="fe fe-check-square fe-16"></i>
+                            <span class="ml-3 item-text">Delivery</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>
 
-        <p class="text-muted nav-heading mt-4 mb-1"><span>Deliveries</span></p>
 
-        <ul class="navbar-nav flex-fill w-100">
-            <li class="nav-item {{ Request::is('deliveries') ? 'active' : '' }}">
-                <a href="{{ url('/deliveries') }}" class="nav-link">
-                    <i class="fe fe-check-square fe-16"></i>
-                    <span class="ml-3 item-text">Delivery</span>
-                </a>
-            </li>
-        </ul>
 
         <p class="text-muted nav-heading mt-4 mb-1"><span>Assessment and Reports</span></p>
 
@@ -136,12 +115,53 @@
             </li>
         </ul>
 
-        <form method="POST" action="{{ route('logout') }}" class="mt-auto">
+        <ul class="navbar-nav flex-fill w-100">
+            <li class="nav-item dropdown {{ Request::is('report/refunds') ? 'active' : '' }}">
+                <a href="{{ route('report.refunds') }}" class=" nav-link">
+                    <i class="fe fe-arrow-left fe-16"></i>
+                    <span class="ml-3 item-text">Refund</span>
+                </a>
+            </li>
+        </ul>
+
+
+        <p class="text-muted nav-heading mt-4 mb-1"><span>Settings</span></p>
+
+        <ul class="navbar-nav flex-fill w-100">
+            <li class="nav-item dropdown {{ Request::is('user') ? 'active' : '' }}">
+                <a href="{{ url('/user') }}" class=" nav-link">
+                    <i class="fe fe-user fe-16"></i>
+                    <span class="ml-3 item-text">All Users</span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav flex-fill w-100">
+            <li class="nav-item dropdown {{ Request::is('address*', 'bank') ? 'active' : '' }}">
+
+                <a href="#settings" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+                    <i class="fe fe-settings fe-16"></i>
+                    <span class="ml-3 item-text">Settings</span>
+                </a>
+                <ul class="collapse list-unstyled pl-4 w-100" id="settings">
+                    <li class="nav-item {{ Request::is('address*') ? 'active' : '' }}">
+                        <a class="nav-link pl-3" href="{{ route('address.index') }}">
+                            <span class="ml-1 item-text">Address</span>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Request::is('bank') ? 'active' : '' }}">
+                        <a class="nav-link pl-3" href="{{ url('/bank') }}">
+                            <span class="ml-1 item-text">Bank</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <form method="POST" action="{{ route('logout') }}" class="mt-3 w-100">
             @csrf
-            <x-primary-button label="Logout" class="w-100 mt-3 btn-danger"/>
+            <x-primary-button label="Logout" class="w-100 mt-3 btn-danger" />
         </form>
 
     </nav>
 </aside>
-
-

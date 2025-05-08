@@ -7,7 +7,7 @@
                         <ul class="nav nav-tabs border-0">
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
-                                    Full Payments
+                                    Refund Report
                                 </a>
                             </li>
                         </ul>
@@ -29,7 +29,7 @@
                         <div class="card shadow">
                           <div class="card-body">
 
-                            <table class="table table-bordered table-hover mb-0 table-sm" id="paidTable">
+                            <table class="table table-bordered table-hover mb-0 table-sm" id="refundTable">
                               <thead>
                                 <tr>
                                   <th>ID</th>
@@ -38,27 +38,23 @@
                                   <th>Email</th>
                                   <th>Amount (TZS)</th>
                                   <th>Last Date issued</th>
-                                  <th>Action</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                @if ($paid->count())
-                                @foreach ($paid as $paid)
-                                <tr class="paymentRow" data-updated="{{ $paid->updated_at }}">
-                                    <td>{{ $paid->user->userId }}</td>
-                                    <td>{{ $paid->user->first_name }} {{ $paid->user->middle_name }} {{ $paid->user->last_name }}</td>
-                                    <td>{{ $paid->user->phone }}</td>
-                                    <td>{{ $paid->user->email }}</td>
-                                    <td>{{ $paid->paid_amount }}</td>
-                                    <td>{{ $paid->updated_at }}</td>
-                                    <td>
-                                        <a href="{{ route('invoice', $paid->id) }}" class="btn btn-sm btn-primary">Receipt</a>
-                                    </td>
+                                @if ($refunds->count())
+                                @foreach ($refunds as $refund)
+                                <tr class="paymentRow" data-updated="{{ $refund->updated_at }}">
+                                    <td>{{ $refund->user->userId }}</td>
+                                    <td>{{ $refund->user->first_name }} {{ $refund->user->middle_name }} {{ $refund->user->last_name }}</td>
+                                    <td>{{ $refund->user->phone }}</td>
+                                    <td>{{ $refund->user->email }}</td>
+                                    <td>{{ $refund->paid_amount }}</td>
+                                    <td>{{ $refund->updated_at }}</td>
                                 </tr>
                                 @endforeach
                                 @else
                                   <tr class="alert alert-danger">
-                                    <td colspan="7" class="text-center">No Full Payment found</td>
+                                    <td colspan="7" class="text-center">No Refunds found</td>
                                   </tr>
                                 @endif
                               </tbody>

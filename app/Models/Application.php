@@ -17,12 +17,15 @@ class Application extends Model
         'paid_amount',
         'outstanding',
         'created_by',
+        'withheld_amount',
         'status',
         'delivery_status',
+        'reason',
+        'refund_amount',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'customer_id', 'id'); 
+        return $this->belongsTo(User::class, 'customer_id', 'id');
     }
 }

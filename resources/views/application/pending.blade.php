@@ -1,4 +1,3 @@
-
 <x-app-layout>
 
 
@@ -10,8 +9,8 @@
                     <div class="col">
                         <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
-                                    role="tab" aria-controls="home" aria-selected="true">All Applications</a>
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                    aria-controls="home" aria-selected="true">All Applications</a>
                             </li>
 
                         </ul>
@@ -23,7 +22,7 @@
                         <button type="button" class="btn btn-sm">
                             <i class="fe fe-16 fe-file text-muted"></i>
                         </button>
-                        <button type="button" class="btn btn-sm"  onclick="reloadPage()">
+                        <button type="button" class="btn btn-sm" onclick="reloadPage()">
                             <i class="fe fe-16 fe-refresh-ccw text-muted"></i>
                         </button>
 
@@ -38,15 +37,14 @@
 
                     <div class="col-auto">
                         <div class="form-group">
-                            @if(Auth::user()->userType == 1 || Auth::user()->userType ==2)
-                            <button type="button" class="btn mb-2 btn-primary btn-sm" data-toggle="modal"
-                                data-target=".modal-full">New Application<span
-                                    class="fe fe-plus fe-16 ml-2"></span></button>
-                                    @else
-                                    <button class="btn mb-2 btn-primary btn-sm permission-alert">New Application<span
+                            @if (Auth::user()->userType == 1 || Auth::user()->userType == 2)
+                                <button type="button" class="btn mb-2 btn-primary btn-sm" data-toggle="modal"
+                                    data-target=".modal-full">New Application<span
                                         class="fe fe-plus fe-16 ml-2"></span></button>
-
-                                    @endif
+                            @else
+                                <button class="btn mb-2 btn-primary btn-sm permission-alert">New Application<span
+                                        class="fe fe-plus fe-16 ml-2"></span></button>
+                            @endif
                         </div>
 
                     </div>
@@ -78,10 +76,11 @@
                                             @foreach ($application as $index => $item)
                                                 <tr>
                                                     <td>{{ $index + 1 }}</td>
-                                                    <td>{{ preg_replace('/-\[ID:\d+\]/', '', $item->customer_name) }}</td>
+                                                    <td>{{ preg_replace('/-\[ID:\d+\]/', '', $item->customer_name) }}
+                                                    </td>
                                                     <td>{{ $item->item_name }}</td>
                                                     <td>{{ $item->price }}</td>
-                                                    <td><span class="text-success">{{ $item->paid_amount}}</span></td>
+                                                    <td><span class="text-success">{{ $item->paid_amount }}</span></td>
                                                     <td><span class="text-danger">{{ $item->outstanding }}</span></td>
                                                     <td>{{ $item->created_at }}</td>
                                                     <td>
@@ -98,26 +97,25 @@
                                                             <a href="{{ route('application.show', $item->id) }}"
                                                                 class="btn btn-sm  btn-secondary text-white"><span
                                                                     class="fe fe-eye fe-16"></span>
-                                                                </a>
+                                                            </a>
 
-                                                                @if(Auth::user()->userType == 1 || Auth::user()->userType == 2)
-
+                                                            @if (Auth::user()->userType == 1 || Auth::user()->userType == 2)
                                                                 <form id="deleteForm-{{ $item->id }}"
                                                                     action="{{ route('application.destroy', $item->id) }}"
-                                                                    method="POST"
-                                                                   >
-                                                                  @csrf
-                                                                  @method('DELETE')
-                                                                    <button type="button" onclick="showSweetAlert(event, '{{ $item->id }}')"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="button"
+                                                                        onclick="showSweetAlert(event, '{{ $item->id }}')"
                                                                         class="btn btn-sm btn-danger">
-                                                                    <span class="fe fe-trash-2 fe-16"></span>
-                                                                </button>
+                                                                        <span class="fe fe-trash-2 fe-16"></span>
+                                                                    </button>
 
-                                                              </form>
+                                                                </form>
                                                             @else
-                                                            <button
-                                                            class="btn btn-sm btn-danger permission-alert" ><span
-                                                                class="fe fe-trash-2 fe-16 permission-alert"></span></button>
+                                                                <button
+                                                                    class="btn btn-sm btn-danger permission-alert"><span
+                                                                        class="fe fe-trash-2 fe-16 permission-alert"></span></button>
                                                             @endif
 
 
@@ -154,8 +152,7 @@
             <span aria-hidden="true" style="font-size: 3rem;" class="text-danger">×</span>
         </button>
 
-        <div class="modal-dialog modal-xl bg-white" role="document"
-            style="width: 100%;">
+        <div class="modal-dialog modal-xl bg-white" role="document" style="width: 100%;">
             <div class="modal-content">
                 <div class="modal-body">
 
@@ -170,22 +167,26 @@
                             </div>
                         </div>
 
-                        <input type="text" class="form-control" value="{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}"
-                        name="created_by" style="display: none;">
+                        <input type="text" class="form-control"
+                            value="{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}" name="created_by"
+                            style="display: none;">
 
                         <div class="form-row">
 
                             <div class="col-md-6 mb-3">
                                 <label for="validationSelect9">Customer Name</label>
-                                <select class="form-control select2" id="validationSelect9" name="customer_name" required>
+                                <select class="form-control select2" id="validationSelect9" name="customer_name"
+                                    required>
                                     <optgroup label="Select customer">
 
                                         @foreach ($user as $user)
-                                        @if($user->status == 'active')
-                                        {{-- very important snippet ,Never change it  --}}
-                                            <option value="{{ $user->id }} {{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}-[ID:{{ $user->userId }}]">
-                                                {{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }} [ID:{{ $user->userId }}]
-                                            </option>
+                                            @if ($user->status == 'active')
+                                                {{-- very important snippet ,Never change it  --}}
+                                                <option
+                                                    value="{{ $user->id }} {{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}-[ID:{{ $user->userId }}]">
+                                                    {{ $user->first_name }} {{ $user->middle_name }}
+                                                    {{ $user->last_name }} [ID:{{ $user->userId }}]
+                                                </option>
                                             @endif
                                         @endforeach
                                     </optgroup>
@@ -196,13 +197,14 @@
 
                             <div class="col-md-6 mb-3">
                                 <label for="validationSelect0">Item Name</label>
-                                <select class="form-control select2" id="validationSelect7" name="item_name" required>
+                                <select class="form-control select2" id="validationSelect7" name="item_name"
+                                    required>
                                     <optgroup label="Select Item">
                                         @foreach ($items as $item)
-                                            <option value="{{ $item->sales }} {{ $item->item_name }} {{ $item->code }}">
-                                                {{ $item->item_name }}  {{ $item->code }}
+                                            <option
+                                                value="{{ $item->sales }} {{ $item->item_name }} {{ $item->code }}">
+                                                {{ $item->item_name }} {{ $item->code }}
                                             </option>
-
                                         @endforeach
                                     </optgroup>
                                 </select>

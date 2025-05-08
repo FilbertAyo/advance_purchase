@@ -18,21 +18,19 @@ class ReportController extends Controller
 
     }
     public function outstanding(){
-
         $outstanding = Application::where('outstanding', '>', 0)->get();
-
         return view('reports.outstanding',compact('outstanding'));
-
     }
 
     public function paid(){
-
-        $outstanding = Application::where('outstanding', 0)->get();
-
-        return view('reports.paid',compact('outstanding'));
-
+        $paid = Application::where('outstanding', 0)->where('status','!=','refunded')->get();
+        return view('reports.paid',compact('paid'));
     }
 
+    public function refunds(){
+        $refunds= Application::where('status','refunded')->get();
+        return view('reports.refund',compact('refunds'));
+    }
     public function invoice(string $id){
 
         $application = Application::with('user.profile')->findOrFail($id);
@@ -43,5 +41,5 @@ class ReportController extends Controller
         return view('reports.invoice', compact('application', 'advances'));
 
     }
-  
+
 }

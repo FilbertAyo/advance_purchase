@@ -19,7 +19,7 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $application = Application::orderBy('id', 'desc')->where('status', 'active')->get();
+        $application = Application::orderBy('id', 'desc')->where('status', '!=','inactive')->get();
 
         $user = User::where('userType', 0)->get();
         $items = Item::all();
@@ -91,7 +91,7 @@ class ApplicationController extends Controller
                 'application_id' => $application->id,
                 'added_amount' => $discountAmount,
                 'outstanding' => $outstanding,
-                'updated_by' => $request->created_by,
+                'updated_by' => 'Discount',
             ]);
 
             DB::commit();
@@ -194,6 +194,29 @@ class ApplicationController extends Controller
         }
     }
 
+    public function advanceDestroy($id)
+    {
+        $advance = Advance::findOrFail($id);
+        $application = $advance->application;
+
+        if($advance->updated_by == 'Discount' || $application->refund_amount != null){
+            return redirect()->back()->with('error', 'You cannot delete Discount and advance amount for the application where customer has requested for refund.');
+        }
+
+        if ($application) {
+            $application->paid_amount -= $advance->added_amount;
+            $application->outstanding += $advance->added_amount;
+
+            if ($application->paid_amount < 0) {
+                $application->paid_amount = 0;
+            }
+            $application->save();
+        }
+
+        $advance->delete();
+
+        return back()->with('success', 'Advance deleted and amount deducted successfully!');
+    }
 
     public function view($id)
     {
@@ -268,4 +291,50 @@ class ApplicationController extends Controller
 
         return back()->with('success', 'Screenshot deleted successfully!');
     }
+
+
+    // refund request
+    public function refundRequest(String $id){
+        $application = Application::find($id);
+
+        if ($application->paid_amount > 0) {
+            $application->refund_amount = $application->paid_amount * 0.7; // 70% of the paid amount = refund amount(Important)
+            $application->withheld_amount = $application->paid_amount - $application->refund_amount; // remaining amount after refund - for company
+            $application->reason = $application->reason ?? 'No reason';
+            $application->save();
+
+            return redirect()->back()->with('success', 'Refund request sent successfully');
+        } else {
+            return redirect()->back()->with('error', 'This Refund request for this application cannot be sent.');
+        }
+    }
+
+    public function refundCancel(String $id){
+        $application = Application::find($id);
+
+        if ($application->refund_amount > 0) {
+            $application->refund_amount = null;
+            $application->withheld_amount = null;
+            $application->reason = null;
+            $application->save();
+
+            return redirect()->back()->with('success', 'Refund request cancelled successfully');
+        } else {
+            return redirect()->back()->with('error', 'This Refund request for this application cannot be cancelled.');
+        }
+    }
+    public function refundApprove(String $id){
+        $application = Application::find($id);
+
+        if ($application->refund_amount > 0) {
+            $application->status = 'refunded';
+            $application->outstanding = 0;
+            $application->save();
+
+            return redirect()->back()->with('success', 'Refund request approved successfully');
+        } else {
+            return redirect()->back()->with('error', 'This Refund request for this application cannot be approved.');
+        }
+    }
+
 }

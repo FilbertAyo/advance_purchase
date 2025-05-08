@@ -23,7 +23,6 @@
 
 
                 @if ($relative->isEmpty())
-
                     <div id="relativeModal" class="modal" tabindex="-1" role="dialog"
                         aria-labelledby="relativeModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -51,7 +50,6 @@
                         setTimeout(function() {
                             $('#relativeModal').modal('show');
                         }, 5000);
-
                     </script>
                 @endif
 
@@ -70,10 +68,6 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Product</th>
-                                            {{-- <th>Paid</th>
-                                            <th>Outstanding</th>
-                                            <th>Date issued</th>
-                                            <th>Status</th> --}}
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -83,22 +77,25 @@
                                                 <tr>
                                                     <td>{{ $index + 1 }}</td>
                                                     <td>{{ $application->item_name }}<br /><span
-                                                            class="small text-muted">{{ $application->price }}</span></td>
-                                                    {{-- <td><span class="text-success">{{ $application->paid_amount }}</span>
-                                                    </td>
-                                                    <td><span class="text-danger">{{ $application->outstanding }}</span>
-                                                    </td>
-                                                    <td>{{ $application->created_at }}</td>
-                                                    <td>
-
-                                                        @if ($application->outstanding > 0)
-                                                            <span class="dot dot-lg bg-danger mr-2"></span>Pending
+                                                            class="small text-muted">{{ $application->price }}</span> <br>
+                                                            @if ($application->status == 'inactive')
+                                                            <strong class="badge badge-danger p-1">Pending</strong>
+                                                        @elseif ($application->status == 'refunded')
+                                                            <strong class="badge badge-secondary p-1">Refunded</strong>
                                                         @else
-                                                            <span class="dot dot-lg bg-success mr-2"></span>Complete
+                                                            @if ($application->outstanding == 0)
+                                                                <strong class="badge badge-success p-1 text-white">Complete</strong>
+                                                            @else
+                                                                <strong class="badge badge-info p-1">Ongoing</strong>
+                                                            @endif
+
                                                         @endif
-                                                    </td> --}}
+                                                    </td>
+
                                                     <td><a href="{{ url('/details', $application->id) }}"
-                                                            class="btn btn-primary mr-2 btn-sm">View</a></td>
+                                                            class="btn btn-secondary mr-2 btn-sm">
+                                                            <i class="fe fe-eye fe-16"></i>
+                                                        </a></td>
                                                 </tr>
                                             @endforeach
                                         @else
@@ -112,7 +109,7 @@
                             </div> <!-- .card-body -->
                         </div> <!-- .card -->
                     </div> <!-- / .col-md-8 -->
-                    <!-- Recent Activity -->
+
 
                 </div> <!-- end section -->
 

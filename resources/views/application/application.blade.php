@@ -64,18 +64,22 @@
                                                             <td>{{ $index + 1 }}</td>
                                                             <td>{{ preg_replace('/-\[ID:\d+\]/', '', $item->customer_name) }}</td>
                                                             <td>{{ $item->item_name }}</td>
-                                                            <td>{{ $item->price }}</td>
-                                                            <td><span class="text-success">{{ $item->paid_amount}}</span></td>
-                                                            <td><span class="text-danger">{{ $item->outstanding }}</span></td>
+                                                            <td>{{ number_format($item->price) }}</td>
+                                                            <td><span class="text-success">{{ number_format($item->paid_amount) }}</span></td>
+                                                            <td><span class="text-danger">{{ number_format($item->outstanding) }}</span></td>
                                                             <td>{{ $item->created_at }}</td>
                                                             <td>
-
-                                                                @if($item->outstanding == 0)
-                                                                <span class="badge badge-success">complete</span>
-
+                                                                @if ($item->status == 'inactive')
+                                                                <strong class="badge badge-danger p-1">Inactive</strong>
+                                                            @elseif ($item->status == 'refunded')
+                                                                <strong class="badge badge-secondary p-1">Refunded</strong>
+                                                            @else
+                                                                @if ($item->outstanding == 0)
+                                                                    <strong class="badge badge-success p-1 text-white">Complete</strong>
                                                                 @else
-                                                                <span class="badge badge-danger">pending</span>
+                                                                    <strong class="badge badge-info p-1">Ongoing</strong>
                                                                 @endif
+                                                            @endif
                                                             </td>
                                                             <td>
 
