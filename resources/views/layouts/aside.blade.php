@@ -48,11 +48,11 @@
                 </a>
                 <ul class="collapse list-unstyled pl-4 w-100" id="customer">
                     <a class="nav-link pl-3 {{ Request::is('customer*') ? 'active' : '' }}"
-                        href="{{ route('customer.index') }}">
+                        href="{{ route('customers.list') }}">
                         <span class="ml-1">Active Customers</span>
                     </a>
-                    <a class="nav-link pl-3 {{ Request::is('unverified') ? 'active' : '' }}"
-                        href="{{ url('/unverified') }}">
+                    <a class="nav-link pl-3 {{ Request::is('customers/unverified/list') ? 'active' : '' }}"
+                        href="{{ route('unverified.customer') }}">
                         <span class="ml-1">Requests</span>
                     </a>
                 </ul>
@@ -63,8 +63,8 @@
                     <span class="ml-3 item-text">Application</span>
                 </a>
                 <ul class="collapse list-unstyled pl-4 w-100" id="contact">
-                    <a class="nav-link pl-3 {{ Request::is('application') ? 'active' : '' }}"
-                        href="{{ route('application.index') }}">
+                    <a class="nav-link pl-3 {{ Request::is('applications/active/list') ? 'active' : '' }}"
+                        href="{{ route('application.list') }}">
                         <span class="ml-1">Active Application</span>
                     </a>
                     <a class="nav-link pl-3 {{ Request::is('application/inactive') ? 'active' : '' }}"

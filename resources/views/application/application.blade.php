@@ -11,7 +11,7 @@
                                 <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
-                                            role="tab" aria-controls="home" aria-selected="true">All Applications</a>
+                                            role="tab" aria-controls="home" aria-selected="true">Active Application</a>
                                     </li>
 
                                 </ul>
@@ -30,11 +30,6 @@
                             </div>
                         </div>
 
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h4 class="mb-0 page-title">Active Application</h4>
-                            </div>
-                        </div>
 
                         @include('elements.spinner')
                         <div class="row my-2">
@@ -42,11 +37,27 @@
                             <div class="col-md-12">
                                 <div class="card shadow">
                                     <div class="card-body">
-                                        <!-- table -->
-                                        <table class="table table-bordered table-sm" id="dataTable-1">
+
+                                        <form method="GET" action="{{ route('application.list') }}" class="row card-header mb-3">
+                                            <div class="col-md-6 d-flex">
+                                                <label class="mr-2 align-self-center">Per page:</label>
+                                                <select name="perPage" class="form-control w-auto me-2" onchange="this.form.submit()">
+                                                    @foreach ([10, 20, 50, 100] as $size)
+                                                        <option value="{{ $size }}" {{ request('perPage', 10) == $size ? 'selected' : '' }}>{{ $size }} </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 d-flex">
+                                                <input type="text" name="search" class="form-control w-100 mr-2" placeholder="Search name or ID..." value="{{ request('search') }}">
+                                                <button type="submit" class="btn btn-primary">Search</button>
+                                            </div>
+                                        </form>
+
+                                        <table class="table table-bordered table-sm">
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
+                                                    <th>ID</th>
                                                     <th>Name</th>
                                                     <th>Product</th>
                                                     <th>Price</th>
@@ -62,7 +73,8 @@
                                                     @foreach ($application as $index => $item)
                                                         <tr>
                                                             <td>{{ $index + 1 }}</td>
-                                                            <td>{{ preg_replace('/-\[ID:\d+\]/', '', $item->customer_name) }}</td>
+                                                            <td>{{ $item->user->userId }}</td>
+                                                            <td>{{ $item->user->first_name }} {{ $item->user->middle_name }} {{ $item->user->last_name }}</td>
                                                             <td>{{ $item->item_name }}</td>
                                                             <td>{{ number_format($item->price) }}</td>
                                                             <td><span class="text-success">{{ number_format($item->paid_amount) }}</span></td>
@@ -96,20 +108,31 @@
                                                     @endforeach
                                                 @else
                                                     <tr>
-                                                        <td colspan="9" class="text-center">No Item found</td>
+                                                        <td colspan="9" class="text-center">No Application found</td>
                                                     </tr>
                                                 @endif
 
                                             </tbody>
                                         </table>
+
+                                        <div class="d-flex justify-content-between">
+                                            <div class="align-self-center">
+                                                <p>Showing {{ $application->firstItem() }} to {{ $application->lastItem() }} of {{ $application->total() }} Applications</p>
+                                            </div>
+                                            <div class="align-self-center">
+                                                {{ $application->appends(['search' => request('search'), 'perPage' => request('perPage')])->links('vendor.pagination.bootstrap-4') }}
+                                            </div>
+                                        </div>
+
+
                                     </div>
                                 </div>
-                            </div> <!-- simple table -->
+                            </div>
 
-                        </div> <!-- end section -->
-                    </div> <!-- .col-12 -->
-                </div> <!-- .row -->
-            </div> <!-- .container-fluid -->
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 

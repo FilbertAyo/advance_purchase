@@ -17,14 +17,32 @@ class ApplicationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $application = Application::orderBy('id', 'desc')->where('status', '!=','inactive')->get();
+        $query = Application::with('user') // eager load user to prevent N+1
+            ->where('status', '!=', 'inactive')
+            ->orderBy('id', 'desc');
+
+        // Apply search if present
+        if ($search = $request->input('search')) {
+            $query->whereHas('user', function ($q) use ($search) {
+                $q->where('first_name', 'like', "%{$search}%")
+                  ->orWhere('middle_name', 'like', "%{$search}%")
+                  ->orWhere('last_name', 'like', "%{$search}%")
+                  ->orWhere('userId', 'like', "%{$search}%");
+            });
+        }
+
+        // Pagination size
+        $perPage = $request->input('perPage', 10);
+        $application = $query->paginate($perPage);
 
         $user = User::where('userType', 0)->get();
         $items = Item::all();
+
         return view('application.application', compact('items', 'user', 'application'));
     }
+
 
     /**
      * Show the form for creating a new resource.

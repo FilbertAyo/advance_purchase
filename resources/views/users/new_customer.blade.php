@@ -29,8 +29,24 @@
                         <div class="col-md-12">
                             <div class="card shadow">
                                 <div class="card-body">
-                                    <!-- table -->
-                                    <table class="table datatables table-bordered table-sm" id="dataTable-1">
+
+                                    <form method="GET" action="{{ route('customers.list') }}" class="row card-header">
+
+                                        <div class="col-md-6 d-flex">
+                                            <label class="mr-2 align-self-center">Per page:</label>
+                                            <select name="perPage" class="form-control w-auto me-2" onchange="this.form.submit()">
+                                                @foreach ([10, 20, 50, 100] as $size)
+                                                    <option value="{{ $size }}" {{ request('perPage', 10) == $size ? 'selected' : '' }}>{{ $size }} </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 d-flex">
+                                            <input type="text" name="search" class="form-control w-100 mr-2" placeholder="Search name or ID..." value="{{ request('search') }}">
+                                            <button type="submit" class="btn btn-primary">Search</button>
+                                        </div>
+                                    </form>
+
+                                    <table class="table table-bordered table-sm">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
@@ -43,7 +59,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                                @foreach ($user as $index => $user)
+                                                @foreach ($users as $index => $user)
                                                     <tr>
                                                         <td>{{ $index + 1 }}</td>
                                                         <td>{{ $user->first_name }} {{ $user->middle_name ?? '' }} {{ $user->last_name }}</td>
@@ -56,7 +72,6 @@
                                                                 <a href="{{ route('customer.show', $user->id) }}"
                                                                     class="btn btn-sm btn-secondary text-white"><span
                                                                         class="fe fe-eye fe-16"></span></a>
-
                                                                 <button
                                                                     class="btn btn-sm btn-danger permission-alert"><span
                                                                         class="fe fe-trash-2 fe-16 permission-alert"></span></button>
@@ -65,10 +80,17 @@
                                                         </td>
                                                     </tr>
                                                 @endforeach
-
-
                                         </tbody>
                                     </table>
+
+                                    <div class="d-flex justify-content-between">
+                                        <div class="align-self-center">
+                                            <p>Showing {{ $users->firstItem() }} to {{ $users->lastItem() }} of {{ $users->total() }} Items</p>
+                                        </div>
+                                        <div class="align-self-center">
+                                            {{ $users->appends(['search' => request('search')])->links('vendor.pagination.bootstrap-4') }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

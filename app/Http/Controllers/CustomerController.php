@@ -15,14 +15,26 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Retrieve only users with userType = 0
-        $user = User::where('status', 'active')
-        ->where('userType', 0)
-        ->get();
+        $search = $request->input('search');
+        $perPage = $request->input('perPage', 10); // default to 10
 
-        return view('users.new_customer', compact('user'));
+        $query = User::where('status', 'active')
+                    ->where('userType', 0);
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('first_name', 'like', "%{$search}%")
+                  ->orWhere('middle_name', 'like', "%{$search}%")
+                  ->orWhere('last_name', 'like', "%{$search}%")
+                  ->orWhere('userId', 'like', "%{$search}%");
+            });
+        }
+
+        $users = $query->paginate($perPage)->appends(['search' => $search, 'perPage' => $perPage]);
+
+        return view('users.new_customer', compact('users', 'search', 'perPage'));
     }
 
     public function unverifiedCustomer(){

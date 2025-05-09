@@ -20,46 +20,29 @@
 
                 <div class="row">
                     <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow bg-success text-white border-0">
+                        <div class="card shadow bg-primary text-white border-0">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-2 text-center">
-                                        <span class="circle circle-sm bg-success-light">
+                                        <span class="circle circle-sm bg-primary-light">
                                             <i class="fe fe-16 fe-pocket text-white mb-0"></i>
                                         </span>
                                     </div>
                                     <div class="col pr-0">
-                                        <p class="small mb-0">Total collections</p>
+                                        <p class="small mb-0">Collections</p>
                                         <span class="h4 mb-0 text-white">TZS {{ number_format($collection) }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow bg-success text-white border-0">
+                        <div class="card shadow bg-primary text-white border-0">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-2 text-center">
-                                        <span class="circle circle-sm bg-success-light">
-                                            <i class="fe fe-16 fe-pocket text-white mb-0"></i>
-                                        </span>
-                                    </div>
-                                    <div class="col pr-0">
-                                        <p class="small mb-0">Collections with Withheld</p>
-                                        <span class="h4 mb-0 text-white">TZS
-                                            {{ number_format($amount_withheld) }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow bg-success text-white border-0">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col-2 text-center">
-                                        <span class="circle circle-sm bg-success-light">
+                                        <span class="circle circle-sm bg-primary-light">
                                             <i class="fe fe-16 fe-pocket text-white mb-0"></i>
                                         </span>
                                     </div>
@@ -67,6 +50,25 @@
                                         <p class="small mb-0">Collections without Withheld</p>
                                         <span class="h4 mb-0 text-white">TZS
                                             {{ number_format($amount_without_held) }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card shadow bg-primary text-white border-0">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-2 text-center">
+                                        <span class="circle circle-sm bg-primary-light">
+                                            <i class="fe fe-16 fe-pocket text-white mb-0"></i>
+                                        </span>
+                                    </div>
+                                    <div class="col pr-0">
+                                        <p class="small text-muted mb-0">Withheld Amount</p>
+                                        <span class="h4 mb-0 text-white">TZS
+                                            {{ number_format($withheldAmount) ?? '0' }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -91,18 +93,18 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow bg-primary text-white border-0">
+                        <div class="card shadow bg-success text-white border-0">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-2 text-center">
-                                        <span class="circle circle-sm bg-primary-light">
+                                        <span class="circle circle-sm bg-success-light">
                                             <i class="fe fe-16 fe-pocket text-white mb-0"></i>
                                         </span>
                                     </div>
                                     <div class="col pr-0">
-                                        <p class="small text-muted mb-0">Withheld Amount</p>
+                                        <p class="small mb-0">Total Collections</p>
                                         <span class="h4 mb-0 text-white">TZS
-                                            {{ number_format($withheldAmount) ?? '0' }}</span>
+                                            {{ number_format($amount_withheld) }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -204,10 +206,12 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-6 mb-4">
+                <div class="col-md-6 col-xl-12 mb-4">
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <canvas id="customerChart" height="100"></canvas>
+                            <div class="my-4">
+                                <div id="lineChart"></div>
+                              </div>
                         </div>
                     </div>
                 </div>
@@ -219,31 +223,6 @@
     </div>
 
 
-    {{-- <canvas id="customerChart" height="100"></canvas> --}}
-    <script>
-        const customerData = {
-            labels: ['All Customers', 'Active Customers', 'Admins'],
-            datasets: [{
-                data: [{{ $customerNo }}, {{ $activeCustomer }}, {{ $adminNo }}],
-                backgroundColor: ['#17a2b8', '#28a745', '#6c757d']
-            }]
-        };
-
-        new Chart(document.getElementById('customerChart'), {
-            type: 'pie',
-            data: customerData,
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'User Overview'
-                    }
-                }
-            }
-        });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 
