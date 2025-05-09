@@ -25,7 +25,7 @@
 </div>
 <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
     <a href="{{ url('/') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-        <img src="front-end/img/shortblogo.png" alt="" style="height: 50px;">
+        <img src="{{ asset('front-end/img/shortblogo.png') }}" alt="" style="height: 50px;">
     </a>
 
     <!-- Language Switcher (Visible on Small Screens, Left of Toggle Button) -->

@@ -139,17 +139,12 @@ class ItemController extends Controller
     {
         // Find the item by its ID
         $item = Item::findOrFail($id);
-
-        // Check if the item has an image and if the image file exists
         if ($item->image && file_exists(public_path($item->image))) {
-            // Delete the image file from the public directory
             unlink(public_path($item->image));
         }
 
-        // Delete the item from the database
         $item->delete();
 
-        // Redirect back with a success message
         return redirect()->back()->with('success', 'Item deleted successfully');
     }
 
