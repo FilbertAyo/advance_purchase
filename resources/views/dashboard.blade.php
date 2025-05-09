@@ -173,8 +173,8 @@
 
                                 <div class="row items-align-center">
                                     <div class="col-3 text-center">
-                                        <p class="mb-1 text-danger">Application</p>
-                                        <h5 class="mb-1 text-danger">{{ $totalApplication }}</h5>
+                                        <p class="mb-1 text-muted">Application</p>
+                                        <h5 class="mb-1 ">{{ $totalApplication }}</h5>
                                     </div>
                                     <div class="col-3 text-center">
                                         <p class="mb-1 text-danger">Pending</p>
@@ -206,16 +206,24 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-12 mb-4">
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <div class="my-4">
-                                <div id="lineChart"></div>
-                              </div>
+                <div class="row">
+                    <div class="col-md-6 col-xl-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-body">
+                                <canvas id="financeChart" width="400" height="200"></canvas>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-body">
+                                <canvas id="applicationsChart" width="400" height="200"
+                                    class="mt-4"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
-
 
 
             </div> <!-- .col-12 -->
@@ -223,6 +231,75 @@
     </div>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const financeCtx = document.getElementById('financeChart').getContext('2d');
+        const financeChart = new Chart(financeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Collections', 'Withheld', 'Refunded', 'Without Held', 'Total Collections'],
+                datasets: [{
+                    label: 'Amount in TZS',
+                    data: [
+                        {{ $collection }},
+                        {{ $withheldAmount }},
+                        {{ $totalRefund }},
+                        {{ $amount_without_held }},
+                        {{ $amount_withheld }}
+                    ],
+                    backgroundColor: [
+                        '#4e73df',
+                        '#f6c23e',
+                        '#e74a3b',
+                        '#36b9cc',
+                        '#1cc88a',
+
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Financial Summary'
+                    }
+                }
+            }
+        });
+
+        const applicationsCtx = document.getElementById('applicationsChart').getContext('2d');
+        const applicationsChart = new Chart(applicationsCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Total Applications', 'New Applications', 'Active Applications', 'Fully Paid'],
+                datasets: [{
+                    label: 'Applications',
+                    data: [
+                        {{ $totalApplication }},
+                        {{ $newApplicationNo }},
+                        {{ $activeApplicationNo }},
+                        {{ $fullPaidNo }}
+                    ],
+                    backgroundColor: [
+                        '#4e73df',
+                        '#e74a3b',
+                        '#1cc88a',
+                        '#f6c23e'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Application Status Overview'
+                    }
+                }
+            }
+        });
+    </script>
 
 
 

@@ -64,7 +64,6 @@
                                                 </td>
                                                 <td>
                                                     <div style="display: flex; gap: 2px;">
-
                                                         @if (Auth::user()->userType == 1 || Auth::user()->userType == 2)
                                                             <a href="{{ route('customer.show', $user->id) }}"
                                                                 class="btn btn-sm btn-secondary text-white"><span
@@ -76,13 +75,8 @@
                                                                 <span class="fe fe-eye fe-16"></span>
                                                             </a>
                                                         @endif
-
-
                                                             <button class="btn btn-sm btn-danger permission-alert"><span
                                                                     class="fe fe-trash-2 fe-16 permission-alert"></span></button>
-
-
-
                                                     </div>
                                                 </td>
                                             </tr>
@@ -93,10 +87,8 @@
                             </div>
                         </div>
                     </div> <!-- simple table -->
-
-
-                </div> <!-- .row -->
-            </div> <!-- .container-fluid -->
+                </div>
+            </div>
 
 
 

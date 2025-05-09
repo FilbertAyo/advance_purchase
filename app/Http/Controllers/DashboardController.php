@@ -35,7 +35,6 @@ class DashboardController extends Controller
         return view('welcome', compact('products'));
     }
 
-
     public function home()
     {
 

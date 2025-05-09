@@ -39,14 +39,14 @@ Route::middleware('auth')->group(function () {
     Route::post('bank_store', [DashboardController::class, 'bank_store']);
     Route::patch('/bank/{id}/disable', [DashboardController::class, 'disable'])->name('bank.disable');
     Route::delete('/user/{id}', [DashboardController::class, 'destroy'])->name('user.destroy');
-
-
+    Route::post('/register', [DashboardController::class, 'register']);
 
     Route::get('/products/list', [ItemController::class, 'product'])->name('products.list');
     Route::get('/product_view/{id}', [ItemController::class, 'product_view']);
     Route::resource('item', ItemController::class);
     Route::post('/items/{item}/upload-image', [ItemController::class, 'uploadImage'])->name('items.upload_image');
     Route::delete('/items/image/{id}', [ItemController::class, 'deleteImage'])->name('items.delete_image');
+    Route::get('/products/search', [ItemController::class, 'product'])->name('products.search');
 
     Route::get('/customers/list', [CustomerController::class, 'index'])->name('customers.list');
     Route::resource('customer', CustomerController::class);
@@ -65,47 +65,34 @@ Route::middleware('auth')->group(function () {
     Route::post('/screenshot/store', [ApplicationController::class, 'screenshot'])->name('screenshot.store');
     Route::delete('/screenshot/{id}', [ApplicationController::class, 'screenshotDestroy'])->name('screenshot.destroy');
 
-
     Route::get('/delivery/{filter?}', [DeliveryController::class, 'delivery'])->name('delivery.filter');
     Route::put('/delivery_update/{id}', [DeliveryController::class, 'deliveryUpdate'])->name('delivery.update');
-
 
     Route::get('report/statements', [ReportController::class, 'statements'])->name('report.statements');
     Route::get('report/outstanding', [ReportController::class, 'outstanding'])->name('report.outstanding');
     Route::get('report/paid', [ReportController::class, 'paid'])->name('report.paid');
     Route::get('report/invoice/{id}', [ReportController::class, 'invoice'])->name('invoice');
     Route::get('report/refunds', [ReportController::class, 'refunds'])->name('report.refunds');
+
+    Route::resource('address', AddressController::class);
+    Route::get('/regions', [AddressController::class, 'regions']);
+    Route::post('/region_store', [AddressController::class, 'regionStore']);
+    Route::delete('/region/{id}', [AddressController::class, 'regionDestroy'])->name('region.destroy');
+    Route::get('/wards', [AddressController::class, 'wards']);
+    Route::post('/ward_store', [AddressController::class, 'wardStore']);
+    Route::delete('/ward/{id}', [AddressController::class, 'wardDestroy'])->name('ward.destroy');
 });
 
 require __DIR__ . '/auth.php';
 
-Route::post('/register', [DashboardController::class, 'register']);
 Route::post('/registration_form', [RegisteredUserController::class, 'store']);
-
-
-
-Route::resource('address', AddressController::class);
-Route::get('/regions', [AddressController::class, 'regions'])->middleware(['auth', 'verified']);
-Route::post('/region_store', [AddressController::class, 'regionStore']);
-Route::delete('/region/{id}', [AddressController::class, 'regionDestroy'])->name('region.destroy')->middleware(['auth', 'verified']);
-Route::get('/wards', [AddressController::class, 'wards'])->middleware(['auth', 'verified']);
-Route::post('/ward_store', [AddressController::class, 'wardStore']);
-Route::delete('/ward/{id}', [AddressController::class, 'wardDestroy'])->name('ward.destroy')->middleware(['auth', 'verified']);
 
 Route::get('/get-districts/{city_id}', [AddressController::class, 'getDistricts']);
 Route::get('/get-wards/{district_id}', [AddressController::class, 'getWards']);;
 
-Route::resource('branch', BranchController::class);
 
 Route::get('locale/{lang}', [LocaleController::class, 'setLocale']);
 
-
-Route::get('/products/search', [ItemController::class, 'product'])->name('products.search');
-
-
-
-
-// Route::get('/export-excel', [ReportController::class, 'exportExcel'])->name('export.excel');
 
 Route::post('/update-reminder-status', function () {
     session()->put('remind_later', true);
@@ -120,4 +107,3 @@ Route::get('/test', function () {
 });
 
 Route::get('/sendSms', [SmsController::class, 'sendSms']);
-
