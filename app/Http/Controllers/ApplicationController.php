@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\LoanApplicationNotification;
 use App\Models\Advance;
 use App\Models\Application;
 use App\Models\Bank;
@@ -11,6 +12,8 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller
 {
@@ -27,9 +30,9 @@ class ApplicationController extends Controller
         if ($search = $request->input('search')) {
             $query->whereHas('user', function ($q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
-                  ->orWhere('middle_name', 'like', "%{$search}%")
-                  ->orWhere('last_name', 'like', "%{$search}%")
-                  ->orWhere('userId', 'like', "%{$search}%");
+                    ->orWhere('middle_name', 'like', "%{$search}%")
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('userId', 'like', "%{$search}%");
             });
         }
 
@@ -91,7 +94,7 @@ class ApplicationController extends Controller
         $outstanding = $itemPrice - $request->paid_amount;
 
         //discount as per last purchase
-        $discountAmount = $lastApplication?->price*0.07 ?? 0;
+        $discountAmount = $lastApplication?->price * 0.07 ?? 0;
 
         DB::beginTransaction();
 
@@ -100,7 +103,7 @@ class ApplicationController extends Controller
                 'customer_id' => $customerId,
                 'price' => $itemPrice,
                 'item_name' => $itemName,
-                'customer_name' => $firstName . ' '.$middleName.' '. $lastName,
+                'customer_name' => $firstName . ' ' . $middleName . ' ' . $lastName,
                 'paid_amount' => $discountAmount,
                 'outstanding' => $outstanding,
                 'created_by' => $request->created_by,
@@ -116,6 +119,17 @@ class ApplicationController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->with('error', 'Transaction failed: ' . $e->getMessage());
+        }
+
+        // Save loan data and get customer
+        // $customer = auth()->user();
+         $customer = Auth::user();
+
+        // Send mail to all admins
+        $admins = User::where('userType', 1)->get();
+
+        foreach ($admins as $admin) {
+            Mail::to($admin->email)->send(new LoanApplicationNotification($customer));
         }
 
         return redirect()->back()->with('success', 'Application sent successfully');
@@ -134,7 +148,7 @@ class ApplicationController extends Controller
         $advances = Advance::where('application_id', $application->id)->get();
         $screenshots = Screenshot::where('application_id', $id)->get();
 
-        return view('application.app_view', compact('application', 'advances','screenshots'));
+        return view('application.app_view', compact('application', 'advances', 'screenshots'));
     }
 
     /**
@@ -217,7 +231,7 @@ class ApplicationController extends Controller
         $advance = Advance::findOrFail($id);
         $application = $advance->application;
 
-        if($advance->updated_by == 'Discount' || $application->refund_amount != null){
+        if ($advance->updated_by == 'Discount' || $application->refund_amount != null) {
             return redirect()->back()->with('error', 'You cannot delete Discount and advance amount for the application where customer has requested for refund.');
         }
 
@@ -312,7 +326,8 @@ class ApplicationController extends Controller
 
 
     // refund request
-    public function refundRequest(String $id){
+    public function refundRequest(String $id)
+    {
         $application = Application::find($id);
 
         if ($application->paid_amount > 0) {
@@ -327,7 +342,8 @@ class ApplicationController extends Controller
         }
     }
 
-    public function refundCancel(String $id){
+    public function refundCancel(String $id)
+    {
         $application = Application::find($id);
 
         if ($application->refund_amount > 0) {
@@ -341,7 +357,8 @@ class ApplicationController extends Controller
             return redirect()->back()->with('error', 'This Refund request for this application cannot be cancelled.');
         }
     }
-    public function refundApprove(String $id){
+    public function refundApprove(String $id)
+    {
         $application = Application::find($id);
 
         if ($application->refund_amount > 0) {
@@ -354,5 +371,4 @@ class ApplicationController extends Controller
             return redirect()->back()->with('error', 'This Refund request for this application cannot be approved.');
         }
     }
-
 }

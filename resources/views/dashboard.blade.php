@@ -207,7 +207,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6 col-xl-6 mb-4">
+                    <div class="col-md-6 col-xl-8 mb-4">
                         <div class="card shadow mb-4">
                             <div class="card-body">
                                 <canvas id="financeChart" width="400" height="200"></canvas>
@@ -215,7 +215,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xl-6 mb-4">
+                    <div class="col-md-6 col-xl-4 mb-4">
                         <div class="card shadow mb-4">
                             <div class="card-body">
                                 <canvas id="applicationsChart" width="400" height="200"
@@ -224,7 +224,6 @@
                         </div>
                     </div>
                 </div>
-
 
             </div> <!-- .col-12 -->
         </div> <!-- .row -->

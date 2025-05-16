@@ -24,17 +24,11 @@
 
         <ul class="navbar-nav flex-fill w-100">
             <li class="nav-item dropdown {{ Request::is('item*') ? 'active' : '' }}">
-                <a href="#dashboard" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+                <a href="{{ route('item.index') }}" class="nav-link">
                     <i class="fe fe-archive fe-16"></i>
                     <span class="ml-3 item-text">Items</span>
                 </a>
-                <ul class="collapse list-unstyled pl-4 w-100" id="dashboard">
-                    <li class="nav-item {{ Request::is('item*') ? 'active' : '' }}">
-                        <a class="nav-link pl-3" href="{{ route('item.index') }}">
-                            <span class="ml-1 item-text">Item List</span>
-                        </a>
-                    </li>
-                </ul>
+
             </li>
         </ul>
 
