@@ -80,6 +80,7 @@
                                             <th>Selling Price</th>
                                             <th>Category</th>
                                             <th>Brand</th>
+                                            <th class="text-danger">Bank Price</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -93,6 +94,7 @@
                                                     <td>{{ $item->sales }}</td>
                                                     <td>{{ $item->category }}</td>
                                                     <td>{{ $item->brand }}</td>
+                                                      <td>{{ $item->credit_price ?? '-'}}</td>
                                                     <td>
                                                         <div style="display: flex; gap: 2px;">
                                                             <a href="{{ route('item.edit', $item->id) }}" class="btn btn-sm btn-primary">
@@ -186,13 +188,13 @@
 
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
-                                <label for="validationCustom3">Cost (Per Smallest Item Unit)</label>
-                                <input type="number" class="form-control" id="validationCustom3" name="cost">
+                                <label for="validationCustom3">credit price</label>
+                                <input type="number" class="form-control" id="validationCustom3" name="credit_price">
                                 <div class="valid-feedback"> Looks good! </div>
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label for="validationCustom3">Sales Price (Per Smallest Item Unit)</label>
+                                <label for="validationCustom3">Sales Price</label>
                                 <input type="number" class="form-control" id="validationCustom3" name="sales"
                                     required>
                                 <div class="valid-feedback"> Looks good! </div>

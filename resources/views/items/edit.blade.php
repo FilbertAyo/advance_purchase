@@ -44,15 +44,12 @@
                                         </div>
 
                                         <div class="col-md-6 mb-3">
-                                            <label for="validationCustom3">Cost (Per Smallest Item Unit)</label>
+                                            <label for="validationCustom3" class="text-success">credit price (Banks)</label>
                                             <input type="text" class="form-control" id="validationCustom3"
-                                                name="cost" value="{{ $item->cost }}" >
+                                                name="credit_price" value="{{ $item->credit_price }}" >
                                             <div class="valid-feedback"> Looks good! </div>
                                         </div>
-
-
                                     </div>
-
 
                                     <div class="form-row">
 
@@ -94,7 +91,7 @@
                                     <div class="form-row">
 
                                         <div class="col-md-6 mb-3">
-                                            <label for="validationCustom3">Sales Price (Per Smallest Item Unit)</label>
+                                            <label for="validationCustom3">Sales Price</label>
                                             <input type="text" class="form-control" id="validationCustom3"
                                                 name="sales" value="{{ $item->sales }}" required>
                                             <div class="valid-feedback"> Looks good! </div>

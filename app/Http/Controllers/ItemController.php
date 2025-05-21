@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Product_Image;
 use App\Models\User_Relative;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -43,6 +44,7 @@ class ItemController extends Controller
             'item_name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'sales' => 'required|numeric',
+            'credit_price'=>'required|numeric',
             'category' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
             'code' => 'nullable|string|max:100',
@@ -183,6 +185,28 @@ class ItemController extends Controller
         }
 
         return view('customer.product', compact('products', 'category', 'relative'));
+    }
+
+
+
+    public function catalogue(Request $request){
+
+         $category = $request->get('category');
+        $query = $request->get('query');
+
+        $products = Item::when($category, function ($queryBuilder, $category) {
+                return $queryBuilder->where('category', $category);
+            })
+            ->when($query, function ($queryBuilder, $query) {
+                return $queryBuilder->where(function ($subQuery) use ($query) {
+                    $subQuery->where('item_name', 'LIKE', "%{$query}%")
+                             ->orWhere('code', 'LIKE', "%{$query}%")
+                             ->orWhere('brand', 'LIKE', "%{$query}%");
+                });
+            })->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('catalogue.index',compact('products',));
     }
 
 

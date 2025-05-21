@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->String('item_name');
             $table->text('description');
-            $table->string('cost')->nullable();
+            $table->string('credit_price')->nullable();
             $table->string('sales');
             $table->string('category');
             $table->string('brand');

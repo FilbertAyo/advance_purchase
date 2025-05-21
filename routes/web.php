@@ -102,8 +102,6 @@ Route::get('/maintenance', function () {
     return view('maintenance');
 })->name('maintenance');
 
-Route::get('/test', function () {
-    return view('profile.edit');
-});
+Route::get('/catalogue', [ItemController::class, 'catalogue']);
 
 Route::get('/sendSms', [SmsController::class, 'sendSms']);
