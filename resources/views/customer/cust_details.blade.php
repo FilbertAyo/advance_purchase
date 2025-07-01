@@ -27,10 +27,12 @@
                                 <div>
                                     <div class="spinner-border mr-3 text-danger" role="status">
                                     </div>
-                                    Refund Amount: TZS {{ number_format($application->refund_amount) }} — Request is waiting for
+                                    Refund Amount: TZS {{ number_format($application->refund_amount) }} — Request is waiting
+                                    for
                                     verification...
                                 </div>
-                                <form action="{{ route('refund.cancel', $application->id) }}" method="POST" style="margin: 0;" onsubmit="return confirmCancel();">
+                                <form action="{{ route('refund.cancel', $application->id) }}" method="POST"
+                                    style="margin: 0;" onsubmit="return confirmCancel();">
                                     @csrf
                                     @method('PUT')
                                     <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
@@ -43,33 +45,31 @@
                                 </script>
 
                             </div>
-
-                            @elseif ($application->refund_amount != null && $application->status == 'refunded')
+                        @elseif ($application->refund_amount != null && $application->status == 'refunded')
                             <div class="alert alert-success d-flex justify-content-between align-items-center">
                                 <div>
                                     <strong><i class="fe fe-check-circle"></i> Completed:</strong>
-                                    This refund of <strong>TZS {{ number_format($application->refund_amount) }}</strong> has already been approved and the application is considered Refunded.
+                                    This refund of <strong>TZS {{ number_format($application->refund_amount) }}</strong> has
+                                    already been approved and the application is considered Refunded.
                                 </div>
                             </div>
-
                         @endif
 
 
-                        <div class="card shadow mb-4">
+                        <div class="card  mb-4">
                             <div class="card-header">
-                                <strong class="card-title mr-2">{{ $application->item_name }}</strong>
+                                <strong class="card-title mr-2">{{ $application->item->item_name }}</strong>
                                 @if ($application->status == 'inactive')
-                                <strong class="badge badge-danger p-1">Pending</strong>
-                            @elseif ($application->status == 'refunded')
-                                <strong class="badge badge-secondary p-1">Refunded</strong>
-                            @else
-                                @if ($application->outstanding == 0)
-                                    <strong class="badge badge-success p-1 text-white">Complete</strong>
+                                    <strong class="badge badge-danger p-1">Pending</strong>
+                                @elseif ($application->status == 'refunded')
+                                    <strong class="badge badge-secondary p-1">Refunded</strong>
                                 @else
-                                    <strong class="badge badge-info p-1">Ongoing</strong>
+                                    @if ($application->outstanding == 0)
+                                        <strong class="badge badge-success p-1 text-white">Complete</strong>
+                                    @else
+                                        <strong class="badge badge-info p-1">Ongoing</strong>
+                                    @endif
                                 @endif
-
-                            @endif
                                 <span
                                     class="float-right badge badge-pill badge-success text-white">{{ $application->item_type }}</span>
                             </div>
@@ -77,7 +77,7 @@
 
                                 <dl class="row mb-0">
                                     <dt class="col-sm-2 mb-3 text-muted">Name</dt>
-                                    <dd class="col-sm-4 mb-3">{{ $application->item_name }}</dd>
+                                    <dd class="col-sm-4 mb-3">{{ $application->item->item_name }}</dd>
 
                                     <dt class="col-sm-2 mb-3 text-muted">Price</dt>
                                     <dd class="col-sm-4 mb-3">
@@ -105,7 +105,7 @@
                             <div class="col">
                                 <h2 class="h5 page-title">Paid Statements</h2>
                             </div>
-                            @if ($application->refund_amount == null && $application->paid_amount > 0)
+                            @if ($application->refund_amount === null && $application->paid_amount > 0 && $application->outstanding != 0)
                                 <div class="col-auto">
                                     <form class="form-inline">
                                         <div class="form-group">
@@ -170,7 +170,7 @@
                             screenshot.
                         </div>
 
-                        <div class="card shadow mb-4 p-3">
+                        <div class="card  mb-4 p-3">
                             <table class="table table-bordered table-hover mb-0 table-sm bg" id="statementsTable">
                                 <thead>
                                     <tr>
@@ -293,7 +293,8 @@
                 @method('PUT')
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title"><strong class="text-danger">Refund Amount: </strong> TZS {{ number_format($application->paid_amount *0.7) }}</h5>
+                        <h5 class="modal-title"><strong class="text-danger">Refund Amount: </strong> TZS
+                            {{ number_format($application->paid_amount * 0.7) }}</h5>
                     </div>
                     <div class="modal-body">
 

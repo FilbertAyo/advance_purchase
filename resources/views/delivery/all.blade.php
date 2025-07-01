@@ -47,7 +47,7 @@
                 <div class="row my-2">
 
                     <div class="col-md-12">
-                        <div class="card shadow">
+                        <div class="card ">
                             <div class="card-body">
                                 <!-- table -->
                                 <table class="table table-bordered table-sm table-hover" id="dataTable-1">

@@ -8,8 +8,7 @@
                     <div class="col">
                         <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{ route('address.index') }}"
-                                    >Banks</a>
+                                <a class="nav-link active" href="{{ route('bank.index') }}">Banks</a>
                             </li>
                         </ul>
                     </div>
@@ -34,15 +33,15 @@
 
                     <div class="col-auto">
                         <div class="form-group">
-                            @if(Auth::user()->userType == 1 || Auth::user()->userType == 2)
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCityModal">
-                                Add Account<span
-                                class="fe fe-plus fe-16 ml-2"></span>
-                            </button>
-                                @else
-                                    <button  class="btn mb-2 btn-primary permission-alert" > Add Account <span
+                            @can('update bank account')
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#addCityModal">
+                                    Add Account<span class="fe fe-plus fe-16 ml-2"></span>
+                                </button>
+                            @else
+                                <button class="btn mb-2 btn-primary permission-alert"> Add Account <span
                                         class="fe fe-plus fe-16 ml-2"></span></button>
-                                @endif
+                            @endcan
                         </div>
 
                     </div>
@@ -53,7 +52,7 @@
                 <div class="row my-2">
                     <!-- Small table -->
                     <div class="col-md-12">
-                        <div class="card shadow">
+                        <div class="card ">
                             <div class="card-body">
                                 <!-- table -->
                                 <table class="table table-bordered table-sm" id="dataTable-1">
@@ -75,30 +74,35 @@
                                                     <td>{{ $bank->account_no }}</td>
                                                     <td>{{ $bank->account_name }}</td>
                                                     <td>{{ $bank->bank_name }}</td>
-                                                    <td> @if ($bank->status == 'Active')
-                                                        <span class="badge badge-success">{{ $bank->status }}</span>
+                                                    <td>
+                                                        @if ($bank->status == 'Active')
+                                                            <span class="badge badge-success">{{ $bank->status }}</span>
                                                         @else
-                                                        <span class="badge badge-secondary">{{ $bank->status }}</span>
-                                                    @endif </td>
+                                                            <span
+                                                                class="badge badge-secondary">{{ $bank->status }}</span>
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         <div style="display: flex; gap: 2px;">
                                                             @if ($bank->status == 'Active')
-                                                            <form id="deleteForm-{{ $bank->id }}"
-                                                            action="{{ route('bank.disable', $bank->id) }}"
-                                                                method="POST"
-                                                                >
-                                                                @csrf
-                                                                @method('PATCH')
-                                                                <button type="submit" onclick="showSweetAlert(event, '{{ $bank->id }}')"
-                                                                    class="btn btn-sm btn-danger">
+                                                                <form id="deleteForm-{{ $bank->id }}"
+                                                                    action="{{ route('bank.disable', $bank->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('PATCH')
+                                                                    <button type="submit"
+                                                                        onclick="showSweetAlert(event, '{{ $bank->id }}')"
+                                                                        class="btn btn-sm btn-danger">
+                                                                        <span class="fe fe-trash-2 fe-16"></span>
+                                                                        Disable
+                                                                    </button>
+                                                                </form>
+                                                            @else
+                                                                <button type="submit"
+                                                                    onclick="showSweetAlert(event, '{{ $bank->id }}')"
+                                                                    class="btn btn-sm btn-danger" disabled>
                                                                     <span class="fe fe-trash-2 fe-16"></span> Disable
                                                                 </button>
-                                                            </form>
-                                                            @else
-                                                            <button type="submit" onclick="showSweetAlert(event, '{{ $bank->id }}')"
-                                                                class="btn btn-sm btn-danger" disabled>
-                                                                <span class="fe fe-trash-2 fe-16"></span> Disable
-                                                            </button>
                                                             @endif
                                                         </div>
                                                     </td>
@@ -121,7 +125,8 @@
         </div> <!-- .row -->
     </div>
 
-    <div class="modal fade" id="addCityModal" tabindex="-1" role="dialog" aria-labelledby="addCityModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addCityModal" tabindex="-1" role="dialog" aria-labelledby="addCityModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -132,7 +137,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <form method="POST" action="{{ url('/bank_store') }}" enctype="multipart/form-data" novalidate>
+                    <form method="POST" action="{{ route('bank.store') }}" enctype="multipart/form-data" novalidate>
                         @csrf
 
                         <!-- Bank Name Dropdown -->

@@ -58,9 +58,10 @@
                 <div class="d-flex flex-column  p-3 wow">
                     <h1 class="text-primary mb-4 text-center">@lang('messages.enter_details')</h1>
 
-                    <form method="POST" action="{{ url('/registration_form') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('registration.store') }}" enctype="multipart/form-data">
                         @csrf
 
+                        <input type="hidden" class="form-control" name="status" value="inactive">
                         <div class="row g-3">
                             <!-- Personal Information -->
                             <div class="col-12">
@@ -245,14 +246,7 @@
                                 </span>
                                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                             </div>
-                            <div class="form-row" style="display: none;">
-                                <div class="col-md-6 mb-3">
-                                    <input type="text" class="form-control" name="userType" value="0"
-                                        required>
-                                    <input type="text" class="form-control" name="status" value="inactive"
-                                        required>
-                                </div>
-                            </div>
+
 
                             <!-- Submit Button -->
                             <div class="col-12 mt-4">
@@ -376,7 +370,7 @@
                     type: 'GET',
                     success: function(data) {
                         $('#district').empty().append(
-                        '<option value="">-- Select District --</option>');
+                            '<option value="">-- Select District --</option>');
                         $('#ward').empty().append('<option value="">-- Select Ward --</option>');
                         $.each(data, function(key, district) {
                             $('#district').append(

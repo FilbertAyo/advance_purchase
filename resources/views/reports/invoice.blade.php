@@ -11,7 +11,7 @@
                     <button type="button" class="btn btn-secondary" onclick="printReceipt()">Print</button>
                   </div>
                 </div>
-                <div class="card shadow receipt">
+                <div class="card  receipt">
                   <div class="card-body p-5">
                     <div class="row mb-5">
                       <div class="col-12 text-center mb-4">

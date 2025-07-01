@@ -2307,9 +2307,9 @@
 		this._core.enter('playing');
 		this._core.trigger('play', null, 'video');
 
-		item = this._core.items(this._core.relative(item.index()));
+		item = this._core.items(this._core.relative(items.index()));
 
-		this._core.reset(item.index());
+		this._core.reset(items.index());
 
 		if (video.type === 'youtube') {
 			html = '<iframe width="' + width + '" height="' + height + '" src="//www.youtube.com/embed/' +

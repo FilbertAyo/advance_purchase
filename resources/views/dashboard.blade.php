@@ -20,7 +20,7 @@
 
                 <div class="row">
                     <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow bg-primary text-white border-0">
+                        <div class="card  bg-primary text-white border-0">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-2 text-center">
@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow bg-primary text-white border-0">
+                        <div class="card  bg-primary text-white border-0">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-2 text-center">
@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow bg-primary text-white border-0">
+                        <div class="card  bg-primary text-white border-0">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-2 text-center">
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow bg-danger text-white border-0">
+                        <div class="card  bg-danger text-white border-0">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-2 text-center">
@@ -93,7 +93,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow bg-success text-white border-0">
+                        <div class="card  bg-success text-white border-0">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-2 text-center">
@@ -111,7 +111,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow border-0">
+                        <div class="card  border-0">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-3 text-center">
@@ -129,7 +129,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow border-0">
+                        <div class="card  border-0">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-3 text-center">
@@ -151,7 +151,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow border-0">
+                        <div class="card  border-0">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-3 text-center">
@@ -168,7 +168,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-xl-6 mb-4">
-                        <div class="card shadow mb-4">
+                        <div class="card  mb-4">
                             <div class="card-body">
 
                                 <div class="row items-align-center">
@@ -208,7 +208,7 @@
 
                 <div class="row">
                     <div class="col-md-6 col-xl-8 mb-4">
-                        <div class="card shadow mb-4">
+                        <div class="card  mb-4">
                             <div class="card-body">
                                 <canvas id="financeChart" width="400" height="200"></canvas>
 
@@ -216,7 +216,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-xl-4 mb-4">
-                        <div class="card shadow mb-4">
+                        <div class="card  mb-4">
                             <div class="card-body">
                                 <canvas id="applicationsChart" width="400" height="200"
                                     class="mt-4"></canvas>

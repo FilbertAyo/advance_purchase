@@ -35,7 +35,7 @@
                         <div class="row my-2">
                             <!-- Small table -->
                             <div class="col-md-12">
-                                <div class="card shadow">
+                                <div class="card ">
                                     <div class="card-body">
 
                                         <form method="GET" action="{{ route('application.list') }}" class="row card-header mb-3">
@@ -69,24 +69,24 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @if ($application->count() > 0)
-                                                    @foreach ($application as $index => $item)
+                                                @if ($applications->count() > 0)
+                                                    @foreach ($applications as $index => $application)
                                                         <tr>
                                                             <td>{{ $index + 1 }}</td>
-                                                            <td>{{ $item->user->userId }}</td>
-                                                            <td>{{ $item->user->first_name }} {{ $item->user->middle_name }} {{ $item->user->last_name }}</td>
-                                                            <td>{{ $item->item_name }}</td>
-                                                            <td>{{ number_format($item->price) }}</td>
-                                                            <td><span class="text-success">{{ number_format($item->paid_amount) }}</span></td>
-                                                            <td><span class="text-danger">{{ number_format($item->outstanding) }}</span></td>
-                                                            <td>{{ $item->created_at }}</td>
+                                                            <td>{{ $application->user->userId }}</td>
+                                                            <td>{{ $application->user->first_name }} {{ $application->user->middle_name }} {{ $application->user->last_name }}</td>
+                                                            <td>{{ $application->item->item_name }}</td>
+                                                            <td>{{ number_format($application->price) }}</td>
+                                                            <td><span class="text-success">{{ number_format($application->paid_amount) }}</span></td>
+                                                            <td><span class="text-danger">{{ number_format($application->outstanding) }}</span></td>
+                                                            <td>{{ $application->created_at }}</td>
                                                             <td>
-                                                                @if ($item->status == 'inactive')
+                                                                @if ($application->status == 'inactive')
                                                                 <strong class="badge badge-danger p-1">Inactive</strong>
-                                                            @elseif ($item->status == 'refunded')
+                                                            @elseif ($application->status == 'refunded')
                                                                 <strong class="badge badge-secondary p-1">Refunded</strong>
                                                             @else
-                                                                @if ($item->outstanding == 0)
+                                                                @if ($application->outstanding == 0)
                                                                     <strong class="badge badge-success p-1 text-white">Complete</strong>
                                                                 @else
                                                                     <strong class="badge badge-info p-1">Ongoing</strong>
@@ -94,14 +94,12 @@
                                                             @endif
                                                             </td>
                                                             <td>
-
                                                                 <div style="display: flex; gap: 2px;">
-                                                                    <a href="{{ route('application.show', $item->id) }}"
+                                                                    <a href="{{ route('application.show', $application->id) }}"
                                                                         class="btn btn-sm btn-secondary text-white">
                                                                         <span
                                                                             class="fe fe-eye fe-16"></span>
                                                                         </a>
-
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -117,10 +115,10 @@
 
                                         <div class="d-flex justify-content-between">
                                             <div class="align-self-center">
-                                                <p>Showing {{ $application->firstItem() }} to {{ $application->lastItem() }} of {{ $application->total() }} Applications</p>
+                                                <p>Showing {{ $applications->firstItem() }} to {{ $applications->lastItem() }} of {{ $applications->total() }} Applications</p>
                                             </div>
                                             <div class="align-self-center">
-                                                {{ $application->appends(['search' => request('search'), 'perPage' => request('perPage')])->links('vendor.pagination.bootstrap-4') }}
+                                                {{ $applications->appends(['search' => request('search'), 'perPage' => request('perPage')])->links('vendor.pagination.bootstrap-4') }}
                                             </div>
                                         </div>
 

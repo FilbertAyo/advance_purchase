@@ -34,7 +34,7 @@
 
                     <div class="col-auto">
                         <div class="form-group">
-                            @if(Auth::user()->userType == 1 || Auth::user()->userType == 2)
+                            @if(auth()->check() && auth()->user()->hasAnyRole(['superuser', 'admin']))
                             <button type="button" class="btn mb-2 btn-primary" data-toggle="modal"
                                 data-target=".modal-full">New Product<span
                                     class="fe fe-plus fe-16 ml-2"></span></button>
@@ -52,10 +52,10 @@
                 <div class="row my-2">
                     <!-- Small table -->
                     <div class="col-md-12">
-                        <div class="card shadow">
+                        <div class="card ">
                             <div class="card-body">
 
-                                <form method="GET" action="{{ route('item.index') }}" class="row card-header">
+                                <form method="GET" action="{{ route('items.index') }}" class="row card-header">
                                     <div class="col-md-6 d-flex">
                                         <label class="mr-2 align-self-center">Per page:</label>
                                         <select name="per_page" class="form-control w-auto me-2" onchange="this.form.submit()">
@@ -97,15 +97,15 @@
                                                       <td>{{ $item->credit_price ?? '-'}}</td>
                                                     <td>
                                                         <div style="display: flex; gap: 2px;">
-                                                            <a href="{{ route('item.edit', $item->id) }}" class="btn btn-sm btn-primary">
+                                                            <a href="{{ route('items.edit', $item->id) }}" class="btn btn-sm btn-primary">
                                                                 <span class="fe fe-edit fe-16"></span>
                                                             </a>
 
-                                                            <a href="{{ route('item.show', $item->id) }}" class="btn btn-sm btn-secondary text-white">
+                                                            <a href="{{ route('items.show', $item->id) }}" class="btn btn-sm btn-secondary text-white">
                                                                 <span class="fe fe-eye fe-16"></span>
                                                             </a>
 
-                                                            <form id="deleteForm-{{ $item->id }}" action="{{ route('item.destroy', $item->id) }}" method="POST">
+                                                            <form id="deleteForm-{{ $item->id }}" action="{{ route('items.destroy', $item->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" onclick="showSweetAlert(event, '{{ $item->id }}')" class="btn btn-sm btn-danger">
@@ -155,7 +155,7 @@
             <div class="modal-content">
                 <div class="modal-body">
 
-                    <form method="POST" action="{{ route('item.store') }}" validate
+                    <form method="POST" action="{{ route('items.store') }}" validate
                         style="height: 100%; display: flex; flex-direction: column; justify-content: center;"
                         enctype="multipart/form-data">
 

@@ -54,69 +54,66 @@
                 @endif
 
 
-                <div class="row">
-                    <!-- Recent orders -->
-                    <div class="col-12">
-                        <div class="card shadow eq-card">
+                
+                        <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">My Products</strong>
                                 <a class="float-right small text-muted" href="#!">View all</a>
                             </div>
                             <div class="card-body">
-                                <table class="table table-hover table-bordered table-striped mt-n3 mb-n1">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Product</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if ($applications->count() > 0)
-                                            @foreach ($applications as $index => $application)
-                                                <tr>
-                                                    <td>{{ $index + 1 }}</td>
-                                                    <td>{{ $application->item_name }}<br /><span
-                                                            class="small text-muted">{{ $application->price }}</span> <br>
-                                                            @if ($application->status == 'inactive')
-                                                            <strong class="badge badge-danger p-1">Pending</strong>
-                                                        @elseif ($application->status == 'refunded')
-                                                            <strong class="badge badge-secondary p-1">Refunded</strong>
-                                                        @else
-                                                            @if ($application->outstanding == 0)
-                                                                <strong class="badge badge-success p-1 text-white">Complete</strong>
-                                                            @else
-                                                                <strong class="badge badge-info p-1">Ongoing</strong>
-                                                            @endif
-
-                                                        @endif
-                                                    </td>
-
-                                                    <td><a href="{{ url('/details', $application->id) }}"
-                                                            class="btn btn-secondary mr-2 btn-sm">
-                                                            <i class="fe fe-eye fe-16"></i>
-                                                        </a></td>
-                                                </tr>
-                                            @endforeach
-                                        @else
+                                <div class="table-responsive w-100">
+                                    <table class="table table-hover table-bordered table-striped w-100">
+                                        <thead>
                                             <tr>
-                                                <td colspan="9" class="text-center">No Application found</td>
+                                                <th>No</th>
+                                                <th>Product</th>
+                                                <th>Action</th>
                                             </tr>
-                                        @endif
+                                        </thead>
+                                        <tbody>
+                                            @if ($applications->count() > 0)
+                                                @foreach ($applications as $index => $application)
+                                                    <tr>
+                                                        <td>{{ $index + 1 }}</td>
+                                                        <td>{{ $application->item->item_name }}<br /><span
+                                                                class="small text-muted">{{ $application->price }}</span>
+                                                            <br>
+                                                            @if ($application->status == 'inactive')
+                                                                <strong class="badge badge-danger p-1">Pending</strong>
+                                                            @elseif ($application->status == 'refunded')
+                                                                <strong class="badge badge-secondary p-1">Refunded</strong>
+                                                            @else
+                                                                @if ($application->outstanding == 0)
+                                                                    <strong
+                                                                        class="badge badge-success p-1 text-white">Complete</strong>
+                                                                @else
+                                                                    <strong class="badge badge-info p-1">Ongoing</strong>
+                                                                @endif
+                                                            @endif
+                                                        </td>
 
-                                    </tbody>
-                                </table>
-                            </div> <!-- .card-body -->
-                        </div> <!-- .card -->
-                    </div> <!-- / .col-md-8 -->
+                                                        <td><a href="{{ route('application.details', $application->id) }}"
+                                                                class="btn btn-secondary mr-2 btn-sm">
+                                                                <i class="fe fe-eye fe-16"></i>
+                                                            </a></td>
+                                                    </tr>
+                                                @endforeach
+                                            @else
+                                                <tr>
+                                                    <td colspan="9" class="text-center">No Application found</td>
+                                                </tr>
+                                            @endif
 
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                  
 
-                </div> <!-- end section -->
-
-
-            </div> <!-- .row-->
-        </div> <!-- .col-12 -->
-    </div> <!-- .row -->
+            </div> 
+        </div>
+    </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

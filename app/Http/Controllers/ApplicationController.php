@@ -38,12 +38,14 @@ class ApplicationController extends Controller
 
         // Pagination size
         $perPage = $request->input('perPage', 10);
-        $application = $query->paginate($perPage);
+        $applications = $query->paginate($perPage);
 
-        $user = User::where('userType', 0)->get();
+        $user = User::whereHas('roles', function ($q) {
+            $q->where('name', 'customer');
+        })->get();
         $items = Item::all();
 
-        return view('application.application', compact('items', 'user', 'application'));
+        return view('applications.application', compact('items', 'user', 'applications'));
     }
 
 
@@ -55,85 +57,75 @@ class ApplicationController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+  
     public function store(Request $request)
     {
-        // Validate the incoming request
         $request->validate([
-            'item_name' => ['required', 'string', 'max:255'],
-            'customer_name' => ['required', 'string', 'max:255'],
+            'item_id' => ['required', 'string', 'max:255'],
+            'customer_id' => ['required', 'string', 'max:255'],
         ]);
 
-        // Extract customer ID from customer_name field (e.g., "1 John Doe")
-        $customerName = $request->customer_name;
-        $itemDetail = $request->item_name;
-
-        // Separate the concatenated string
-        $customerNameParts = explode(' ', $customerName);
-        $itemNameParts = explode(' ', $itemDetail);
-
-        $customerId = $customerNameParts[0];
-        $firstName = $customerNameParts[1];
-        $middleName = $customerNameParts[2] ?? '';
-        $lastName = $customerNameParts[3];
-
-        $itemPrice = array_shift($itemNameParts);
-        $itemName = implode(' ', $itemNameParts);
-
-        // Check the last application for this customer
-        $lastApplication = Application::where('customer_id', $customerId)
+        // Get the last application for this customer
+        $lastApplication = Application::where('customer_id', $request->customer_id)
             ->latest()
             ->first();
 
-        if ($lastApplication && $lastApplication->outstanding > 0) {
-            return redirect()->back()->with('error', 'You have an outstanding balance. Please settle it before applying for a new Product.');
+        // Fetch item and its price
+        $item = Item::find($request->item_id);
+
+        if (!$item) {
+            return redirect()->back()->with('error', 'Selected item not found.');
         }
 
-        $outstanding = $itemPrice - $request->paid_amount;
+        // Block if there's an outstanding balance
+        if ($lastApplication && $lastApplication->outstanding > 0) {
+            return redirect()->back()->with('error', 'You have an outstanding balance. Please settle it before applying for a new product.');
+        }
 
-        //discount as per last purchase
-        $discountAmount = $lastApplication?->price * 0.07 ?? 0;
+        // Calculate discount (if any) and outstanding
+        $discountAmount = $lastApplication ? ($lastApplication->price * 0.07) : 0;
+        $outstanding = max($item->sales - $discountAmount, 0);
 
         DB::beginTransaction();
 
         try {
             $application = Application::create([
-                'customer_id' => $customerId,
-                'price' => $itemPrice,
-                'item_name' => $itemName,
-                'customer_name' => $firstName . ' ' . $middleName . ' ' . $lastName,
+                'customer_id' => $request->customer_id,
+                'item_id' => $item->id,
+                'price' => $item->sales,
                 'paid_amount' => $discountAmount,
                 'outstanding' => $outstanding,
-                'created_by' => $request->created_by,
             ]);
-            Advance::create([
-                'application_id' => $application->id,
-                'added_amount' => $discountAmount,
-                'outstanding' => $outstanding,
-                'updated_by' => 'Discount',
-            ]);
+
+            // Record discount as advance if any
+            if ($discountAmount > 0) {
+                Advance::create([
+                    'application_id' => $application->id,
+                    'added_amount' => $discountAmount,
+                    'outstanding' => $outstanding,
+                    'updated_by' => 'Discount',
+                ]);
+            }
 
             DB::commit();
         } catch (\Exception $e) {
-            DB::rollback();
+            DB::rollBack();
             return redirect()->back()->with('error', 'Transaction failed: ' . $e->getMessage());
         }
 
-        // Save loan data and get customer
-        // $customer = auth()->user();
-         $customer = Auth::user();
-
-        // Send mail to all admins
-        $admins = User::where('userType', 1)->get();
+        // Send mail to admins
+        $customer = Auth::user();
+        $admins = User::whereHas('roles', function ($q) {
+            $q->whereIn('name', ['admin', 'superuser']);
+        })->get();
 
         foreach ($admins as $admin) {
             Mail::to($admin->email)->send(new LoanApplicationNotification($customer));
         }
 
-        return redirect()->back()->with('success', 'Application sent successfully');
+        return redirect()->back()->with('success', 'Application sent successfully.');
     }
+
 
 
     /**
@@ -148,7 +140,7 @@ class ApplicationController extends Controller
         $advances = Advance::where('application_id', $application->id)->get();
         $screenshots = Screenshot::where('application_id', $id)->get();
 
-        return view('application.app_view', compact('application', 'advances', 'screenshots'));
+        return view('applications.app_view', compact('application', 'advances', 'screenshots'));
     }
 
     /**
@@ -158,7 +150,7 @@ class ApplicationController extends Controller
     {
         $application = Application::findOrFail($id);
 
-        return view('application.app_edit', compact('application'));
+        return view('applications.app_edit', compact('application'));
     }
 
     /**
@@ -262,11 +254,13 @@ class ApplicationController extends Controller
 
     public function inactive()
     {
-        $application = Application::orderBy('id', 'desc')->where('status', 'inactive')->get();
+        $applications = Application::orderBy('id', 'desc')->where('status', 'inactive')->get();
 
-        $user = User::where('userType', 0)->get();
+        $user = User::whereHas('roles', function ($q) {
+            $q->where('name', 'customer');
+        })->get();
         $items = Item::all();
-        return view('application.pending', compact('items', 'user', 'application'));
+        return view('applications.pending', compact('items', 'user', 'applications'));
     }
 
     public function activate(Request $request, string $id)

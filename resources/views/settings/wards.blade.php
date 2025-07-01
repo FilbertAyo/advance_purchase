@@ -12,11 +12,11 @@
                                     >Cities</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"  href="{{ url('/regions') }}"
+                                <a class="nav-link"  href="{{ route('regions.index') }}"
                                   >Regions</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active"  href="{{ url('/wards') }}"
+                                <a class="nav-link active"  href="{{ route('wards.index') }}"
                                   >Wards</a>
                             </li>
                         </ul>
@@ -43,7 +43,7 @@
 
                     <div class="col-auto">
                         <div class="form-group">
-                            @if(Auth::user()->userType == 1 || Auth::user()->userType == 2)
+                            @can('manage settings')
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addwardModal">
                                 New ward<span
                                 class="fe fe-plus fe-16 ml-2"></span>
@@ -52,7 +52,7 @@
                                     @else
                                     <button  class="btn mb-2 btn-primary permission-alert" > New ward <span
                                         class="fe fe-plus fe-16 ml-2"></span></button>
-                                    @endif
+                                    @endcan
                         </div>
 
                     </div>
@@ -63,7 +63,7 @@
                 <div class="row my-2">
                     <!-- Small table -->
                     <div class="col-md-12">
-                        <div class="card shadow">
+                        <div class="card ">
                             <div class="card-body">
                                 <!-- table -->
                                 <table class="table table-bordered table-sm" id="dataTable-1">
@@ -127,7 +127,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ url('/ward_store') }}" enctype="multipart/form-data" novalidate>
+                    <form method="POST" action="{{ route('wards.store') }}" enctype="multipart/form-data" novalidate>
                         @csrf
 
                         <div class="form-group">

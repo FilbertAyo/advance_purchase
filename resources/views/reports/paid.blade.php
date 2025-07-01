@@ -26,7 +26,7 @@
                 @include('elements.spinner')
                 <div class="row my-2">
                     <div class="col-12">
-                        <div class="card shadow">
+                        <div class="card ">
                           <div class="card-body">
 
                             <table class="table table-bordered table-hover mb-0 table-sm" id="paidTable">

@@ -82,12 +82,9 @@
                             <form action="{{ route('application.store') }}" method="POST"
                                 id="buyForm-{{ $product->id }}">
                                 @csrf
-                                <input type="hidden" name="created_by" value="Discount">
-                                {{-- <input type="hidden" name="paid_amount" value="0"> --}}
-                                <input type="hidden" name="customer_name"
-                                    value="{{ Auth::user()->id }} {{ Auth::user()->first_name }} {{ Auth::user()->middle_name }} {{ Auth::user()->last_name }}-[ID:{{ Auth::user()->userId }}]">
-                                <input type="hidden" name="item_name"
-                                    value="{{ $product->sales }} {{ $product->item_name }} {{ $product->code }}">
+
+                                <input type="hidden" name="customer_id" value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="item_id" value="{{ $product->id }}">
 
                                 <x-primary-button label="Confirm Purchase" class="w-100 mt-3 btn-dark " />
                             </form>

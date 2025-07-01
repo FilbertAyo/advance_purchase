@@ -13,16 +13,14 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->string('customer_id');
-            $table->string('customer_name');
-            $table->string('item_name');
-            $table->string('price');
+            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('item_id');
+            $table->string('price')->nullable();
             $table->string('serial_number')->nullable();
             $table->string('paid_amount')->nullable();
             $table->string('withheld_amount')->nullable();
-            $table->string('outstanding');
+            $table->string('outstanding')->nullable();
             $table->string('refund_amount')->nullable();
-            $table->string('created_by');
             $table->string('status')->default('inactive');
             $table->string('delivery_status')->default('Not Delivered');
             $table->string('reason')->nullable();

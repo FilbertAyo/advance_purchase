@@ -69,12 +69,13 @@ class RegisteredUserController extends Controller
             'last_name' => $request->last_name,
             'phone' => $request->phone,
             'branch' => $request->branch,
-            'userType' => $request->userType,
             'status' => $request->status,
             'email' => $request->email,
             'userId' => $userId,
             'password' => Hash::make($request->password),
         ]);
+
+        $user->assignRole('customer');
 
         $id_attach = null;
 

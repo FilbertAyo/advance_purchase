@@ -27,7 +27,7 @@
                     <div class="row my-2">
                         <!-- Small table -->
                         <div class="col-md-12">
-                            <div class="card shadow">
+                            <div class="card ">
                                 <div class="card-body">
 
                                     <form method="GET" action="{{ route('customers.list') }}" class="row card-header">

@@ -19,7 +19,7 @@
 
 
                         @if ($user->status == 'inactive')
-                            @if (Auth::user()->userType == 1 || Auth::user()->userType == 2)
+                            @if (auth()->check() && auth()->user()->hasAnyRole(['superuser', 'admin']))
 
                                     <form method="POST" action="{{ route('customer.update', $user->id) }}" >
                                         @csrf
@@ -44,7 +44,7 @@
                 <div class="row my-2">
 
                     <div class="col-md-12">
-                        <div class="card shadow mb-4">
+                        <div class="card  mb-4">
                             <div class="card-header">
                                 <strong class="card-title">{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }} <span
                                         class="text-danger">[ID: {{ $user->userId }}]</span></strong>
@@ -113,7 +113,7 @@
                         </div>
 
                         <div class="col-md-12">
-                            <div class="card shadow">
+                            <div class="card ">
                                 <div class="card-body">
                                     <!-- table -->
                                     <table class="table datatables table-bordered table-sm" id="dataTable-1">
@@ -160,7 +160,7 @@
                                                                         class="fe fe-eye fe-16"></span>
                                                                 </a>
 
-                                                                @if (Auth::user()->userType == 1 || Auth::user()->userType == 3)
+                                                                @if (auth()->check() && auth()->user()->hasAnyRole(['superuser',  'cashier']))
                                                                     <form id="deleteForm-{{ $item->id }}"
                                                                         action="{{ route('application.destroy', $item->id) }}"
                                                                         method="POST">

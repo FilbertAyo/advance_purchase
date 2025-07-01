@@ -8,16 +8,13 @@
                     <div class="col">
                         <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('address.index') }}"
-                                    >Cities</a>
+                                <a class="nav-link" href="{{ route('address.index') }}">Cities</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active"  href="{{ url('/regions') }}"
-                                  >Districts</a>
+                                <a class="nav-link active" href="{{ route('regions.index') }}">Districts</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"  href="{{ url('/wards') }}"
-                                  >Wards</a>
+                                <a class="nav-link" href="{{ route('wards.index') }}">Wards</a>
                             </li>
                         </ul>
                     </div>
@@ -43,16 +40,15 @@
 
                     <div class="col-auto">
                         <div class="form-group">
-                            @if(Auth::user()->userType == 1 || Auth::user()->userType == 2)
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addregionModal">
-                                New District<span
-                                class="fe fe-plus fe-16 ml-2"></span>
-                            </button>
-
-                                    @else
-                                    <button  class="btn mb-2 btn-primary permission-alert" > New District<span
+                            @can('manage settings')
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#addregionModal">
+                                    New District<span class="fe fe-plus fe-16 ml-2"></span>
+                                </button>
+                            @else
+                                <button class="btn mb-2 btn-primary permission-alert"> New District<span
                                         class="fe fe-plus fe-16 ml-2"></span></button>
-                                    @endif
+                            @endcan
                         </div>
 
                     </div>
@@ -63,7 +59,7 @@
                 <div class="row my-2">
                     <!-- Small table -->
                     <div class="col-md-12">
-                        <div class="card shadow">
+                        <div class="card ">
                             <div class="card-body">
                                 <!-- table -->
                                 <table class="table table-bordered table-sm" id="dataTable-1">
@@ -86,12 +82,12 @@
                                                         <div style="display: flex; gap: 2px;">
 
                                                             <form id="deleteForm-{{ $region->id }}"
-                                                            action="{{ route('region.destroy', $region->id) }}"
-                                                                method="POST"
-                                                                >
+                                                                action="{{ route('region.destroy', $region->id) }}"
+                                                                method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" onclick="showSweetAlert(event, '{{ $region->id }}')"
+                                                                <button type="submit"
+                                                                    onclick="showSweetAlert(event, '{{ $region->id }}')"
                                                                     class="btn btn-sm btn-danger"><span
                                                                         class="fe fe-trash-2 fe-16"></span></button>
                                                             </form>
@@ -113,13 +109,14 @@
 
                 </div> <!-- end section -->
             </div> <!-- .col-12 -->
-        </div> 
+        </div>
     </div>
 
 
 
 
-    <div class="modal fade" id="addregionModal" tabindex="-1" role="dialog" aria-labelledby="addregionModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addregionModal" tabindex="-1" role="dialog" aria-labelledby="addregionModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -129,15 +126,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ url('/region_store') }}" enctype="multipart/form-data" novalidate>
+                    <form method="POST" action="{{ route('regions.store') }}" enctype="multipart/form-data" novalidate>
                         @csrf
 
                         <div class="form-group">
                             <label for="regionName">City</label>
 
                             <select type="text" class="form-control" id="regionName" name="city_id" required>
-                                @foreach($city as $city)
-                                <option value="{{$city->id }}">{{ $city->city_name }}</option>
+                                @foreach ($city as $city)
+                                    <option value="{{ $city->id }}">{{ $city->city_name }}</option>
                                 @endforeach
                             </select>
 

@@ -1,7 +1,7 @@
 <main role="main" class="main-content">
     <div class="d-flex justify-content-center align-items-center" style="height: 40vh;">
         <div class="col-md-6">
-            <div class="card shadow bg-primary text-center mb-4">
+            <div class="card  bg-primary text-center mb-4">
                 <div class="card-body p-5">
                     <span class="circle circle-md bg-danger-light">
                         <i class="fe fe-alert-circle fe-24 text-white"></i>

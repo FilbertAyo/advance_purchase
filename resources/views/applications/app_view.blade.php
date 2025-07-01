@@ -22,7 +22,8 @@
                         @endif
 
                         @if ($application->status == 'inactive')
-                            @if (Auth::user()->userType == 1 || Auth::user()->userType == 2)
+                            @if (auth()->check() &&
+                                    auth()->user()->hasAnyRole(['superuser', 'admin']))
                                 <form method="POST" action="{{ route('application.activate', $application->id) }}">
                                     @csrf
                                     <x-primary-button label="Activate" />
@@ -44,7 +45,8 @@
                                 <div>
                                     <div class="spinner-border mr-3 text-secondary" role="status">
                                     </div>
-                                    This Refund of <strong>TZS {{ number_format($application->refund_amount) }}</strong> is waiting for
+                                    This Refund of <strong>TZS {{ number_format($application->refund_amount) }}</strong>
+                                    is waiting for
                                     approval...
                                 </div>
                                 <form action="{{ route('refund.approve', $application->id) }}" method="POST"
@@ -66,14 +68,16 @@
                             <div class="alert alert-danger d-flex justify-content-between align-items-center">
                                 <div>
                                     <strong><i class="fe fe-book"></i> Reason:</strong>
-                                 {{ $application->reason }}
+                                    {{ $application->reason }}
                                 </div>
                             </div>
                         @endif
 
-                        <div class="card shadow mb-4">
+                        <div class="card  mb-4">
                             <div class="card-header d-flex justify-content-between">
-                                <strong class="card-title">{{ $application->customer_name }}</strong>
+                                <strong class="card-title">{{ $application->user->first_name }}
+                                    {{ $application->user->middle_name }} {{ $application->user->last_name }} -
+                                    {{ $application->user->userId }}</strong>
                                 @if ($application->outstanding == 0 && $application->serial_number != null)
                                     <strong>Serial Number: {{ $application->serial_number }}
                                     </strong>
@@ -82,32 +86,33 @@
                             <div class="card-body">
                                 <dl class="row mb-0">
                                     <dt class="col-sm-2 mb-3 text-muted">Product Name</dt>
-                                    <dd class="col-sm-4 mb-3">{{ $application->item_name }}</dd>
+                                    <dd class="col-sm-4 mb-3">{{ $application->item->item_name }}</dd>
                                     <dt class="col-sm-2 mb-3 text-muted">Price</dt>
                                     <dd class="col-sm-4 mb-3">
-                                        <span class="bg-warning mr-2"></span>TZS {{ number_format($application->price) }}
+                                        <span class="bg-warning mr-2"></span>TZS
+                                        {{ number_format($application->price) }}
                                     </dd>
                                     <dt class="col-sm-2 mb-3 text-muted">Paid Amount</dt>
                                     <dd class="col-sm-4 mb-3">
-                                        <span class="dot dot-md bg-success mr-2"></span>TZS {{ number_format($application->paid_amount) }}
+                                        <span class="dot dot-md bg-success mr-2"></span>TZS
+                                        {{ number_format($application->paid_amount) }}
                                     </dd>
                                     <dt class="col-sm-2 mb-3 text-muted">Total Outstanding</dt>
-                                    <dd class="col-sm-4 mb-3 text-danger">TZS {{ number_format($application->outstanding) }}</dd>
+                                    <dd class="col-sm-4 mb-3 text-danger">TZS
+                                        {{ number_format($application->outstanding) }}</dd>
                                     <dt class="col-sm-2 mb-3 text-muted">Last Update</dt>
                                     <dd class="col-sm-4 mb-3">{{ $application->updated_at }}</dd>
                                     <dt class="col-sm-2 mb-3 text-muted">As of Date</dt>
                                     <dd class="col-sm-4 mb-3">{{ $application->created_at }}</dd>
-                                    <dt class="col-sm-2 mb-3 text-muted">Initialized by</dt>
-                                    <dd class="col-sm-4 mb-3">
-                                        <strong>{{ $application->created_by }}</strong>
-                                    </dd>
+
                                     <dt class="col-sm-2 mb-3 text-muted">Status</dt>
 
                                     <dd class="col-sm-4 mb-3">
                                         @if ($application->status == 'inactive')
                                             <strong class="badge badge-danger p-1">Inactive</strong>
                                         @elseif ($application->status == 'refunded')
-                                            <strong class="badge badge-secondary p-1">Refunded</strong> : <strong>TZS {{ number_format($application->refund_amount) }} /=</strong>
+                                            <strong class="badge badge-secondary p-1">Refunded</strong> : <strong>TZS
+                                                {{ number_format($application->refund_amount) }} /=</strong>
                                         @else
                                             @if ($application->outstanding == 0)
                                                 <strong class="badge badge-success p-1 text-white">Complete</strong>
@@ -127,13 +132,14 @@
                 </div>
 
                 @if ($application->outstanding == 0)
-                    <div class="card shadow mb-4">
+                    <div class="card  mb-4">
                         <div class="card-header d-flex justify-content-between">
                             <strong class="card-title">Contact Support</strong>
                             @if (
                                 $application->serial_number != null &&
                                     $application->delivery_status == 'Not Delivered' &&
-                                    in_array(Auth::user()->userType, [1, 4]))
+                                    auth()->check() &&
+                                    auth()->user()->hasAnyRole(['superuser', 'delivery']))
                                 <button type="button" class="btn mb-2 btn-secondary btn-sm" data-toggle="modal"
                                     data-target="#delivery" data-whatever="@mdo">
                                     Deliverey Status
@@ -181,7 +187,6 @@
 
                 @if ($application->status != 'inactive')
 
-
                     @include('elements.spinner')
 
                     <div class="row my-2">
@@ -200,7 +205,10 @@
                                     </ul>
                                 </div>
                                 <div class="col-auto">
-                                    @if (in_array(Auth::user()->userType, [1, 4]) && $application->outstanding == 0 && $application->refund_amount == null)
+                                    @if (auth()->check() &&
+                                            auth()->user()->hasAnyRole(['superuser', 'delivery']) &&
+                                            $application->outstanding == 0 &&
+                                            $application->refund_amount == null)
 
                                         @if ($application->serial_number == null)
                                             <button type="button" class="btn mb-2 btn-success btn-sm"
@@ -209,8 +217,8 @@
                                             </button>
                                         @endif
                                     @elseif ($application->outstanding > 0 && $application->refund_amount == null)
-                                        @if (in_array(Auth::user()->userType, [1, 3]))
-                                            <!-- Show Update Amount Button for userType 1 or 4 when outstanding > 0 -->
+                                        @if (auth()->check() &&
+                                                auth()->user()->hasAnyRole(['superuser', 'cashier']))
                                             <button type="button" class="btn mb-2 btn-primary btn-sm"
                                                 data-toggle="modal" data-target="#varyModal" data-whatever="@mdo">
                                                 Update Amount
@@ -232,10 +240,10 @@
 
                                 </div>
                             </div>
-                            <div class="card shadow">
+                            <div class="card">
                                 <div class="card-body">
                                     <!-- table -->
-                                    <table class="table table-bordered" id="dataTable-1">
+                                    <table class="table table-bordered table-sm" id="dataTable-1">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
@@ -249,40 +257,44 @@
                                         <tbody>
                                             @if ($advances->count() > 0)
                                                 @foreach ($advances as $index => $advance)
-                                                    @if ($advance->added_amount > 0)
-                                                        <tr>
-                                                            <td>{{ $loop->index + 1 }}</td>
-                                                            <td>{{ $advance->added_amount }}</td>
-                                                            <td>{{ $advance->outstanding }}</td>
-                                                            <td>{{ $advance->updated_by }}</td>
-                                                            <td>{{ $advance->created_at }}</td>
-                                                            <td>
+                                                    <tr>
+                                                        <td>{{ $loop->index + 1 }}</td>
+                                                        <td>{{ $advance->added_amount }}</td>
+                                                        <td>{{ $advance->outstanding }}</td>
+                                                        <td>{{ $advance->updated_by }}</td>
+                                                        <td>{{ $advance->created_at }}</td>
+                                                        <td>
 
-                                                                @if (Auth::user()->userType == 1 || Auth::user()->userType == 2)
-                                                                    <form id="deleteForm-{{ $advance->id }}"
-                                                                        action="{{ route('advances.destroy', $advance->id) }}"
-                                                                        method="POST">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="button"
-                                                                            onclick="showSweetAlert(event, '{{ $advance->id }}')"
-                                                                            class="btn btn-sm btn-danger">
-                                                                            <span class="fe fe-trash-2 fe-16"></span>
-                                                                        </button>
+                                                            @if (auth()->check() &&
+                                                                    auth()->user()->hasAnyRole(['superuser', 'admin']))
+                                                                <form id="deleteForm-{{ $advance->id }}"
+                                                                    action="{{ route('advances.destroy', $advance->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="button"
+                                                                        onclick="showSweetAlert(event, '{{ $advance->id }}')"
+                                                                        class="btn btn-sm btn-danger">
+                                                                        <span class="fe fe-trash-2 fe-16"></span>
+                                                                    </button>
 
-                                                                    </form>
-                                                                @else
-                                                                    <button
-                                                                        class="btn btn-sm btn-danger permission-alert"><span
-                                                                            class="fe fe-trash-2 fe-16 permission-alert"></span></button>
-                                                                @endif
+                                                                </form>
+                                                            @else
+                                                                <button
+                                                                    class="btn btn-sm btn-danger permission-alert"><span
+                                                                        class="fe fe-trash-2 fe-16 permission-alert"></span></button>
+                                                            @endif
 
 
-                                                            </td>
-                                                        </tr>
-                                                    @endif
+                                                        </td>
+                                                    </tr>
                                                 @endforeach
-
+                                            @else
+                                                <tr class="alert alert-danger">
+                                                    <td colspan="6" class="text-center">
+                                                        No Any installments paid.
+                                                    </td>
+                                                </tr>
                                             @endif
 
                                         </tbody>
@@ -307,7 +319,7 @@
 
                             </div>
 
-                            <div class="card shadow mb-4 p-3">
+                            <div class="card  mb-4 p-3">
                                 <table class="table table-bordered table-hover mb-0 table-sm" id="statementsTable">
                                     <thead>
                                         <tr>
@@ -335,8 +347,11 @@
                                             @endforeach
                                         @else
                                             <tr class="alert alert-danger">
-                                                <td colspan="6" class="text-center">No Screenshot found</td>
+                                                <td colspan="6" class="text-center">
+                                                    No Screenshot found.
+                                                </td>
                                             </tr>
+
                                         @endif
 
                                     </tbody>

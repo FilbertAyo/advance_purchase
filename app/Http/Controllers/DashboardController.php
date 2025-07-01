@@ -17,19 +17,21 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\View\View;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class DashboardController extends Controller
 {
 
-    public function welcome(){
+    public function welcome()
+    {
         $products = Cache::remember('random_products', 3600, function () {
             return Item::with(['productImages' => function ($query) {
                 $query->orderBy('id')->limit(1); // Get only the first image
             }])
-            ->inRandomOrder()
-            ->limit(10)
-            ->get();
+                ->inRandomOrder()
+                ->limit(10)
+                ->get();
         });
 
         return view('welcome', compact('products'));
@@ -37,15 +39,14 @@ class DashboardController extends Controller
 
     public function home()
     {
+        $user = auth()->user();
 
-        $userType = Auth::user()->userType;
-
-        if ($userType == '0') {
+        if ($user->hasRole('customer')) {
             return redirect()->route('products.list');
-        } elseif ($userType == '1' || $userType == '2' || $userType == '3' || $userType == '4') {
+        } elseif ($user->hasAnyRole(['admin', 'superuser', 'cashier', 'delivery'])) {
             return redirect()->route('admin.dashboard');
         } else {
-            redirect()->back()->with('status', "You're not authorized");
+            return redirect()->back()->with('status', "You're not authorized");
         }
     }
 
@@ -59,9 +60,15 @@ class DashboardController extends Controller
         $amount_withheld = $collection - $totalRefund;
         $amount_without_held = $collection - ($withheldAmount + $totalRefund);
 
-        $customerNo = User::where('userType', 0)->count();
-        $activeCustomer = User::where('userType', 0)->where('status', 'active')->count();
-        $adminNo = User::whereIn('userType', [1, 2, 3])->count();
+        $customerNo = User::whereHas('roles', function ($q) {
+            $q->where('name', 'customer');
+        })->count();
+        $activeCustomer = User::whereHas('roles', function ($q) {
+            $q->where('name', 'customer');
+        })->where('status', 'active')->count();
+        $adminNo = User::whereHas('roles', function ($q) {
+            $q->whereIn('name', ['admin', 'superuser', 'cashier', 'delivery']);
+        })->count();
 
         $totalApplication = $applications->count();
         $newApplicationNo = $applications->where('status', 'inactive')->count();
@@ -86,13 +93,13 @@ class DashboardController extends Controller
 
     public function myDashboard()
     {
-        $userType = Auth::user()->userType;
+         $user = auth()->user();
 
-        if ($userType == '0') {
+        if ($user->hasRole('customer')) {
             $customerId = Auth::id();
             $applications = Application::where('customer_id', $customerId)->get();
             $relative = User_Relative::where('user_id', $customerId)->get();
-            return view('customer.customer', compact('applications','relative'));
+            return view('customer.customer', compact('applications', 'relative'));
         } else {
             return redirect()->back()->with('status', "You're not authorized");
         }
@@ -100,9 +107,11 @@ class DashboardController extends Controller
 
     public function user()
     {
-        $user = User::whereIn('userType', [1, 2, 3,4])->get();
 
-        return view('users.user', compact('user'));
+        $roles = Role::where('name', '!=', 'customer')->get();
+        $permissions = Permission::all();
+        $users = User::role($roles->pluck('name'))->get();
+        return view('users.user', compact('users', 'roles', 'permissions'));
     }
 
     public function register(Request $request)
@@ -113,7 +122,8 @@ class DashboardController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:255', 'unique:' . User::class],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'confirmed', Rules\Password::min(6)],
+            'role' => ['required', 'string'],
+            'password' => ['required', Rules\Password::min(8)],
         ]);
 
         $userId = $this->generateUniqueUserId();
@@ -123,13 +133,13 @@ class DashboardController extends Controller
             'middle_name' => $request->middle_name,
             'last_name' => $request->last_name,
             'phone' => $request->phone,
-            'userType' => $request->userType,
             'userId' => $userId,
             'status' => $request->status,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+        $user->assignRole($request->role);
 
         User_Profile::create([
             'user_id' => $user->id,
@@ -148,8 +158,28 @@ class DashboardController extends Controller
 
         event(new Registered($user));
 
-        return redirect()->back()->with('success', 'New Customer registered successfully');
+        return redirect()->back()->with('success', 'New User registered successfully');
     }
+
+
+    public function update(Request $request, $id)
+    {
+        $role = Role::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|unique:roles,name,' . $role->id,
+            'permissions' => 'array',
+        ]);
+
+        $role->name = $request->name;
+        $role->save();
+
+        // Sync permissions
+        $role->syncPermissions($request->permissions ?? []);
+
+        return back()->with('success', 'Role updated successfully.');
+    }
+
     private function generateUniqueUserId()
     {
         do {
@@ -159,22 +189,12 @@ class DashboardController extends Controller
         return $userId;
     }
 
-    public function destroy($id)
+
+    public function bank()
     {
-        $user = User::find($id);
-
-        if ($user) {
-            $user->delete();
-            return redirect()->back()->with('success', 'User deleted successfully');
-        } else {
-            return redirect()->back()->with('error', 'User not found');
-        }
-    }
-
-    public function bank(){
 
         $banks = Bank::all();
-        return view('settings.bank',compact('banks'));
+        return view('settings.bank', compact('banks'));
     }
     public function bank_store(Request $request)
     {
@@ -189,7 +209,7 @@ class DashboardController extends Controller
             'bank_name' => $request->bank_name,
             'account_no' => $request->account_no,
             'account_name' => $request->account_name,
-           'status' => 'Active',
+            'status' => 'Active',
         ]);
 
         return redirect()->back()->with('success', 'Record added successfully.');

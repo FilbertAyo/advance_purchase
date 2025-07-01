@@ -31,12 +31,12 @@
 
 <body class="horizontal light">
 
-    @if (Auth::user()->userType == 0)
-
+    @if (auth()->check() &&
+            auth()->user()->hasAnyRole(['customer']))
         @if (Auth::user()->status == 'active')
             <div class="wrapper">
 
-                <nav class="navbar navbar-expand-lg navbar-light bg-white flex-row border-bottom shadow">
+                <nav class="navbar navbar-expand-lg navbar-light bg-white flex-row border-bottom ">
                     <div class="container-fluid">
                         <a class="navbar-brand mx-lg-1 mr-0" href="{{ route('dashboard') }}">
                             <div class="w-100 d-flex">
@@ -45,15 +45,17 @@
                             </div>
                         </a>
                         <!-- Navbar Toggle Button -->
-                        <button class="navbar-toggler mt-2 mr-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="navbar-toggler mt-2 mr-auto" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
                             <i class="fe fe-menu navbar-toggler-icon"></i>
                         </button>
 
                         <!-- Navbar Content -->
                         <div class="collapse navbar-collapse navbar-slide bg-white ml-lg-4" id="navbarSupportedContent">
                             <!-- Close button for mobile -->
-                            <a href="#" class="btn d-lg-none text-muted ml-2 mt-3" data-toggle="collapse" data-target="#navbarSupportedContent">
+                            <a href="#" class="btn d-lg-none text-muted ml-2 mt-3" data-toggle="collapse"
+                                data-target="#navbarSupportedContent">
                                 <i class="fe fe-x"></i>
                             </a>
                             <ul class="navbar-nav mr-auto">
@@ -74,7 +76,8 @@
 
                         <ul class="navbar-nav d-flex flex-row">
                             <li class="nav-item">
-                                <a class="nav-link text-muted" href="#" data-toggle="modal" data-target=".modal-shortcut">
+                                <a class="nav-link text-muted" href="#" data-toggle="modal"
+                                    data-target=".modal-shortcut">
                                     <span class="avatar avatar-sm">
                                         <img src="{{ asset(Auth::user()->profile->profile_image ?? 'images/photo.jpeg') }}"
                                             alt="User" style="width: 50px; height: 50px; object-fit: cover;"
@@ -208,18 +211,9 @@
                 </div>
             </div>
         @endif
-    @else
-        <div class="wrapper vh-100">
-            <div class="align-items-center h-100 d-flex w-50 mx-auto">
-                <div class="mx-auto text-center">
-                    <h2 class="mb-1 font-weight-bold text-danger">Permission Denied!</h2>
-                    <h4 class="mb-3 text-muted">You don't have permission to access this page.</h4>
-                    <a href="{{ url()->previous() }}" class="btn btn-lg btn-dark px-5">Go Back</a>
-                </div>
-            </div>
-        </div>
 
     @endif
+
 
 
     <script>

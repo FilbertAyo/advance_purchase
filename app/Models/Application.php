@@ -10,13 +10,11 @@ class Application extends Model
     use HasFactory;
     protected $fillable = [
         'customer_id',
-        'item_name',
-        'customer_name',
+        'item_id',
         'price',
         'serial_number',
         'paid_amount',
         'outstanding',
-        'created_by',
         'withheld_amount',
         'status',
         'delivery_status',
@@ -28,4 +26,9 @@ class Application extends Model
     {
         return $this->belongsTo(User::class, 'customer_id', 'id');
     }
+    public function item()
+{
+    return $this->belongsTo(Item::class);
+}
+
 }

@@ -8,16 +8,13 @@
                     <div class="col">
                         <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{ route('address.index') }}"
-                                    >Cities</a>
+                                <a class="nav-link active" href="{{ route('address.index') }}">Cities</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"  href="{{ url('/regions') }}"
-                                  >Districts</a>
+                                <a class="nav-link" href="{{ route('regions.index') }}">Districts</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"  href="{{ url('/wards') }}"
-                                  >Wards</a>
+                                <a class="nav-link" href="{{ route('wards.index') }}">Wards</a>
                             </li>
                         </ul>
                     </div>
@@ -43,16 +40,15 @@
 
                     <div class="col-auto">
                         <div class="form-group">
-                            @if(Auth::user()->userType == 1 || Auth::user()->userType == 2)
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCityModal">
-                                New City<span
-                                class="fe fe-plus fe-16 ml-2"></span>
-                            </button>
-
-                                    @else
-                                    <button  class="btn mb-2 btn-primary permission-alert" > New City <span
+                            @can('manage settings')
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#addCityModal">
+                                    New City<span class="fe fe-plus fe-16 ml-2"></span>
+                                </button>
+                            @else
+                                <button class="btn mb-2 btn-primary permission-alert"> New City <span
                                         class="fe fe-plus fe-16 ml-2"></span></button>
-                                    @endif
+                            @endcan
                         </div>
 
                     </div>
@@ -63,7 +59,7 @@
                 <div class="row my-2">
                     <!-- Small table -->
                     <div class="col-md-12">
-                        <div class="card shadow">
+                        <div class="card ">
                             <div class="card-body">
                                 <!-- table -->
                                 <table class="table table-bordered table-sm" id="dataTable-1">
@@ -88,12 +84,12 @@
 
 
                                                             <form id="deleteForm-{{ $city->id }}"
-                                                            action="{{ route('address.destroy', $city->id) }}"
-                                                                method="POST"
-                                                                >
+                                                                action="{{ route('address.destroy', $city->id) }}"
+                                                                method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" onclick="showSweetAlert(event, '{{ $city->id }}')"
+                                                                <button type="submit"
+                                                                    onclick="showSweetAlert(event, '{{ $city->id }}')"
                                                                     class="btn btn-sm btn-danger"><span
                                                                         class="fe fe-trash-2 fe-16"></span></button>
                                                             </form>
@@ -121,7 +117,8 @@
 
 
 
-    <div class="modal fade" id="addCityModal" tabindex="-1" role="dialog" aria-labelledby="addCityModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addCityModal" tabindex="-1" role="dialog" aria-labelledby="addCityModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">

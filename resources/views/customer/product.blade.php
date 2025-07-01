@@ -118,7 +118,7 @@
                                         <div class="mt-auto d-flex justify-content-between align-items-center">
                                             <h6 class="fw-bold text-sm">TZS {{ number_format($product->sales) }}/=</h6>
 
-                                            <a class="btn btn-primary btn-sm" href="{{ url('/product_view', $product->id) }}">Buy</a>
+                                            <a class="btn btn-primary btn-sm" href="{{ route('product.view', $product->id) }}">Buy</a>
                                         </div>
                                     </div>
                                 </div>

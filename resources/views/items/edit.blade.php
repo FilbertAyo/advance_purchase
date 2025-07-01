@@ -26,7 +26,7 @@
 
                             <div class="p-3 bg-white">
 
-                                <form action="{{ route('item.update', $item->id)}}" method="POST" validate
+                                <form action="{{ route('items.update', $item->id)}}" method="POST" validate
                                     style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
 
                                     @csrf

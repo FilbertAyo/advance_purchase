@@ -1,4 +1,4 @@
-<aside class="sidebar-left border-right bg-white shadow" id="leftSidebar" data-simplebar>
+<aside class="sidebar-left border-right bg-white " id="leftSidebar" data-simplebar>
     <a href="#" class="btn collapseSidebar toggle-btn d-lg-none text-muted ml-2 mt-3" data-toggle="toggle">
         <i class="fe fe-x"><span class="sr-only"></span></i>
     </a>
@@ -24,7 +24,7 @@
 
         <ul class="navbar-nav flex-fill w-100">
             <li class="nav-item dropdown {{ Request::is('item*') ? 'active' : '' }}">
-                <a href="{{ route('item.index') }}" class="nav-link">
+                <a href="{{ route('items.index') }}" class="nav-link">
                     <i class="fe fe-archive fe-16"></i>
                     <span class="ml-3 item-text">Items</span>
                 </a>
@@ -66,15 +66,15 @@
                         <span class="ml-1">Pending</span>
                     </a>
                 </ul>
+            </li>
+        </ul>
 
-                <ul class="navbar-nav flex-fill w-100">
-                    <li class="nav-item {{ Request::is('deliveries') ? 'active' : '' }}">
-                        <a href="{{ route('delivery.filter') }}" class="nav-link">
-                            <i class="fe fe-check-square fe-16"></i>
-                            <span class="ml-3 item-text">Delivery</span>
-                        </a>
-                    </li>
-                </ul>
+        <ul class="navbar-nav flex-fill w-100">
+            <li class="nav-item {{ Request::is('delivery') ? 'active' : '' }}">
+                <a href="{{ route('delivery.filter') }}" class="nav-link">
+                    <i class="fe fe-check-square fe-16"></i>
+                    <span class="ml-3 item-text">Delivery</span>
+                </a>
             </li>
         </ul>
 
@@ -122,8 +122,8 @@
         <p class="text-muted nav-heading mt-4 mb-1"><span>Settings</span></p>
 
         <ul class="navbar-nav flex-fill w-100">
-            <li class="nav-item dropdown {{ Request::is('user') ? 'active' : '' }}">
-                <a href="{{ url('/user') }}" class=" nav-link">
+            <li class="nav-item dropdown {{ Request::is('users.index') ? 'active' : '' }}">
+                <a href="{{ route('users.index') }}" class=" nav-link">
                     <i class="fe fe-user fe-16"></i>
                     <span class="ml-3 item-text">All Users</span>
                 </a>
@@ -144,7 +144,7 @@
                         </a>
                     </li>
                     <li class="nav-item {{ Request::is('bank') ? 'active' : '' }}">
-                        <a class="nav-link pl-3" href="{{ url('/bank') }}">
+                        <a class="nav-link pl-3" href="{{ route('bank.index') }}">
                             <span class="ml-1 item-text">Bank</span>
                         </a>
                     </li>

@@ -21,14 +21,16 @@ class CustomerController extends Controller
         $perPage = $request->input('perPage', 10); // default to 10
 
         $query = User::where('status', 'active')
-                    ->where('userType', 0);
+            ->whereHas('roles', function ($q) {
+                $q->where('name', 'customer');
+            });
 
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
-                  ->orWhere('middle_name', 'like', "%{$search}%")
-                  ->orWhere('last_name', 'like', "%{$search}%")
-                  ->orWhere('userId', 'like', "%{$search}%");
+                    ->orWhere('middle_name', 'like', "%{$search}%")
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('userId', 'like', "%{$search}%");
             });
         }
 
@@ -37,12 +39,15 @@ class CustomerController extends Controller
         return view('users.new_customer', compact('users', 'search', 'perPage'));
     }
 
-    public function unverifiedCustomer(){
+    public function unverifiedCustomer()
+    {
         $cities =  City::all();
         $districts = District::all();
         $wards = Ward::all();
 
-        $user = User::where('status', 'inactive')->where('userType', 0)->with('profile')->with('profile.ward', 'profile.district', 'profile.city')->get();
+        $user = User::where('status', 'inactive')->whereHas('roles', function ($q) {
+            $q->where('name', 'customer');
+        })->with('profile')->with('profile.ward', 'profile.district', 'profile.city')->get();
 
         return view('users.unverified_customer', compact('user', 'cities', 'districts', 'wards'));
     }
@@ -73,8 +78,8 @@ class CustomerController extends Controller
 
         // Retrieve applications that belong to this user
         $applications = Application::where('customer_id', $id)
-                                    ->orderBy('id', 'desc')
-                                    ->get();
+            ->orderBy('id', 'desc')
+            ->get();
 
         return view('users.view_customer', compact('user', 'applications'));
     }
@@ -94,10 +99,10 @@ class CustomerController extends Controller
     public function update(Request $request, string $id)
     {
 
-            $user = User::findOrFail($id);
-            $user->status = 'active';
-            $user->save();
-            return redirect()->route('customer.show', $id)->with('success', 'Customer registered and verified successfully.');
+        $user = User::findOrFail($id);
+        $user->status = 'active';
+        $user->save();
+        return redirect()->route('customer.show', $id)->with('success', 'Customer registered and verified successfully.');
     }
 
     public function destroy(string $id)
@@ -111,5 +116,4 @@ class CustomerController extends Controller
             return redirect()->back()->with('error', 'User not found');
         }
     }
-
 }

@@ -26,7 +26,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card shadow mb-4">
+                        <div class="card  mb-4">
                             <div class="card-header">
                                 <strong class="card-title">{{ $item->item_name }}</strong>
                                 <span
@@ -84,7 +84,7 @@
 
                     @foreach ($item->productImages as $image)
                         <div class="col-md-3">
-                            <div class="card shadow mb-4 position-relative">
+                            <div class="card  mb-4 position-relative">
                                 <div class="card-body">
 
                                     <img src="{{ asset($image->image_url) }}" alt="Product Image"
@@ -106,7 +106,7 @@
 
 
                     <div class="col-md-3">
-                        <div class="card shadow mb-4">
+                        <div class="card  mb-4">
                             <div class="card-header">
                                 <strong>Pictures Upload</strong>
                             </div>
