@@ -40,6 +40,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/relative/{id}', [ProfileController::class, 'destroyRelative'])->name('relative.destroy');
     Route::post('/profile_picture/update', [ProfileController::class, 'updateProfile'])->name('prof.update');
 
+    // Step 1: Personal Information
+    Route::get('/profile/update/personal-information', [ProfileController::class, 'showStep1'])->name('wizard.step1');
+    Route::post('/profile/update/personal-information', [ProfileController::class, 'storeStep1'])->name('wizard.step1.store');
+
+    // Step 2: Identification & Employment
+    Route::get('/profile/update/identification-employment', [ProfileController::class, 'showStep2'])->name('wizard.step2');
+    Route::post('/profile/update/identification-employment', [ProfileController::class, 'storeStep2'])->name('wizard.step2.store');
+
+    // Step 3: Next of Kin
+    Route::get('/profile/update/next-of-kin', [ProfileController::class, 'showStep3'])->name('wizard.step3');
+    Route::post('/profile/update/submit', [ProfileController::class, 'submitFinal'])->name('wizard.step3.store');
+
+
     Route::get('/my/advance/dashboard', [DashboardController::class, 'myDashboard'])->name('my.dashboard');
     Route::get('/products/list', [ItemController::class, 'product'])->name('products.list');
     Route::get('/product/view/{id}', [ItemController::class, 'product_view'])->name('product.view');

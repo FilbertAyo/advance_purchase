@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('employment_status')->nullable();
             $table->string('occupation')->nullable();
             $table->string('organization')->nullable();
-            $table->string('profile_image')->nullable(); //updated inside the customer
+            $table->string('profile_image')->nullable(); 
             $table->timestamps();
         });
     }

@@ -34,6 +34,12 @@ class User extends Authenticatable
         return $this->hasOne(User_Profile::class);
     }
 
+     public function relatives()
+    {
+        return $this->hasMany(User_Relative::class);
+    }
+
+
 
     /**
      * The attributes that should be hidden for serialization.

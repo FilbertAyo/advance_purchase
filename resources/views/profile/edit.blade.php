@@ -32,9 +32,7 @@
                                     </a>
                                 </div>
                                 <div class="px-3 m-3" >
-
                                     @include('profile.partials.update-password-form')
-
                                 </div>
                             </div>
                             <div class="card shadow">
@@ -44,17 +42,11 @@
                                         <strong>Next of Kin</strong>
                                     </a>
                                 </div>
-                                <div id="collapse3" class="collapse {{ $relatives->isEmpty() ? 'show' : '' }}"
-                                    aria-labelledby="heading3" data-parent="#accordion1">
-
-
-                                    @include('profile.partials.next-of-kin')
-
+                                <div id="collapse3">
+                                    @include('profile.partials.wizard')
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>

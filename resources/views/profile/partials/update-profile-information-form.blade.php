@@ -37,18 +37,18 @@
             <input type="text" id="last_name" name="last_name" class="form-control"
                 value="{{ old('last_name', $user->last_name) }}" readonly>
         </div>
-    </div>
 
-    <div class="form-group">
+    <div class="form-group col-md-6">
         <label for="email">Email</label>
         <input type="email" id="email" name="email" class="form-control"
-            value="{{ old('email', $user->email) }}" required>
+            value="{{ old('email', $user->email) }}" readonly>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-md-6">
         <label for="address">Phone number</label>
         <input type="text" id="address" name="phone" class="form-control"
             value="{{ old('phone', $user->phone) }}" readonly>
     </div>
-    <button type="submit" class="btn btn-primary">Update Profile</button>
+    </div>
+
 </form>

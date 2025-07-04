@@ -1,62 +1,72 @@
-<div class="container-fluid bg-dark text-light footer pt-5 mt-5" >
-    <div class="container py-5">
-        <div class="row g-5">
-            <div class="col-lg-3 col-md-6">
-                <h4 class="text-light mb-4">@lang('messages.address')</h4>
-                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Samora J.M Mall , Posta</p>
-                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>0743400900</p>
-                <p class="mb-2"><i class="fa fa-envelope me-3"></i>filbert@marstanzania.com</p>
-                <div class="d-flex pt-2">
-                    <a class="btn btn-outline-light btn-social" href="https://www.instagram.com/marscomtz?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a class="btn btn-outline-light btn-social" href=""><i
-                            class="fab fa-facebook-f"></i></a>
 
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <h4 class="text-light mb-4">@lang('messages.opening')</h4>
-                <h6 class="text-light">@lang('messages.monday') - @lang('messages.friday'):</h6>
-                <p class="mb-4">08.30 AM - 05.00 PM</p>
-                <h6 class="text-light">@lang('messages.saturday')</h6>
-                <p class="mb-0">08.30 AM - 2.00 PM</p>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <h4 class="text-light mb-4">@lang('messages.services')</h4>
-                <div class="btn btn-link">@lang('messages.advance_payment')</div>
-                <div class="btn btn-link">@lang('messages.free_delivery')</div>
-                <div class="btn btn-link">@lang('messages.warranty')</div>
-                <div class="btn btn-link">@lang('messages.service_center')</div>
-                <div class="btn btn-link">@lang('messages.support')</div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <h4 class="text-light mb-4">@lang('messages.newsletter')</h4>
-                <p>@lang('messages.get_update')</p>
-                <div class="position-relative mx-auto" style="max-width: 400px;">
-                    <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text"
-                        placeholder="@lang('messages.your_email')">
-                    <button type="button"
-                        class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">@lang('messages.signup')</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="copyright">
-            <div class="row">
-                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    &copy; <a class="border-bottom" href="#">Mars Communication Ltd</a>, @lang('messages.all_right').
+ <footer class="footer pt-5 pb-5">
+                <div class="container">
+                    <div class="row mb-5 pb-4">
+                        <div class="col-md-7">
+                            <h2 class="fs-5">Join our newsletter</h2>
+                            <p>Stay updated with our latest templates and offers—join our newsletter today!</p>
+                        </div>
+                        <div class="col-md-5">
+                            <form class="d-flex gap-2">
+                                <input class="form-control" type="email" placeholder="Email your email"
+                                    required="">
+                                <button class="btn btn-primary fs-6" type="submit">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between mb-5 g-xl-5">
+                        <div class="col-md-4 mb-5 mb-lg-0">
+                            <h3 class="mb-3">About</h3>
+                            <p class="mb-4">Utilize our tools to develop your concepts and bring your vision to life.
+                                Once complete, effortlessly share your creations.</p>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="row g-2">
+                                <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                                    <h3 class="mb-3">Services</h3>
+                                    <ul class="list-unstyled">
+                                        <li><a href="page-about.html">@lang('messages.advance_payment')</a></li>
+                                        <li><a href="page-careers.html">@lang('messages.free_delivery')</li>
+                                        <li><a href="page-case-studies.html">@lang('messages.warranty')</a></li>
+                                        <li><a href="page-terms-conditions.html">@lang('messages.service_center')</a></li>
+                                        <li><a href="page-privacy-policy.html">@lang('messages.support')</a></li>
+                                    </ul>
 
 
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <div class="footer-menu">
-                        <a href="">@lang('messages.home')</a>
-                        <a href="">@lang('messages.cookies')</a>
-                        <a href="">@lang('messages.help')</a>
-                  
+                                </div>
+                                <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                                    <h3 class="mb-3">Accounts</h3>
+                                    <ul class="list-unstyled">
+                                        <li><a href="page-signup.html">Register</a></li>
+                                        <li><a href="page-signin.html">Sign in</a></li>
+                                        <li><a href="page-forgot-password.html">Fogot Password</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 col-lg-4 mb-4 mb-lg-0 quick-contact">
+                                    <h3 class="mb-3">Contact</h3>
+                                    <p class="d-flex mb-3"><i class="bi bi-geo-alt-fill me-3"></i><span>Samora JM Mall, <br> Posta ,Dar es salaam</span></p><a
+                                        class="d-flex mb-3" href="mailto:info@mydomain.com"><i
+                                            class="bi bi-envelope-fill me-3"></i><span>marscommunicationltd@gmail.com</span></a><a
+                                        class="d-flex mb-3" href="tel://+123456789900"><i
+                                            class="bi bi-telephone-fill me-3"></i><span>+255 74140-0900</span></a><a
+                                        class="d-flex mb-3" href="https://marscommltd.com"><i
+                                            class="bi bi-globe me-3"></i><span>marscommltd.com</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row credits pt-3">
+                        <div class="col-xl-8 text-center text-xl-start mb-3 mb-xl-0">
+
+                            &copy;
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script> Mars Communications.
+                            All rights reserved.
+                        </div>
+                        <div
+                            class="col-xl-4 justify-content-start justify-content-xl-end quick-links d-flex flex-column flex-xl-row text-center text-xl-start gap-1">
+                            Designed by<a href="https://themewagon.com" target="_blank">Mars Communications</a></div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+            </footer>

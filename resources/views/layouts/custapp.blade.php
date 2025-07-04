@@ -33,7 +33,7 @@
 
     @if (auth()->check() &&
             auth()->user()->hasAnyRole(['customer']))
-        @if (Auth::user()->status == 'active')
+       
             <div class="wrapper">
 
                 <nav class="navbar navbar-expand-lg navbar-light bg-white flex-row border-bottom ">
@@ -187,30 +187,8 @@
                     @yield('content')
 
                 </main>
-
             </div>
-        @else
-            @include('elements.spinner')
-            <div class="wrapper vh-100">
-                <div class="align-items-center h-100 d-flex w-50 mx-auto">
-                    <div class="mx-auto text-center">
-                        <h1 class="display-1 m-0 font-weight-bolder text-muted mb-3">
-                            <div class="spinner-grow mr-3" style="width: 3rem; height: 3rem;" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                        </h1>
-                        <h1 class="mb-1 text-muted ">Setup is on progress...</h1>
-                        <h6 class="mb-3 text-muted">Congratulations {{ Auth::user()->first_name }}
-                            {{ Auth::user()->last_name }} on completing your registration! Please wait while your
-                            account
-                            is being verified.</h6>
-                        <a href="javascript:void(0);" class="btn btn-lg btn-primary px-5"
-                            onclick="location.reload();">Refresh</a>
-
-                    </div>
-                </div>
-            </div>
-        @endif
+      
 
     @endif
 

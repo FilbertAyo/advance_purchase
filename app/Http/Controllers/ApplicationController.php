@@ -57,13 +57,26 @@ class ApplicationController extends Controller
         //
     }
 
-  
+
     public function store(Request $request)
     {
         $request->validate([
             'item_id' => ['required', 'string', 'max:255'],
             'customer_id' => ['required', 'string', 'max:255'],
         ]);
+
+        $user = Auth::user();
+
+        $isProfileIncomplete = is_null(optional($user->profile)->gender);
+        $hasNoRelatives = optional($user->relatives)->isEmpty();
+        $isInactive = $user->status === 'inactive';
+
+        if ($hasNoRelatives || $isInactive || $isProfileIncomplete) {
+            return back()->withErrors([
+                'restricted' => 'You cannot proceed at the moment. Please upload your information and wait for verification from our team before you can begin an advanced loan installment.'
+            ]);
+        }
+
 
         // Get the last application for this customer
         $lastApplication = Application::where('customer_id', $request->customer_id)
@@ -249,7 +262,7 @@ class ApplicationController extends Controller
         $statements = Advance::where('application_id', $id)->where('added_amount', '>', 0)->get();
         $screenshots = Screenshot::where('application_id', $id)->get();
 
-        return view('customer.cust_details', compact('application', 'banks', 'statements', 'screenshots'));
+        return view('customers.cust_details', compact('application', 'banks', 'statements', 'screenshots'));
     }
 
     public function inactive()

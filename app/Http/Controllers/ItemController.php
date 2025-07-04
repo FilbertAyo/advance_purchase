@@ -155,13 +155,12 @@ class ItemController extends Controller
         $product = Item::findOrFail($id);
         $images = Product_Image::where('item_id', $id)->get();
 
-        return view('customer.product_view', compact('product', 'images'));
+        return view('customers.product_view', compact('product', 'images'));
     }
 
     public function product(Request $request)
     {
         $customerId = Auth::id();
-        $relative = User_Relative::where('user_id', $customerId)->get();
 
         $category = $request->get('category');
         $query = $request->get('query');
@@ -178,15 +177,14 @@ class ItemController extends Controller
             })
             ->paginate(12);
 
-        $products->onEachSide(1); // ✅ Add this here after paginate
+        $products->onEachSide(1);
 
         if ($request->ajax()) {
             return view('customer.partials.product_list', compact('products'))->render();
         }
 
-        return view('customer.product', compact('products', 'category', 'relative'));
+        return view('customers.products', compact('products', 'category'));
     }
-
 
 
     public function catalogue(Request $request){

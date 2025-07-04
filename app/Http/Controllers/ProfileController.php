@@ -77,69 +77,130 @@ class ProfileController extends Controller
     }
 
 
-
-    public function storeRelative(Request $request)
-{
-    $request->validate([
-        'relative_name' => 'required|string|max:255',
-        'relationship' => 'required|string',
-        'phone_number' => 'required|string|max:20',
-        'email' => 'nullable|email|max:255',
-        'address' => 'nullable|string|max:255',
-    ]);
-
-    User_Relative::create([
-        'user_id' => $request->user_id,
-        'relative_name' => $request->relative_name,
-        'relationship' => $request->relationship,
-        'phone_number' => $request->phone_number,
-        'email' => $request->email,
-        'address' => $request->address,
-    ]);
-
-    return redirect()->back()->with('success', 'Relative details saved successfully!');
-}
-
-public function destroyRelative($id)
-{
-    $relative = User_Relative::find($id);
-
-    if (!$relative) {
-        return redirect()->back()->with('error', 'Relative not found');
+    public function showStep1(): View
+    {
+        return view('profile.steps.step1');
     }
 
-    $relative->delete();
+    public function storeStep1(Request $request)
+    {
+        $validated = $request->validate([
+            'city' => 'required|string|max:255',
+            'district' => 'required|string|max:255',
+            'ward' => 'required|string|max:255',
+            'street' => 'required|string|max:255',
+            'gender' => 'required|string',
+            'birth_date' => 'required|date',
+        ]);
 
-    return redirect()->back()->with('success', 'Relative deleted successfully');
-}
-
-public function updateProfile(Request $request)
-{
-    $validated = $request->validate([
-        'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
-
-    $user = Auth::user();
-    $profile = User_Profile::where('user_id', $user->id)->first();
-
-    if (!$profile) {
-        $profile = new User_Profile();
-        $profile->user_id = $user->id;
+        session(['step1' => $validated]);
+        return redirect()->route('wizard.step2');
     }
 
-    if ($request->hasFile('profile_image')) {
-        $image = $request->file('profile_image');
-        $imageName = time() . '_' . $image->getClientOriginalName();
-        $image->move(public_path('profile'), $imageName);
 
-        // Save the image path in the database
-        $profile->profile_image = 'profile/' . $imageName;
+    public function showStep2(): View
+    {
+        return view('profile.steps.step2');
     }
 
-    $profile->save();
+    public function storeStep2(Request $request)
+    {
+        $validated = $request->validate([
+            'id_type' => 'required|string|max:50',
+            'id_number' => 'required|string|max:50',
+            'id_attachment' => 'nullable|file|mimes:jpg,jpeg,png,gif|max:2048',
+            'employment_status' => 'nullable|string|max:50',
+            'occupation' => 'nullable|string|max:100',
+            'organization' => 'nullable|string|max:100',
+        ]);
 
-    return redirect()->back()->with('success', 'Your profile updated successfully.');
-}
+        if ($request->hasFile('id_attachment')) {
+            $file = $request->file('id_attachment');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('attachments'), $fileName);
+            $validated['id_attachment'] = 'attachments/' . $fileName;
+        }
+
+        session(['step2' => $validated]);
+        return redirect()->route('wizard.step3');
+    }
 
 
+    public function showStep3(): View
+    {
+        return view('profile.steps.step3');
+    }
+
+    public function submitFinal(Request $request)
+    {
+        if (!session()->has('step1') || !session()->has('step2')) {
+            return redirect()->route('wizard.step1')->withErrors('Please complete all steps first.');
+        }
+
+        $validated = $request->validate([
+            'relative_name' => 'required|string|max:255',
+            'relationship' => 'required|string',
+            'phone_number' => 'required|string|max:20',
+            'email' => 'nullable|email|max:255',
+            'address' => 'nullable|string|max:255',
+        ]);
+
+        session(['step3' => $validated]);
+        $userId = auth()->id();
+
+        // Save profile data
+        $profile = User_Profile::firstOrNew(['user_id' => $userId]);
+        $profile->fill(array_merge(session('step1'), session('step2')));
+        $profile->user_id = $userId;
+        $profile->save();
+
+        // Save next of kin
+        User_Relative::create(array_merge(session('step3'), ['user_id' => $userId]));
+
+        session()->forget(['step1', 'step2', 'step3']);
+
+        return redirect()->route('dashboard')->with('success', 'Profile completed successfully!');
+    }
+
+
+    public function destroyRelative($id)
+    {
+        $relative = User_Relative::find($id);
+
+        if (!$relative) {
+            return redirect()->back()->with('error', 'Relative not found');
+        }
+
+        $relative->delete();
+
+        return redirect()->back()->with('success', 'Relative deleted successfully');
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $validated = $request->validate([
+            'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user = Auth::user();
+        $profile = User_Profile::where('user_id', $user->id)->first();
+
+        if (!$profile) {
+            $profile = new User_Profile();
+            $profile->user_id = $user->id;
+        }
+
+        if ($request->hasFile('profile_image')) {
+            $image = $request->file('profile_image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('profile'), $imageName);
+
+            // Save the image path in the database
+            $profile->profile_image = 'profile/' . $imageName;
+        }
+
+        $profile->save();
+
+        return redirect()->back()->with('success', 'Your profile updated successfully.');
+    }
 }

@@ -9,8 +9,8 @@
                     <h3 class="h4 mt-4 mb-1 text-white">Oooops!!</h3>
                     <p class="text-white mb-4">Your account is deactivated. Please contact the Admin</p>
                     <a href="https://wa.me/+255755237692" target="_blank" class="btn btn-lg bg-danger-light text-white">Whatsapp</a>
-                </div> <!-- .card-body -->
-            </div> <!-- .card -->
-        </div> <!-- .col-md-->
-    </div> <!-- .d-flex -->
-</main> <!-- main -->
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

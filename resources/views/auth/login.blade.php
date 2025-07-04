@@ -1,50 +1,76 @@
 <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+   
+    <section class="section pricing__v2" id="pricing">
+        <div class="container mt-5">
+            <h4 class="text-center mb-4">Sign in</h4>
 
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
 
-<div  class="col-lg-3 col-md-4 col-10 mx-auto text-center card px-5 py-3" style="">
-    <!-- Login Form -->
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
-        <h1 class="h4 mb-4" style="margin-left: 30%;"> <img src="{{ asset('images/marslogo.png') }}" class="" alt="Partner Logo" style="height: 50px"></h1>
+            <div class="p-5 rounded-4 price-table h-100">
+                <form method="POST" action="{{ route('login') }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
 
-        <!-- Email or Phone Number -->
-        <div class="form-group">
-            <x-text-input id="login" type="text" class="block mt-1 w-full @error('login') is-invalid @enderror"
-                          name="login" value="{{ old('login') }}" placeholder="Email or Phone Number" required
-                          autocomplete="login" autofocus />
-            <x-input-error :messages="$errors->get('login')" class="mt-2" />
+                        <!-- Login Field -->
+                        <div class="col-md-12 mb-3">
+                            <label for="login" class="form-label">Email or Phone Number</label>
+                            <input type="text" name="login" class="form-control" value="{{ old('login') }}">
+                            @error('login')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="col-md-12 mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" required>
+                            @error('password')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Forgot Password -->
+                        <div class="col-12 mb-3 text-end">
+                            @if (Route::has('password.request'))
+                                <a href="{{ route('password.request') }}"
+                                    class="text-sm text-gray-600 hover:text-gray-900">
+                                    {{ __('Forgot your password?') }}
+                                </a>
+                            @endif
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="col-12 mb-3">
+                            <x-primary-button label="Login" class="w-100" />
+                        </div>
+
+                        <!-- Register Link -->
+                        <div class="col-12 text-center mt-3">
+                            <p class="mb-0">Don't have an account?
+                                <a href="{{ route('register') }}" class="text-primary">Register here</a>
+                            </p>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
         </div>
+    </section>
 
-        <!-- Password -->
-        <div class="form-group">
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
-                          placeholder="Password" required autocomplete="current-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
 
-         <!-- Submit Button -->
-         <div class="flex items-center justify-end mt-4">
-            <x-primary-button label="Login" class="w-100" />
-        </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            @if (Route::has('password.request'))
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                {{ __('Forgot your password?') }}
-            </a>
-        @endif
-
-        </div>
-    </form>
-
-</div>
-
-    <!-- Partnering with Section -->
-    <div class="footer-partner" style="position: absolute; bottom: 0; width: 100%; text-align: center; padding: 10px;">
-        <p><strong>Advanced Purchase Agreement</strong></p>
-    </div>
 </x-guest-layout>

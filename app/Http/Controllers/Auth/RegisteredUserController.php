@@ -57,8 +57,6 @@ class RegisteredUserController extends Controller
                 'confirmed',
                 Password::min(8)->letters()->mixedCase()->numbers()->symbols()->uncompromised(),
             ],
-
-            'id_attachment' => 'nullable',
         ]);
 
         $userId = $this->generateUniqueUserId();
@@ -68,8 +66,7 @@ class RegisteredUserController extends Controller
             'middle_name' => $request->middle_name,
             'last_name' => $request->last_name,
             'phone' => $request->phone,
-            'branch' => $request->branch,
-            'status' => $request->status,
+            'status' => 'inactive',
             'email' => $request->email,
             'userId' => $userId,
             'password' => Hash::make($request->password),
@@ -77,29 +74,9 @@ class RegisteredUserController extends Controller
 
         $user->assignRole('customer');
 
-        $id_attach = null;
-
-        if ($request->hasFile('id_attachment')) {
-            $attachment = $request->file('id_attachment');
-            $attachmentName = time() . '_' . $attachment->getClientOriginalName();
-            $attachment->move(public_path('attachments'), $attachmentName);
-            $id_attach = 'attachments/' . $attachmentName;
-        }
-
         User_Profile::create([
             'user_id' => $user->id,
-            'city' => $request->city,
-            'district' => $request->district,
-            'ward' => $request->ward,
-            'street' => $request->street,
-            'gender' => $request->gender,
-            'birth_date' => $request->birth_date,
-            'id_type' => $request->id_type,
-            'id_number' => $request->id_number,
-            'id_attachment' => $id_attach,
-            'employment_status' => $request->employment_status,
-            'occupation' => $request->occupation,
-            'organization' => $request->organization,
+            //other will set null
         ]);
 
         event(new Registered($user));
@@ -107,6 +84,8 @@ class RegisteredUserController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Your Registration sent successfully, Wait for verification');
     }
+
+
     private function generateUniqueUserId()
     {
         do {
@@ -115,4 +94,6 @@ class RegisteredUserController extends Controller
 
         return $userId;
     }
+
+    
 }

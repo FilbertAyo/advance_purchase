@@ -1,38 +1,63 @@
 
 <x-guest-layout>
 
-<div  class="col-lg-3 col-md-4 col-10 mx-auto text-center card px-5 py-3" style="">
-    <!-- Login Form -->
-    <form method="POST" action="{{ route('password.email') }}">
-        @csrf
+<section class="section pricing__v2" id="pricing">
+    <div class="container mt-5">
+        <h4 class="text-center mb-4">Forgot Password</h4>
 
-        <h1 class="h4 mb-4" style="margin-left: 30%;"> <img src="{{ asset('images/marslogo.png') }}" class="" alt="Partner Logo" style="height: 50px"></h1>
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <div class="p-5 rounded-4 price-table h-100">
+            <form method="POST" action="{{ route('password.email') }}">
+                @csrf
+
+                <!-- Description Text -->
+                <div class="mb-4 text-sm text-gray-600">
+                    {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+                </div>
+
+                <!-- Email Field -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <x-text-input id="email" type="email"
+                                  class="form-control @error('email') is-invalid @enderror"
+                                  name="email" :value="old('email')" required autofocus />
+                    @error('email')
+                        <div class="text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Submit Button -->
+                <div class="col-12 mb-3">
+                    <button type="submit" class="btn btn-primary w-100">
+                        {{ __('Email Password Reset Link') }}
+                    </button>
+                </div>
+
+                <!-- Back to Login -->
+                <div class="col-12 text-center mt-3">
+                    <p class="mb-0">
+                        Remember your password? <a href="{{ route('login') }}" class="text-primary">Back to login</a>
+                    </p>
+                </div>
+            </form>
         </div>
-
-        <!-- Email or Phone Number -->
-        <div class="form-group">
-            <x-text-input id="login" type="email" class="block mt-1 w-full @error('email') is-invalid @enderror"
-                          name="email" :value="old('email')" placeholder="Email" required
-                          autocomplete="email" autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-
-        </div>
-        <x-auth-session-status class="mb-4" :status="session('status')" class="mt-2" />
-
-         <!-- Submit Button -->
-         <div class="flex items-center justify-end mt-4">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Email Password Reset Link</button>
-        </div>
-
-
-    </form>
-
-</div>
-
-    <!-- Partnering with Section -->
-    <div class="footer-partner" style="position: absolute; bottom: 0; width: 100%; text-align: center; padding: 10px;">
-        <p><strong>Advanced Purchase Agreement</strong></p>
     </div>
+</section>
+
+
 </x-guest-layout>

@@ -99,7 +99,7 @@ class DashboardController extends Controller
             $customerId = Auth::id();
             $applications = Application::where('customer_id', $customerId)->get();
             $relative = User_Relative::where('user_id', $customerId)->get();
-            return view('customer.customer', compact('applications', 'relative'));
+            return view('customers.customer', compact('applications', 'relative'));
         } else {
             return redirect()->back()->with('status', "You're not authorized");
         }
