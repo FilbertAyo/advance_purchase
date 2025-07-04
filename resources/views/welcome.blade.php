@@ -246,67 +246,111 @@
             </section>
             <!-- End Features-->
 
-            <!-- ======= Pricing =======-->
-            <section class="section pricing__v2" id="pricing">
+            <section class="section pricing__v2" id="products">
                 <div class="container">
                     <div class="row mb-5">
-                        <div class="col-md-5 mx-auto text-center"><span class="subtitle text-uppercase mb-3"
-                                data-aos="fade-up" data-aos-delay="0">Pricing</span>
-                            <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">Plan for every budget</h2>
-                            <p data-aos="fade-up" data-aos-delay="200">Experience the future of finance with our
-                                secure, efficient, and user-friendly financial services</p>
+                        <div class="col-md-6 mx-auto text-center">
+                            <span class="subtitle text-uppercase mb-3" data-aos="fade-up">Products</span>
+                            <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">Explore Our Top Electronics
+                            </h2>
+                            <p data-aos="fade-up" data-aos-delay="200">Discover our best-selling devices – premium
+                                quality, cutting-edge features, and unbeatable prices.</p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4 mb-4 mb-md-0" data-aos="fade-up" data-aos-delay="300">
-                            <div class="p-5 rounded-4 price-table h-100">
-                                <h3>Personal</h3>
-                                <p>Choose a plan that fits your personal financial needs and start managing your
-                                    finances more effectively.</p>
-                                <div class="price mb-4"><strong>$7</strong><span>/ month</span></div>
-                                <div><a class="btn" href="#">Get Started</a></div>
-                            </div>
-                        </div>
-                        <div class="col-md-8" data-aos="fade-up" data-aos-delay="400">
-                            <div class="p-5 rounded-4 price-table popular h-100">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h3 class="mb-3">Business</h3>
-                                        <p>Optimize your business financial operations with our tailored business plans.
-                                        </p>
-                                        <div class="price mb-4"><strong class="me-1">$29</strong><span>/
-                                                month</span></div>
-                                        <div><a class="btn btn-white hover-outline" href="#">Get Started</a>
+
+                    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" data-aos="fade-up"
+                        data-aos-delay="300">
+                        <div class="carousel-inner">
+
+                            <div class="carousel-item active">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-4">
+                                        <div class="p-5 rounded-4 price-table h-100 text-center">
+                                            <img src="https://via.placeholder.com/200x150?text=Smartphone"
+                                                class="mb-3 img-fluid" alt="Smartphone">
+                                            <h3>Smartphone X1</h3>
+                                            <p>Experience lightning speed with our new 5G smartphone, stunning OLED
+                                                display, and pro-grade camera.</p>
+                                            <div class="price mb-3"><strong>TZS 69800000</strong></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 pricing-features">
-                                        <h4 class="text-uppercase fw-bold mb-3">Features</h4>
-                                        <ul class="list-unstyled d-flex flex-column gap-3">
-                                            <li class="d-flex gap-2 align-items-start mb-0"><span
-                                                    class="icon rounded-circle position-relative mt-1"><i
-                                                        class="bi bi-check"></i></span><span>Personalized financial
-                                                    insights and reports</span></li>
-                                            <li class="d-flex gap-2 align-items-start mb-0"><span
-                                                    class="icon rounded-circle position-relative mt-1"><i
-                                                        class="bi bi-check"></i></span><span>Priority customer
-                                                    support</span></li>
-                                            <li class="d-flex gap-2 align-items-start mb-0"><span
-                                                    class="icon rounded-circle position-relative mt-1"><i
-                                                        class="bi bi-check"></i></span><span>Access to exclusive
-                                                    investment opportunities</span></li>
-                                            <li class="d-flex gap-2 align-items-start mb-0"><span
-                                                    class="icon rounded-circle position-relative mt-1"><i
-                                                        class="bi bi-check"></i></span><span>AI-driven financial
-                                                    recommendations</span></li>
-                                        </ul>
+                                    <div class="col-md-4">
+                                        <div class="p-5 rounded-4 price-table h-100 text-center">
+                                            <img src="https://via.placeholder.com/200x150?text=Smartwatch"
+                                                class="mb-3 img-fluid" alt="Smartwatch">
+                                            <h3>Smartwatch Pro</h3>
+                                            <p>Track your health, stay connected, and look sharp with our
+                                                water-resistant Smartwatch Pro.</p>
+                                            <div class="price mb-3"><strong>TZS 1990000</strong></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 d-none d-md-block">
+                                        <div class="p-5 rounded-4 price-table h-100 text-center">
+                                            <img src="https://via.placeholder.com/200x150?text=Laptop"
+                                                class="mb-3 img-fluid" alt="Laptop">
+                                            <h3>Laptop ZBook</h3>
+                                            <p>Powerful performance with Intel i7, 16GB RAM, and a stunning 4K display –
+                                                built for professionals.</p>
+                                            <div class="price mb-3"><strong>TZS 1,190,000</strong></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Second Slide -->
+                            <div class="carousel-item">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-4">
+                                        <div class="p-5 rounded-4 price-table h-100 text-center">
+                                            <img src="https://via.placeholder.com/200x150?text=Bluetooth+Speaker"
+                                                class="mb-3 img-fluid" alt="Speaker">
+                                            <h3>Bluetooth Boom</h3>
+                                            <p>Portable wireless speaker with deep bass, 10-hour battery life, and
+                                                splash-proof design.</p>
+                                            <div class="price mb-3"><strong>TZS 900000</strong></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="p-5 rounded-4 price-table h-100 text-center">
+                                            <img src="https://via.placeholder.com/200x150?text=Drone"
+                                                class="mb-3 img-fluid" alt="Drone">
+                                            <h3>SkyCam Drone</h3>
+                                            <p>4K camera drone with GPS, follow-me mode, and 30-minute flight time –
+                                                ready for adventure.</p>
+                                            <div class="price mb-3"><strong>TZS 800000</strong></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 d-none d-md-block">
+                                        <div class="p-5 rounded-4 price-table h-100 text-center">
+                                            <img src="https://via.placeholder.com/200x150?text=Headphones"
+                                                class="mb-3 img-fluid" alt="Headphones">
+                                            <h3>Noise Cancelling Headphones</h3>
+                                            <p>Immerse in music with active noise canceling, wireless comfort, and
+                                                25-hour playtime.</p>
+                                            <div class="price mb-3"><strong>TZS 1490000</strong></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
+
+                        <!-- Carousel controls -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
                 </div>
             </section>
-            <!-- End Pricing-->
+
+
 
             <!-- ======= How it works =======-->
             <section class="section howitworks__v1" id="how-it-works">
@@ -419,7 +463,7 @@
             <!-- End Stats-->
 
             <!-- ======= Services =======-->
-            <section class="section services__v3" id="services">
+            {{-- <section class="section services__v3" id="services">
                 <div class="container">
                     <div class="row mb-5">
                         <div class="col-md-8 mx-auto text-center"><span class="subtitle text-uppercase mb-3"
@@ -525,7 +569,7 @@
 
                     </div>
                 </div>
-            </section>
+            </section> --}}
 
 
             <section class="section faq__v2" id="faq">
