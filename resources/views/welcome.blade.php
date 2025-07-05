@@ -39,6 +39,16 @@
     <link href="{{ asset('front-end/assets/vendors/aos/aos.css') }}" rel="stylesheet">
     <link href="{{ asset('front-end/assets/css/style.css') }}" rel="stylesheet">
 
+    <style>
+        .product-img {
+            width: 100%;
+            max-width: 300px;
+            height: 250px;
+            /* fixed height */
+            object-fit: cover;
+        }
+    </style>
+
     <!-- Theme Setup -->
     <script>
         (function() {
@@ -261,81 +271,45 @@
                     <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" data-aos="fade-up"
                         data-aos-delay="300">
                         <div class="carousel-inner">
+                            @php
+                                $productsPerSlide = 3; // Number of products to display per carousel slide
+                                $totalProducts = count($products);
+                                $numSlides = ceil($totalProducts / $productsPerSlide);
+                            @endphp
 
-                            <div class="carousel-item active">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-4">
-                                        <div class="p-5 rounded-4 price-table h-100 text-center">
-                                            <img src="https://via.placeholder.com/200x150?text=Smartphone"
-                                                class="mb-3 img-fluid" alt="Smartphone">
-                                            <h3>Smartphone X1</h3>
-                                            <p>Experience lightning speed with our new 5G smartphone, stunning OLED
-                                                display, and pro-grade camera.</p>
-                                            <div class="price mb-3"><strong>TZS 69800000</strong></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="p-5 rounded-4 price-table h-100 text-center">
-                                            <img src="https://via.placeholder.com/200x150?text=Smartwatch"
-                                                class="mb-3 img-fluid" alt="Smartwatch">
-                                            <h3>Smartwatch Pro</h3>
-                                            <p>Track your health, stay connected, and look sharp with our
-                                                water-resistant Smartwatch Pro.</p>
-                                            <div class="price mb-3"><strong>TZS 1990000</strong></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 d-none d-md-block">
-                                        <div class="p-5 rounded-4 price-table h-100 text-center">
-                                            <img src="https://via.placeholder.com/200x150?text=Laptop"
-                                                class="mb-3 img-fluid" alt="Laptop">
-                                            <h3>Laptop ZBook</h3>
-                                            <p>Powerful performance with Intel i7, 16GB RAM, and a stunning 4K display –
-                                                built for professionals.</p>
-                                            <div class="price mb-3"><strong>TZS 1,190,000</strong></div>
-                                        </div>
+                            @for ($i = 0; $i < $numSlides; $i++)
+                                <div class="carousel-item @if ($i === 0) active @endif">
+                                    <div class="row justify-content-center">
+                                        @for ($j = 0; $j < $productsPerSlide; $j++)
+                                            @php
+                                                $productIndex = $i * $productsPerSlide + $j;
+                                                $product = $products->get($productIndex);
+                                            @endphp
+
+                                            @if ($product)
+                                                <div
+                                                    class="col-md-4 @if ($j >= 2) d-none d-md-block @endif">
+                                                    {{-- Hide 3rd item on small screens --}}
+                                                    <div class="px-5 price-table h-100 text-center">
+                                                        <img src="{{ $product->productImages->first() ? asset('storage/' . $product->productImages->first()->image_url) : asset('images/no-image.jpg') }}"
+                                                            alt="{{ $product->item_name }}"
+                                                            class="mb-3 p-1 product-img">
+
+                                                        <h5>{{ $product->item_name }}</h5>
+                                                        <p>{{ $product->description }}</p>
+                                                        <div class="price mb-3 text-danger"><strong>TZS
+                                                                {{ number_format($product->sales, 0, '.', ',') }}</strong>
+                                                        </div>
+                                                        {{-- You might want to add a "View Details" or "Add to Cart" button here --}}
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endfor
                                     </div>
                                 </div>
-                            </div>
-
-                            <!-- Second Slide -->
-                            <div class="carousel-item">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-4">
-                                        <div class="p-5 rounded-4 price-table h-100 text-center">
-                                            <img src="https://via.placeholder.com/200x150?text=Bluetooth+Speaker"
-                                                class="mb-3 img-fluid" alt="Speaker">
-                                            <h3>Bluetooth Boom</h3>
-                                            <p>Portable wireless speaker with deep bass, 10-hour battery life, and
-                                                splash-proof design.</p>
-                                            <div class="price mb-3"><strong>TZS 900000</strong></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="p-5 rounded-4 price-table h-100 text-center">
-                                            <img src="https://via.placeholder.com/200x150?text=Drone"
-                                                class="mb-3 img-fluid" alt="Drone">
-                                            <h3>SkyCam Drone</h3>
-                                            <p>4K camera drone with GPS, follow-me mode, and 30-minute flight time –
-                                                ready for adventure.</p>
-                                            <div class="price mb-3"><strong>TZS 800000</strong></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 d-none d-md-block">
-                                        <div class="p-5 rounded-4 price-table h-100 text-center">
-                                            <img src="https://via.placeholder.com/200x150?text=Headphones"
-                                                class="mb-3 img-fluid" alt="Headphones">
-                                            <h3>Noise Cancelling Headphones</h3>
-                                            <p>Immerse in music with active noise canceling, wireless comfort, and
-                                                25-hour playtime.</p>
-                                            <div class="price mb-3"><strong>TZS 1490000</strong></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                            @endfor
                         </div>
 
-                        <!-- Carousel controls -->
                         <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
                             data-bs-slide="prev">
                             <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
@@ -349,7 +323,6 @@
                     </div>
                 </div>
             </section>
-
 
 
             <!-- ======= How it works =======-->

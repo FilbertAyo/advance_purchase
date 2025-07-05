@@ -51,57 +51,51 @@ class ItemController extends Controller
             'created_by' => 'required|string|max:255',
         ]);
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $speakerName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('products'), $speakerName);
-            $validated['image'] = 'products/' . $speakerName;
-        }
-
         Item::create($validated);
 
         // Redirect back with a success message
         return redirect()->back()->with('success', 'New item added successfully.');
     }
 
-    public function uploadImage(Request $request)
-    {
-        // Validate the request
-        $validatedData = $request->validate([
-            'image_url.*' => 'required|image|mimes:jpeg,png,jpg,gif', // Validate each file
-            'item_id' => 'required|exists:items,id', // Ensure item_id exists and is valid
-        ]);
+   public function uploadImage(Request $request)
+{
+    // Validate the request
+    $validatedData = $request->validate([
+        'image_url.*' => 'required|image|mimes:jpeg,png,jpg,gif,webp',
+        'item_id' => 'required|exists:items,id',
+    ]);
 
-        if ($request->hasFile('image_url')) {
-            foreach ($request->file('image_url') as $image) {
-                $imageName = time() . '_' . $image->getClientOriginalName();
-                $image->move(public_path('products'), $imageName);
+    if ($request->hasFile('image_url')) {
+        foreach ($request->file('image_url') as $image) {
+            $imageName = time() . '_' . $image->getClientOriginalName();
 
-                // Save each file in the database
-                Product_Image::create([
-                    'item_id' => $request->item_id,
-                    'image_url' => 'products/' . $imageName,
-                ]);
-            }
+            // Store the image in 'public/products'
+            $path = $image->storeAs('products', $imageName, 'public');
+
+            // Save the path in DB (e.g. storage/products/filename.jpg)
+            Product_Image::create([
+                'item_id' => $request->item_id,
+                'image_url' => $path, // stored as: products/filename.jpg
+            ]);
         }
-
-        return back()->with('success', 'Images uploaded successfully to this Product.');
     }
 
-    public function deleteImage($id)
-    {
-        $image = Product_Image::findOrFail($id);
+    return back()->with('success', 'Images uploaded successfully to this Product.');
+}
+public function deleteImage($id)
+{
+    $image = Product_Image::findOrFail($id);
 
-        // Delete the image file from storage
-        if (File::exists(public_path($image->image_url))) {
-            File::delete(public_path($image->image_url));
-        }
-
-        // Delete the record from the database
-        $image->delete();
-
-        return back()->with('success', 'Image deleted successfully.');
+    // Delete the image file from storage/app/public
+    if (Storage::disk('public')->exists($image->image_url)) {
+        Storage::disk('public')->delete($image->image_url);
     }
+
+    // Delete the record from the database
+    $image->delete();
+
+    return back()->with('success', 'Image deleted successfully.');
+}
 
     /**
      * Display the specified resource.

@@ -23,19 +23,20 @@ use Spatie\Permission\Models\Permission;
 class DashboardController extends Controller
 {
 
-    public function welcome()
-    {
-        $products = Cache::remember('random_products', 3600, function () {
-            return Item::with(['productImages' => function ($query) {
-                $query->orderBy('id')->limit(1); // Get only the first image
+ public function welcome()
+{
+    $products = Cache::remember('random_products', 3600, function () {
+        return Item::select('id', 'item_name', 'description', 'category', 'sales')
+            ->with(['productImages' => function ($query) {
+                $query->select('id', 'item_id', 'image_url')->orderBy('id')->limit(1);
             }])
-                ->inRandomOrder()
-                ->limit(10)
-                ->get();
-        });
+            ->inRandomOrder()
+            ->limit(10)
+            ->get();
+    });
 
-        return view('welcome', compact('products'));
-    }
+    return view('welcome', compact('products'));
+}
 
     public function home()
     {

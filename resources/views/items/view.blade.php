@@ -87,7 +87,7 @@
                             <div class="card  mb-4 position-relative">
                                 <div class="card-body">
 
-                                    <img src="{{ asset($image->image_url) }}" alt="Product Image"
+                                    <img src="{{ asset('storage/' . $image->image_url) }}" alt="Product Image"
                                         class="card-img-top img-fluid rounded">
 
                                     <!-- Delete button (visible on hover) -->
