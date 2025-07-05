@@ -31,7 +31,7 @@ class DashboardController extends Controller
                 $query->select('id', 'item_id', 'image_url')->orderBy('id')->limit(1);
             }])
             ->inRandomOrder()
-            ->limit(10)
+            ->limit(12)
             ->get();
     });
 
