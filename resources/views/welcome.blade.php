@@ -296,7 +296,7 @@
                                                             class="mb-3 p-1 product-img">
 
                                                         <h5>{{ $product->item_name }}</h5>
-                                                        <p>{{ $product->description }}</p>
+                                                        <p>{{ \Illuminate\Support\Str::words($product->description, 20, '...') }}</p>
                                                         <div class="price mb-3 text-danger"><strong>TZS
                                                                 {{ number_format($product->sales, 0, '.', ',') }}</strong>
                                                         </div>
