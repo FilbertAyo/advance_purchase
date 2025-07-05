@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\City;
+use App\Models\District;
 use App\Models\User;
 use App\Models\User_Profile;
 use App\Models\User_Relative;
+use App\Models\Ward;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -79,7 +82,10 @@ class ProfileController extends Controller
 
     public function showStep1(): View
     {
-        return view('profile.steps.step1');
+        $cities =  City::all();
+        $districts = District::all();
+        $wards = Ward::all();
+        return view('profile.steps.step1', Compact('cities', 'districts', 'wards'));
     }
 
     public function storeStep1(Request $request)
@@ -117,8 +123,10 @@ class ProfileController extends Controller
         if ($request->hasFile('id_attachment')) {
             $file = $request->file('id_attachment');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('attachments'), $fileName);
-            $validated['id_attachment'] = 'attachments/' . $fileName;
+
+            $filePath = $file->storeAs('attachments', $fileName, 'public');
+
+            $validated['id_attachment'] = 'storage/' . $filePath;
         }
 
         session(['step2' => $validated]);

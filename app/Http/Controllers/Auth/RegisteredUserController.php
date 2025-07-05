@@ -26,11 +26,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        $cities =  City::all();
-        $districts = District::all();
-        $wards = Ward::all();
 
-        return view('auth.register', Compact('cities', 'districts', 'wards'));
+
+        return view('auth.register');
     }
 
     /**
@@ -95,5 +93,5 @@ class RegisteredUserController extends Controller
         return $userId;
     }
 
-    
+
 }

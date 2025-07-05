@@ -13,17 +13,27 @@
 
                         <div class="mb-3">
                             <label>City</label>
-                            <input type="text" name="city" class="form-control" required>
+                            <select name="city" id="city" class="form-control" required>
+                                <option value="">--@lang('messages.select_city')--</option>
+                                @foreach ($cities as $city)
+                                    <option value="{{ $city->city_name }}" data-id="{{ $city->id }}">
+                                        {{ $city->city_name }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="mb-3">
                             <label>District</label>
-                            <input type="text" name="district" class="form-control" required>
+                            <select name="district" id="district" class="form-control" required>
+                                <option value="">--@lang('messages.select_district')--</option>
+                            </select>
                         </div>
 
                         <div class="mb-3">
                             <label>Ward</label>
-                            <input type="text" name="ward" class="form-control" required>
+                            <select name="ward" id="ward" class="form-control" required>
+                                <option value="">--@lang('messages.select_ward')--</option>
+                            </select>
                         </div>
 
                         <div class="mb-3">
@@ -54,4 +64,49 @@
 
         </div>
     </div>
+
+
+
+    <script>
+        $('#city').on('change', function() {
+            var cityId = $('#city option:selected').data('id');
+            if (cityId) {
+                $.ajax({
+                    url: '/get-districts/' + cityId,
+                    type: 'GET',
+                    success: function(data) {
+                        $('#district').empty().append(
+                            '<option value="">-- Select District --</option>');
+                        $('#ward').empty().append('<option value="">-- Select Ward --</option>');
+                        $.each(data, function(key, district) {
+                            $('#district').append(
+                                '<option value="' + district.district_name + '" data-id="' +
+                                district.id + '">' + district.district_name + '</option>'
+                            );
+                        });
+                    }
+                });
+            }
+        });
+
+        $('#district').on('change', function() {
+            var districtId = $('#district option:selected').data('id');
+            if (districtId) {
+                $.ajax({
+                    url: '/get-wards/' + districtId,
+                    type: 'GET',
+                    success: function(data) {
+                        $('#ward').empty().append('<option value="">-- Select Ward --</option>');
+                        $.each(data, function(key, ward) {
+                            $('#ward').append(
+                                '<option value="' + ward.ward_name + '" data-id="' + ward
+                                .id + '">' + ward.ward_name + '</option>'
+                            );
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+
 @endsection
