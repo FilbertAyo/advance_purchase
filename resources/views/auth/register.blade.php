@@ -108,18 +108,88 @@
 
 
     <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+    <div class="modal-dialog modal-dialog-scrollable modal-bottom-half">
+        <div class="modal-content" id="termsModalContent">
+            <div class="modal-header">
+                <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
                 @include('elements.terms')
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
+</div>
+
+<style>
+    /* Custom styles for bottom-half modal */
+    .modal-bottom-half .modal-content {
+        height: 50vh;
+        width: 100%; /* Already set, but good to keep */
+        transition: height 0.3s ease;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+        margin-top: auto;
+        overflow: hidden;
+    }
+
+    .modal-bottom-half {
+        display: flex;
+        align-items: flex-end; /* Aligns content to the bottom */
+        justify-content: center;
+        height: 100%;
+        margin: 0;
+        /* --- ADDED FOR FULL WIDTH --- */
+        max-width: 100vw !important; /* Forces full viewport width */
+        margin: 0 !important; /* Removes any default horizontal margins */
+        padding: 0 !important; /* Removes any default horizontal padding */
+    }
+
+    /* Styles for fullscreen behavior */
+    .modal-bottom-half.fullscreen {
+        /* Ensure the dialog itself also takes full height for fullscreen content */
+        align-items: stretch; /* Stretch to fill full height when fullscreen */
+        height: 100vh; /* Ensure dialog takes full viewport height */
+    }
+
+    .modal-bottom-half.fullscreen .modal-content {
+        height: 100vh !important;
+        border-radius: 0;
+    }
+
+    /* Adjust modal-body to scroll within the new height constraints */
+    .modal-bottom-half .modal-body {
+        flex-grow: 1; /* Allow modal body to take up available space */
+        overflow-y: auto; /* Ensure scrolling */
+    }
+
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = document.getElementById('termsModal');
+        const modalDialog = modal.querySelector('.modal-dialog');
+        const modalContent = modal.querySelector('.modal-content');
+        const modalBody = modal.querySelector('.modal-body');
+
+        modal.addEventListener('shown.bs.modal', function () {
+            modalBody.scrollTop = 0; // reset scroll
+
+            modalBody.addEventListener('scroll', function () {
+                // You might want to adjust the scroll threshold for full screen
+                // Or consider using Intersection Observer for a more robust detection
+                if (modalBody.scrollTop > 20) {
+                    modalDialog.classList.add('fullscreen');
+                } else {
+                    modalDialog.classList.remove('fullscreen');
+                }
+            });
+        });
+    });
+</script>
+
 
 </x-guest-layout>

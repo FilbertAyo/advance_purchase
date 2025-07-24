@@ -93,14 +93,15 @@
                                         @endif
 
 
-                                        <a class="btn btn-white-outline" href="#">Learn More
+                                        <a class="btn btn-white-outline" href="#how-it-works">Learn More
                                             <svg class="lucide lucide-arrow-up-right" xmlns="http://www.w3.org/2000/svg"
-                                                width="18" height="18" viewbox="0 0 24 24" fill="none"
+                                                width="18" height="18" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                 stroke-linejoin="round">
                                                 <path d="M7 7h10v10"></path>
                                                 <path d="M7 17 17 7"></path>
-                                            </svg></a>
+                                            </svg>
+                                        </a>
                                     </div>
                                     <div class="logos mb-4" data-aos="fade-up" data-aos-delay="400"><span
                                             class="logos-title text-uppercase mb-4 d-block">Partner with</span>
@@ -205,11 +206,7 @@
                                                             efficient, and hassle-free—giving you full control over your
                                                             financial commitments with confidence and ease.</p>
                                                     </div>
-                                                    {{-- <div class="align-self-start"><a
-                                                            class="glightbox btn btn-play d-inline-flex align-items-center gap-2"
-                                                            href="https://www.youtube.com/watch?v=DQx96G4yHd8"
-                                                            data-gallery="video"><i class="bi bi-play-fill"></i> Watch
-                                                            the Video</a></div> --}}
+
                                                 </div>
                                             </div>
                                         </div>
@@ -685,7 +682,7 @@
                                 <div class="d-flex align-items-start gap-3" data-aos="fade-up" data-aos-delay="200">
                                     <div class="icon d-block"><i class="bi bi-envelope"></i></div><span> <span
                                             class="d-block">Email</span>
-                                        <address class="fw-bold">marscommunicationltd@gmail.com</address>
+                                        <address class="fw-bold">info@marscommltd.com</address>
                                     </span>
                                 </div>
                             </div>

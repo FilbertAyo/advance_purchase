@@ -25,11 +25,11 @@
                                 <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
                                     <h3 class="mb-3">Services</h3>
                                     <ul class="list-unstyled">
-                                        <li><a href="page-about.html">@lang('messages.advance_payment')</a></li>
-                                        <li><a href="page-careers.html">@lang('messages.free_delivery')</li>
-                                        <li><a href="page-case-studies.html">@lang('messages.warranty')</a></li>
-                                        <li><a href="page-terms-conditions.html">@lang('messages.service_center')</a></li>
-                                        <li><a href="page-privacy-policy.html">@lang('messages.support')</a></li>
+                                        <li><a href="#">@lang('messages.advance_payment')</a></li>
+                                        <li><a href="#">@lang('messages.free_delivery')</a></li>
+                                        <li><a href="#">@lang('messages.warranty')</a></li>
+                                        <li><a href="#">@lang('messages.service_center')</a></li>
+                                        <li><a href="#">@lang('messages.support')</a></li>
                                     </ul>
 
 
@@ -37,17 +37,16 @@
                                 <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
                                     <h3 class="mb-3">Accounts</h3>
                                     <ul class="list-unstyled">
-                                        <li><a href="page-signup.html">Register</a></li>
-                                        <li><a href="page-signin.html">Sign in</a></li>
-                                        <li><a href="page-forgot-password.html">Fogot Password</a></li>
-                                    </ul>
+                                        <li><a href="{{ route('register') }}">Register</a></li>
+                                        <li><a href="{{ route('login') }}">Sign in</a></li>
+                                        <li><a href="{{ route('password.request') }}">Forgot Password</a></li>  </ul>
                                 </div>
                                 <div class="col-md-6 col-lg-4 mb-4 mb-lg-0 quick-contact">
                                     <h3 class="mb-3">Contact</h3>
                                     <p class="d-flex mb-3"><i class="bi bi-geo-alt-fill me-3"></i><span>Samora JM Mall, <br> Posta ,Dar es salaam</span></p><a
-                                        class="d-flex mb-3" href="mailto:info@mydomain.com"><i
-                                            class="bi bi-envelope-fill me-3"></i><span>marscommunicationltd@gmail.com</span></a><a
-                                        class="d-flex mb-3" href="tel://+123456789900"><i
+                                        class="d-flex mb-3" href="info@marscommltd.com"><i
+                                            class="bi bi-envelope-fill me-3"></i><span>info@marscommltd.com</span></a><a
+                                        class="d-flex mb-3" href="tel://+255741400900"><i
                                             class="bi bi-telephone-fill me-3"></i><span>+255 74140-0900</span></a><a
                                         class="d-flex mb-3" href="https://marscommltd.com"><i
                                             class="bi bi-globe me-3"></i><span>marscommltd.com</span></a>
@@ -66,7 +65,7 @@
                         </div>
                         <div
                             class="col-xl-4 justify-content-start justify-content-xl-end quick-links d-flex flex-column flex-xl-row text-center text-xl-start gap-1">
-                            Designed by<a href="https://themewagon.com" target="_blank">Mars Communications</a></div>
+                            Designed by<a href="https://marscommltd.com" target="_blank">Mars Communications</a></div>
                     </div>
                 </div>
             </footer>
